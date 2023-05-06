@@ -1,0 +1,89 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<div class="row py-3 justify-content-center">
+    <div class="col shadow p-3 col-lg-10 rounded bg-light">
+        <h2>{{company.companyName}}</h2>
+    </div>
+</div>
+
+<div class="row row-col-2 py-3 justify-content-center">
+    <div class="col shadow mx-1 px-5 py-3 mb-2 border col-lg-5 rounded">
+        <h5>{{company.companyPhone}}</h5>
+        <h5><a class="nav-link" target="_blank" href="http://{{company.website}}">{{company.website}}</a></h5>
+        <h5>{{company.tax_id}}</h5>
+    </div>
+    <div class="col shadow mx-1 px-5 py-3 mb-2 border col-lg-5 rounded">
+        <h5>{{company.address.street}}</h5>
+        <h6>{{company.address.postalCode}}</h6>
+        <h6>{{company.address.city}}</h6>
+        <h6>{{company.address.state}}</h6>
+        <h6>{{company.address.country}}</h6>
+    </div>
+</div>
+
+<div class="row mt-3 justify-content-center">
+    <div class="col shadow p-3 border rounded col-lg-10">
+    {% if person_list %}
+    <div class="table-responsive">
+    <table class="table table-hover table-bordered" id="person_list" name="Person_List">
+        <!-- Cabecera de Tabla -->
+        <thead class="table-secondary">
+            <th>Name</th>
+            <th>eMail</th>
+            <th>CellPhone</th>
+        </thead>
+
+        <!-- Cuerpo de Tabla -->
+
+        <tbody>
+            {% for Person in person_list %}
+            <tr>
+                <td><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}, {{ Person.firstName }}</a></td>
+                <td><a class="nav-link" href="mailto:{{Person.email}}">{{Person.email}}</a></td>
+                <td>{{ Person.celphone }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="/directory/company/{{company.id}}/{{idxPL}}/{{idxPR}}/" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          {% for link in links %}
+          <li class="page-item"><a class="page-link" id="page-link" href="/directory/company/{{company.id}}/{{link.pl}}/{{link.pr}}/">{{link.page}}</a></li>
+          {% endfor %}
+          <li class="page-item">
+            <a class="page-link" href="/directory/company/{{company.id}}/{{idxNL}}/{{idxNR}}/" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+    {% else %}
+        <p>No persons available.</p>
+    {% endif %}
+    </div>
+</div>
+<!-- <div class="row py-3 justify-content-center">
+    <div class="col shadow p-3 col-lg-10 border rounded">
+        <p>{{person.notes}}</p>
+    </div>
+</div> -->
+
+<div class="row py-3 justify-content-center">
+    <div class="col d-flex justify-content-center shadow rounded px-5 py-3 col-lg-10">       
+        <p><a href="/directory/edit_company/{{ company.id }}" class="btn btn-success px-4 mx-3" role="button">Edit</a></p>
+        <p><a href="/directory/delete_company/{{ company.id }}" class="btn btn-danger" role="button">Delete</a></p>
+    </div>
+    </div>
+
+{% endblock %}

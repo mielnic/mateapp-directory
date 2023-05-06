@@ -1,0 +1,57 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="row mt-3 justify-content-md-center">
+    <div class="col shadow p-3 col-lg-10 rounded bg-light">
+        <H2>Companies</H2>
+    </div>
+</div> 
+<div class="row mt-3 justify-content-md-center" id="companies-table-block">
+    <div class="col shadow p-3 border rounded col-lg-10">
+    {% if companies_list %}
+    <div class="table-responsive">
+    <table class="table table-hover table-bordered" id="person_list" name="Person_List">
+    <!-- Cabecera de Tabla -->
+    
+        <thead class="table-secondary">
+            <th>Name</th>
+            <th>Phone</th>
+        </thead>
+
+    <!-- Cuerpo de Tabla -->
+    
+    <tbody>
+        {% for Company in companies_list %}
+        <tr>
+            <td><a class="nav-link" href="/directory/company/{{ Company.id }}/0/5/">{{ Company.companyName }}</a></td>
+            <td>{{ Company.companyPhone }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="/directory/companies/{{idxPL}}/{{idxPR}}/" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          {% for link in links %}
+          <li class="page-item"><a class="page-link" id="page-link" href="/directory/companies/{{link.pl}}/{{link.pr}}/">{{link.page}}</a></li>
+          {% endfor %}
+          <li class="page-item">
+            <a class="page-link" href="/directory/companies/{{idxNL}}/{{idxNR}}/" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+    {% else %}
+        <p>No companies available.</p>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

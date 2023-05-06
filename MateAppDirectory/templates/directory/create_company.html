@@ -1,0 +1,103 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="row py-3 justify-content-center">
+    <div class="col shadow p-3 col-lg-10 rounded bg-light">
+        {% if title %}
+        <h2>{{title}}</h2>
+        {% else %}
+        <h2>{{company.companyName}}</h2>
+        {% endif %}
+    </div>
+</div>
+
+<form action="" method="post">
+
+{% csrf_token %}
+
+<div class="row row-col-2 py-3 justify-content-center">
+    <div class="col shadow mx-1 px-5 py-3 mb-2 border col-lg-5 rounded">
+        <p>
+        <div class="form-floating">
+           {{companyform.companyName}}
+            <label for="id_company">Company Name</label>
+        </div>
+        </p>
+        <p>
+        <div class="form-floating">
+            {{companyform.tax_id}}
+            <label for="id_tax_id">Tax ID:</label>
+        </div>
+        </p>
+        <p>
+            <div class="form-floating">
+                {{companyform.website}}
+                <label for="id_website">Website:</label>
+            </div>
+        </p>
+        <p>
+            <div class="form-floating">
+                {{companyform.companyPhone}}
+                <label for="id_companyphone">Company Phone:</label>
+            </div>
+        </p>
+    </div>
+    <div class="col shadow mx-1 px-5 py-3 mb-2 border col-lg-5 rounded">
+        <p>
+            <div class="form-floating">
+               {{addressform.street}}
+                <label for="id_street">Street:</label>
+            </div>
+            </p>
+            <p>
+            <div class="form-floating">
+                {{addressform.city}}
+                <label for="id_city">City:</label>
+            </div>
+            </p>
+            <p>
+                <div class="form-floating">
+                    {{addressform.state}}
+                    <label for="id_state">State:</label>
+                </div>
+            </p>
+            <p>
+                <div class="form-floating">
+                    {{addressform.country}}
+                    <label for="id_country">Country:</label>
+                </div>
+            </p>
+            <p>
+                <div class="form-floating">
+                    {{addressform.postalCode}}
+                    <label for="id_postalecode">Postal Code:</label>
+                </div>
+            </p>
+            <div class="col d-flex justify-content-between px-5 py-3 col-lg-10">
+        
+                <p><button type="submit" class="btn btn-primary px-3">Save</button></p>
+            
+                {% if company.id %}
+                <p><a href="/directory/company/{{ company.id }}/0/5/" class="btn btn-secondary" role="button">Cancel</a></p>
+                {% else %}
+                <p><a href="/directory/companies/0/10/" class="btn btn-secondary" role="button">Cancel</a></p>
+                {% endif %}
+    
+            </div>
+    </div>
+</div>
+
+{% comment %} <div class="row py-3 justify-content-center">
+    <div class="col shadow p-3 col-lg-10 border rounded">
+    <p>
+        <div class="form-floating">
+            {{company.notes}}
+            <label for="id_notes">Notes:</label>
+        </div>
+        </p>
+    </div>
+</div> {% endcomment %}
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row py-3 justify-content-center">
+    <div class="col shadow px-5 py-3 col-lg-10 rounded bg-light">
+        <h2>{{person.firstName}} {{person.lastName}}</h2>
+        <h5><a class="nav-link" href="/directory/company/{{ person.company.id }}/0/5">{{ person.company.companyName }}</a></h5>
+    </div>
+</div>
+
+<div class="row row-col-2 py-3 justify-content-center">
+    <div class="col shadow mx-1 px-5 py-3 mb-2 border col-lg-5 rounded">
+        {% if person.celphone %}
+        <h5><a class="nav-link" id="person-whapp-link" target="_blank" href="">{{person.celphone}} <i class="bi bi-whatsapp"></i></a></h5>
+        {% comment %} {% else %}
+        <div id="person-whapp-link"></div> {% endcomment %}
+        {% endif %}
+
+        {% if person.email %}
+        <h5><a class="nav-link" id="mail-link" href="mailto:{{person.email}}">{{person.email}} <i class="bi bi-envelope-plus"></i></a></h5>
+        {% comment %} {% else %}
+        <p class="nav-link" id="mail-link"><i class="bi bi-envelope-plus"></i></p> {% endcomment %}
+        {% endif %}
+        
+        <h5>{{person.workphone}}</h5>
+    </div>
+    <div class="col shadow mx-1 px-5 py-3 mb-2  border col-lg-5 rounded">
+        <h5>{{person.address.street}}</h5>
+        <h6>{{person.address.postalCode}}</h6>
+        <h6>{{person.address.city}}</h6>
+        <h6>{{person.address.state}}</h6>
+        <h6>{{person.address.country}}</h6>
+    </div>
+</div>
+
+{% if person.notes %}
+<div class="row py-3 justify-content-center">
+    <div class="col p-3 shadow col-lg-10 border rounded">
+        <p>{{person.notes}}</p>
+    </div>
+</div>
+{% endif %}
+
+<div class="row py-3 justify-content-center">
+<div class="col d-flex justify-content-center shadow border rounded px-5 py-3 col-lg-10">       
+    <p><a href="/directory/edit_person/{{ person.id }}" class="btn btn-success px-4 mx-3" role="button">Edit</a></p>
+    <p><a href="/directory/delete_person/{{ person.id }}" class="btn btn-danger" role="button">Delete</a></p>
+</div>
+</div>
+
+<script src="{% static 'directory/js/contact_helper.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="#">
+
+      {% load static %}
+      <img src="{% static 'directory/images/mate_plain.svg' %}" alt="MateApp" height="36">
+    </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          {% if user.is_authenticated %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="/directory/persons/0/10/">Persons</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/directory/companies/0/10/">Companies</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/directory/create_person/">Add Person</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/directory/create_company/">Add Company</a>
+          </li>
+          
+
+          {% endif %}
+
+        </ul>
+        <ul class="navbar-nav mx-4 ms-auto mb-2 mb-lg-0">
+
+          {% if user.is_authenticated %}
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/signout/"><h5>Logout 
+              <img src="{% static 'directory/images/logout.svg' %}" alt="Logout"></h5>
+            </a>
+          </li>
+
+          {% else %}
+
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/login/"><h5>Login  
+              <img src="{% static 'directory/images/login.svg' %}" alt="Login"></h5>
+            </a>
+            
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/users/register"><h5>Register  
+              <img src="{% static 'directory/images/register.svg' %}" alt="Register"></h5>
+            </a>
+          </li>
+
+          {% endif %}
+   
+        </ul>
+        <!-- <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-secondary" type="submit">Search</button> 
+        </form> -->
+      </div>
+    </div>
+  </nav>
