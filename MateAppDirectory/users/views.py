@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, response, request
 from django.template import loader
 from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm
+from .models import CustomUser
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout, authenticate, get_user_model
@@ -40,18 +41,20 @@ def activate(request, uidb64, token):
 def activationEmail(request, user, to_email):
     mail_subject = 'Activate your user account.'
     message = render_to_string('users/activate_account.html', {
-        'user': user.username,
+        'user': user.first_name,
         'domain': get_current_site(request).domain,
         'uid' : urlsafe_base64_encode(force_bytes(user.pk)),
         'token' : account_activation_token.make_token(user),
         'protocol' : 'https' if request.is_secure() else 'http'
     })
     email = EmailMessage(mail_subject, message, to=[to_email])
-    if email.send():
-        messages.success(request, f'Dear <b>{user}</b>, please go to ypur email inbox and click on \
+    try:
+        email.send()
+        messages.success(request, f'Dear <b>{user}</b>, please go to your email inbox and click on \
                      the included activation link to enable your account. <b>Note:</b> Remember to check your spam folder.')
-    else:
-        messages.error(request, f'There was a problem sending the email. Please contact the Amdinistrator')    
+    except:
+        user.delete()
+        messages.error(request, f'There was a problem sending the email. Please contact the Administrator')    
 
 # Handles registration form.
 

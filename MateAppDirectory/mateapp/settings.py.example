@@ -79,17 +79,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mateapp.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -144,8 +133,11 @@ STATICFILES_DIRS = [BASE_DIR, 'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Default Login URL
+
 LOGIN_URL = '/login/'
 
+# SMTP Backend Settings
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = ''
@@ -153,9 +145,15 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-# EMAIL_SUBJECT_PREFIX = '[Test mail]'
+
+
+DEFAULT_FROM_EMAIL = ''
+
+# Password reset Settings
 
 PASSWORD_RESET_TIMEOUT = 14400
+
+# REST Framework Security
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

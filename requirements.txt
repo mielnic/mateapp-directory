@@ -1,0 +1,4 @@
+Django
+djangorestframework
+six
+psycopg2

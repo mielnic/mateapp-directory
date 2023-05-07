@@ -1,3 +1,11 @@
+/* Helper Purposes:
+1) Toggle Select Company / New Company Form.
+2) Make Company Name required if New Company form
+3) Auto complete Address with Company Address if exists.
+4) Make Street required if address form is not empty.
+5) Clear Address Form on toggle.
+6) Build and assign the Save Button value to signal the view to run the appropiate saving routine.
+*/
 
 const companySelection = document.getElementById('id_company');
 const street = document.getElementById('id_street');
@@ -59,8 +67,6 @@ companySelection.addEventListener('change', (event) => {
     ajax({
         url : `/directory/api/companies/${event.target.value}`,
         load : company => {
-            // console.log(company.address)
-            // companyName.value = company.companyName;
             ajax({
                 url : `/directory/api/address/${company.address}`,
                 load : address => {
@@ -73,7 +79,6 @@ companySelection.addEventListener('change', (event) => {
             })
         }
     })
-    // buildss();
 });
 
 function ajax(config) {
@@ -85,7 +90,6 @@ function ajax(config) {
     xhr.onload = function () {
         if (xhr.status === 200) {
             console.log(`Done. We've got ${xhr.response.length} bytes`);
-            console.log(xhr.response);
             config.load(JSON.parse(xhr.response));
             buildss();
         } else {
@@ -131,8 +135,6 @@ function clear() {
 }
 
 function buildss() {
-    // const ss1 = (companyForm.style.display === 'none'? 'save_w_o_company' : 'save_w_company')
-    // const ss2 = (addressSelector.checked == true ? 'person_address' : 'company_address')
     if (companyForm.style.display === 'none' && companyName.value === '') {
         css = '0';
     } else if (companyForm.style.display === 'block') {
@@ -144,5 +146,4 @@ function buildss() {
     let ss = `1${ass}${css}`
     saveButton.name = ss
     saveButton.value = ss
-    console.log(ss)
 }
