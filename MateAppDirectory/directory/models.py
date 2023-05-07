@@ -20,6 +20,7 @@ class Company(models.Model):
     address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, blank=True, null=True)
     website = models.CharField(max_length=100, blank=True)
     companyPhone = models.CharField(max_length=25, blank=True)
+    companyNotes = models.CharField(max_length=500, blank=True)
     deleted = models.BooleanField(default=False)
 
     def __str__(self):

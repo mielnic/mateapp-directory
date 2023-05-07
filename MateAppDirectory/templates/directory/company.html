@@ -73,11 +73,14 @@
     {% endif %}
     </div>
 </div>
-<!-- <div class="row py-3 justify-content-center">
-    <div class="col shadow p-3 col-lg-10 border rounded">
-        <p>{{person.notes}}</p>
+
+{% if company.companyNotes %}
+<div class="row py-3 justify-content-center">
+    <div class="col p-3 shadow col-lg-10 border rounded">
+        <p>{{company.companyNotes}}</p>
     </div>
-</div> -->
+</div>
+{% endif %}
 
 <div class="row py-3 justify-content-center">
     <div class="col d-flex justify-content-center shadow rounded px-5 py-3 col-lg-10">       

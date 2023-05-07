@@ -37,7 +37,7 @@ class PersonForm(forms.ModelForm):
             'workphone': forms.TextInput(attrs={'class':'form-control','placeholder':'Work Phone'}),
             'email': forms.TextInput(attrs={'class':'form-control','placeholder':'eMail','type':'email'}),
             'company': forms.Select(attrs={'class':'form-select'}),
-            'notes': forms.Textarea(attrs={'class':'form-control','placeholder':'Notes'}),
+            'notes': forms.Textarea(attrs={'class':'form-control','placeholder':'Notes','style':'height: 200px'}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -55,6 +55,7 @@ class CompanyForm(forms.ModelForm):
             'website',
             'companyPhone',
             'address',
+            'companyNotes',
         ]
 
         widgets = {
@@ -62,6 +63,7 @@ class CompanyForm(forms.ModelForm):
             'tax_id': forms.TextInput(attrs={'class':'form-control','placeholder':'Tax ID'}),
             'website': forms.TextInput(attrs={'class':'form-control','placeholder':'Website'}),
             'companyPhone': forms.TextInput(attrs={'class':'form-control','placeholder':'Company Phone'}),
+            'companyNotes': forms.Textarea(attrs={'class':'form-control','placeholder':'Company Notes','style':'height: 200px'}),
         }
 
 class AddressFrom(forms.ModelForm):

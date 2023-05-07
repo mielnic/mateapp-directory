@@ -1,7 +1,6 @@
 # Archivos
 *.doc
 *.docx
-*.txt
 log*.*
 blame*.*
 *.temp

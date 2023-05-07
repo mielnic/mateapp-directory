@@ -90,15 +90,15 @@
     </div>
 </div>
 
-{% comment %} <div class="row py-3 justify-content-center">
+<div class="row py-3 justify-content-center">
     <div class="col shadow p-3 col-lg-10 border rounded">
     <p>
         <div class="form-floating">
-            {{company.notes}}
-            <label for="id_notes">Notes:</label>
+            {{companyform.companyNotes}}
+            <label for="id_company_notes">Notes:</label>
         </div>
         </p>
     </div>
-</div> {% endcomment %}
+</div>
 <script src="{% static 'directory/js/create_company_helper.js' %}"></script>
 {% endblock %}
