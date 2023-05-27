@@ -13,6 +13,7 @@ sandbox.html
 notepad.txt
 *.pyc
 settings.py
+todo.txt
 
 # Carpetas
 docs/

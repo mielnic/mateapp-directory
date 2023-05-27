@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row row-col-2 py-3 justify-content-center">
+    <div class="col shadow mx-1 px-5 py-3 mb-2 border col-lg-5 rounded">
+        <div style="text-align: center">
+            <h2>User Profile</h2>
+            </div>
+        <br>
+        <h4>{{muser.first_name}} {{muser.last_name}}</h4>
+        <br>
+        <h6> <strong>e-Mail:</strong> {{muser.email}}</h6>
+        <br>
+        {% if muser.is_superuser %} 
+        <h6><strong>User Type:</strong> Administrator</h6>
+        {% elif muser.is_staff %} 
+        <h6><strong>User Type:</strong> Staff</h6>
+        {% else %}
+        <h6><strong>User Type:</strong> Regular</h6> 
+        {% endif %}
+        <br>
+        {% if muser.is_active %} 
+        <h6><strong>User Status:</strong> Active</h6>
+        {% else %}
+        <h6><strong>User Status:</strong> Inactive</h6> 
+        {% endif %}
+        {% comment %} <div style="text-align: center">
+            <p><a href="/users/profile_edit/" class="btn btn-success px-4 mx-3" role="button">Edit</a></p>
+        </div> {% endcomment %}
+    </div>
+</div>
+
+{% endblock %}

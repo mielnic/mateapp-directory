@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, response, request
 from django.template import loader
 from django.contrib import messages
 from .models import Address, Company, Person
-from .functions import paginator
+from main.functions import paginator
 from .forms import PersonForm, CompanyForm, AddressFrom
 from django.contrib.auth.decorators import login_required, permission_required
 import copy

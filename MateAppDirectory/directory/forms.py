@@ -1,21 +1,6 @@
 from django import forms
 from .models import Person, Company, Address
 
-
-# class PersonForm(forms.Form):
-#     firstName = forms.CharField(label='First Name', max_length=50, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'First Name'}), required=False)
-#     lastName = forms.CharField(label='Last Name', max_length=50, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}), required=False)  
-#     celphone = forms.CharField(label='Cell Phone', max_length=25, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}), required=False)
-#     workphone = forms.CharField(label='Work Phone', max_length=25, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Work Phone'}), required=False)
-#     email = forms.CharField(label='eMail', max_length=50, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'eMail','type':'email'}), required=False)
-#     company = forms.ModelChoiceField(label='Company', queryset=Company.objects.filter(deleted=False), widget=forms.Select(attrs={'class':'form-select'}), empty_label='Select Company:', required=False)
-#     # address = forms.ModelChoiceField(label='Address', queryset=Address.objects.values_list('street', flat=True), required=False)
-#     notes = forms.CharField(label='Notes', max_length=50, widget=forms.Textarea(attrs={'class':'form-control','placeholder':'Notes'}), required=False)
-    
-
-
-#     # .values_list('companyName', flat=True)to_field_name='companyName',
-
 class PersonForm(forms.ModelForm):
 
     class Meta:

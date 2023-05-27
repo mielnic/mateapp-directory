@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<form method="post">
+
+    {% csrf_token %}
+
+    <div class="row row-col-1 py-3 justify-content-center">
+        <div class="col shadow m-5 p-4 border col-md-5 rounded">
+            <div style="text-align: center;">
+                <h2>Profile Update for:</h2>
+                <br>
+                <h3>{{user.email}}</h3>
+                </div>
+            <br>
+            <p>
+                <div class="form-floating">
+                    {{profileform.first_name}}
+                    <label for="first_name" class="form-label">First Name</label>
+                </div>
+            </p>
+            <p>
+                <div class="form-floating">
+                    {{profileform.last_name}}
+                    <label for="last_name" class="form-label">last Name</label>
+                </div>
+            </p>
+            <p class="lead mx-1">
+            <a class="nav-link" href="/users/change_password/">Change Password</a>
+            </p>
+            <p>
+                <div class="col d-flex justify-content-center px-5 py-3 col-lg-10">
+                    <p><button class="btn btn-primary px-4 mx-5" type="submit">Save</button></p>
+                    <p><a href="/users/profile/" class="btn btn-secondary px-4" role="button">Cancel</a></p>
+                </div>
+            </p>
+        </div>
+    </div>
+
+
+</form>
+
+{% endblock %}

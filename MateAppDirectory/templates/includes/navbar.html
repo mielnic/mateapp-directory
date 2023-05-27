@@ -1,9 +1,8 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid px-4">
       <a class="navbar-brand" href="#">
-
-      {% load static %}
-      <img src="{% static 'directory/images/mate_plain.svg' %}" alt="MateApp" height="36">
+      <img src="{% static 'main/images/mate_plain.svg' %}" alt="MateApp" height="36">
     </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -33,10 +32,22 @@
         <ul class="navbar-nav mx-4 ms-auto mb-2 mb-lg-0">
 
           {% if user.is_authenticated %}
-          
+
+          {% if user.is_superuser %}
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/users/users/0/10"><h5>Admin
+              <img src="{% static 'users/images/braces.svg' %}" alt="Login"></h5>
+            </a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/users/profile/"><h5>{{user.first_name}}
+              <img src="{% static 'users/images/person.svg' %}" alt="Login"></h5>
+            </a>
+         
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="/signout/"><h5>Logout 
-              <img src="{% static 'directory/images/logout.svg' %}" alt="Logout"></h5>
+              <img src="{% static 'main/images/logout.svg' %}" alt="Logout"></h5>
             </a>
           </li>
 
@@ -44,13 +55,13 @@
 
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="/login/"><h5>Login  
-              <img src="{% static 'directory/images/login.svg' %}" alt="Login"></h5>
+              <img src="{% static 'main/images/login.svg' %}" alt="Login"></h5>
             </a>
             
           </li>
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="/users/register"><h5>Register  
-              <img src="{% static 'directory/images/register.svg' %}" alt="Register"></h5>
+              <img src="{% static 'users/images/register.svg' %}" alt="Register"></h5>
             </a>
           </li>
 

@@ -3,13 +3,18 @@ from django.http import HttpResponse, HttpResponseRedirect, response, request
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout, authenticate, get_user_model
+from .decorators import user_not_authenticated
 
 
 
 # Create your views here.
 
+def home(request):
+    return render(request,'main/home.html')
+
 # Login
 
+@user_not_authenticated
 def login(request):
     if request.method == 'GET':
         return render(request, 'main/login.html', {'form' : AuthenticationForm})
