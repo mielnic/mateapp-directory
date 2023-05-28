@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, response, request
-from .forms import CustomUserCreationForm, CustomUserChangeForm, ChangePasswordForm, PasswordResetForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm, ChangePasswordForm, PasswordResetForm, CustomUserEditForm
 from main.decorators import user_not_authenticated, allowed_users
 from .models import CustomUser
 from .managers import CustomUserManager
@@ -194,15 +194,34 @@ def passwordResetConfirm(request, uidb64, token):
     messages.error(request, 'Something went wrong, redirecting back to Homepage')
     return redirect("/login/")
 
-# Users list (Admin)
+# Active Users list (Admin)
 
 @login_required
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['admin', 'staff'])
 def users(request, a=0, b=10):
-    users_list = get_user_model().objects.order_by('last_name') [a:b]
-    length = get_user_model().objects.count()
+    users_list = get_user_model().objects.order_by('last_name').filter(is_active=True) [a:b]
+    length = get_user_model().objects.filter(is_active=True).count()
     links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 10)
     template = loader.get_template('users/users.html')
+    context = {
+        'users_list': users_list,
+        'links' : links,
+        'idxPL' : idxPL,
+        'idxPR' : idxPR,
+        'idxNL' : idxNL,
+        'idxNR' : idxNR,
+    }
+    return HttpResponse(template.render(context, request))
+
+# Inactive Users list (Admin)
+
+@login_required
+@allowed_users(allowed_roles=['admin', 'staff'])
+def inactive_users(request, a=0, b=10):
+    users_list = get_user_model().objects.order_by('last_name').filter(is_active=False) [a:b]
+    length = get_user_model().objects.filter(is_active=False).count()
+    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 10)
+    template = loader.get_template('users/users_inactive.html')
     context = {
         'users_list': users_list,
         'links' : links,
@@ -216,7 +235,7 @@ def users(request, a=0, b=10):
 # User profile view (Admin)
 
 @login_required
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['admin', 'satff'])
 def user(request, id):
     muser = get_user_model().objects.get(id=id)
     template = loader.get_template('users/user.html')
@@ -225,3 +244,44 @@ def user(request, id):
     }
     return HttpResponse(template.render(context, request))
 
+# Create User (Admin)
+
+@login_required
+@allowed_users(allowed_roles=['admin', 'satff'])
+def create_user(request):
+    if request.method == 'POST':
+        usercreateform = CustomUserCreationForm(request.POST)
+        if usercreateform.is_valid():
+            usercreateform.save()
+            id = get_user_model().objects.last().id
+            return HttpResponseRedirect(f'/users/user/{id}')
+        else:
+            for error in usercreateform.errors.values():
+                messages.error(request, error)
+    else:
+        usercreateform = CustomUserCreationForm()
+
+    context = {
+        'usercreateform' : usercreateform,
+    }    
+    return render(request, 'users/create_user.html', context)
+
+# Edit User (Admin)
+
+@login_required
+@allowed_users(allowed_roles=['admin', 'satff'])
+def edit_user(request, id):
+    muser = get_user_model().objects.get(id=id)  
+    usereditform = CustomUserEditForm(request.POST or None, instance=muser)
+    if usereditform.is_valid():
+        usereditform.save()
+        return HttpResponseRedirect(f'/users/user/{id}')
+    else:
+        for error in usereditform.errors.values():
+            messages.error(request, error)
+
+    context = {
+        'usercreateform' : usereditform,
+        'muser' : muser
+    }    
+    return render(request, 'users/edit_user.html', context)

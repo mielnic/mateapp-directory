@@ -26,12 +26,16 @@ class CustomUserCreationForm(UserCreationForm):
             "last_name",
             "password1",
             "password2",
+            "is_active",
+            "is_staff",
             ]
 
         widgets = {
             'email': forms.EmailInput(attrs={'class':'form-control','placeholder':'email'}),
             'first_name' : forms.TextInput(attrs={'class':'form-control','placeholder':'First Name'}),
             'last_name': forms.TextInput(attrs={'class':'form-control','placeholder':'Last Name'}),
+            'is_staff' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
+            'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
         }
 
 
@@ -48,6 +52,24 @@ class CustomUserChangeForm(UserChangeForm):
         widgets = {
             'first_name' : forms.TextInput(attrs={'class':'form-control','placeholder':'First Name'}),
             'last_name': forms.TextInput(attrs={'class':'form-control','placeholder':'Last Name'}),
+        }
+
+class CustomUserEditForm(UserChangeForm):
+
+    class Meta:
+        model = CustomUser
+        fields = [
+            "first_name",
+            "last_name",
+            "is_active",
+            "is_staff",
+            ]
+        
+        widgets = {
+            'first_name' : forms.TextInput(attrs={'class':'form-control','placeholder':'First Name'}),
+            'last_name': forms.TextInput(attrs={'class':'form-control','placeholder':'Last Name'}),
+            'is_staff' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
+            'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
         }
 
 class ChangePasswordForm(UserCreationForm):

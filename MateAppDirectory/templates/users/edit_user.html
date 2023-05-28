@@ -10,15 +10,10 @@
     <div class="row row-col-1 py-3 justify-content-center">
         <div class="col shadow m-5 p-4 border col-md-5 rounded">
             <div style="text-align: center;">
-                <h2>Create User</h2>
+                <h2>Editing User:</h2>
+                <h3>{{muser.email}}</h3>
                 </div>
             <br>
-            <p>
-                <div class="form-floating">
-                    {{usercreateform.email}}
-                    <label for="email" class="form-label">email</label>
-                </div>
-            </p>
             <p>
                 <div class="form-floating">
                     {{usercreateform.first_name}}
@@ -29,28 +24,6 @@
                 <div class="form-floating">
                     {{usercreateform.last_name}}
                     <label for="last_name" class="form-label">last Name</label>
-                </div>
-            </p>
-            <p>
-                <div class="form-floating">
-                    {{usercreateform.password1}}
-                    <label for="id_new_password1" class="form-label">Password</label>
-                </div>
-            </p>
-            <p>
-            <div class="px-3">
-                <ul class="list-unstyled">
-                    <li><small>Your password can’t be too similar to your other personal information.</small></li>
-                    <li><small>Your password must contain at least 8 characters.</small></li>
-                    <li><small>Your password can’t be a commonly used password.</small></li>
-                    <li><small>Your password can’t be entirely numeric.</small></li>
-                </ul>
-            </div>
-            </p>
-            <p>
-                <div class="form-floating">
-                    {{usercreateform.password2}}
-                    <label for="id_new_password2" class="form-label">Re-type Password</label>
                 </div>
             </p>
             <div>

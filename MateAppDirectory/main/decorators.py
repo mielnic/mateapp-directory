@@ -30,10 +30,8 @@ def allowed_users(allowed_roles=[]):
                 is_admin = request.user.is_superuser
                 is_staff = request.user.is_staff
             if 'admin' in allowed_roles and is_admin:
-                print('Working:', allowed_roles, is_admin, is_staff)
                 return view_func(request, *args, **kwargs)
             elif 'staff' in allowed_roles and is_staff:
-                print('Working:', allowed_roles, is_admin, is_staff)
                 return view_func(request, *args, **kwargs)
             else:
                 messages.error(request, 'You are not allowed to access that page.')
