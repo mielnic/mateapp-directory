@@ -14,6 +14,8 @@ notepad.txt
 *.pyc
 settings.py
 todo.txt
+Search-Materialized-View.pgsql
+document.pgsql
 
 # Carpetas
 docs/
@@ -23,3 +25,4 @@ node_modules/
 *vsc/
 *vcode/
 _pycache_/
+fixtures/

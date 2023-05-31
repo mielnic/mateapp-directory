@@ -10,10 +10,27 @@
         <h2>MateApp Directory</h2>
         <br>
         </div>
-        <div style="text-align: center" class="p-4">
-            <img src="{% static 'main/images/mate_plain.svg' %}" alt="MateApp" height="250">
+        <form method="GET">
+            <div class="form-floating">
+                {{searchform.q}}
+                <label for="Search" class="form-label">Search</label>
+            </div>
+            <br>
+            <button type="submit" class="w-100 btn btn-lg-5 btn-primary">Search</button>
+        </form>
+       
+        {% for result in results %}
+        <div class="col my-3 shadow p-4 border rounded">
+        {% if result.lastName %}
+        <a class="nav-link" href="/directory/person/{{ result.id }}/">{{ result }}</a>
+        <p>{{ result.celphone }}</p>
+        {% else %}
+        <a class="nav-link" href="/directory/company/{{ result.id }}/0/5/">{{ result }}</a>
+        <p>{{ result.companyphone }} </p>
+        {% endif %}
         </div>
-            
+        {% endfor %}
+        
     </div>
 </div>
 

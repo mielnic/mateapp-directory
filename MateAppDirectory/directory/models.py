@@ -6,9 +6,9 @@ from django.db import models
 class Address(models.Model):
     street = models.CharField(max_length=200, blank=True)
     postalCode = models.CharField(max_length=7, blank=True)
-    city = models.CharField(max_length=25, blank=True)
-    state = models.CharField(max_length=25, blank=True)
-    country = models.CharField(max_length=25, blank=True)
+    city = models.CharField(max_length=50, blank=True)
+    state = models.CharField(max_length=50, blank=True)
+    country = models.CharField(max_length=50, blank=True)
     deleted = models.BooleanField(default=False)
 
     def __str__(self):
