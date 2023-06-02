@@ -1,35 +1,36 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 
 <div class="row row-col-2 py-3 justify-content-center">
     <div class="col shadow mx-1 px-5 py-3 mb-2 border col-lg-5 rounded">
         <div style="text-align: center">
-            <h2>User Profile</h2>
+            <h2>{% trans "User Profile" %}</h2>
             </div>
         <br>
         <h4>{{muser.first_name}} {{muser.last_name}}</h4>
         <br>
-        <h6> <strong>e-Mail:</strong> {{muser.email}}</h6>
+        <h6> <strong>{% trans "eMail:" %}</strong> {{muser.email}}</h6>
         <br>
         {% if muser.is_superuser %} 
-        <h6><strong>User Type:</strong> Administrator</h6>
+        <h6><strong>{% trans "User Type:" %}</strong> {% trans "Administrator" %}</h6>
         {% elif muser.is_staff %} 
-        <h6><strong>User Type:</strong> Staff</h6>
+        <h6><strong>{% trans "User Type:" %}</strong> {% trans "Staff" %}</h6>
         {% else %}
-        <h6><strong>User Type:</strong> Regular</h6> 
+        <h6><strong>{% trans "User Type:" %}</strong> {% trans "Regular" %}</h6> 
         {% endif %}
         <br>
         {% if muser.is_active %} 
-        <h6><strong>User Status:</strong> Active</h6>
+        <h6><strong>{% trans "User Status:" %}</strong> {% trans "Active" %}</h6>
         {% else %}
-        <h6><strong>User Status:</strong> Inactive</h6> 
+        <h6><strong>{% trans "User Status:" %}</strong> {% trans "Inactive" %}</h6> 
         {% endif %}
         <br>
         <div  class="col d-flex justify-content-center px-5 py-3 col-lg-10">
-            <p><a href="/users/edit_user/{{ muser.id }}" class="btn btn-success px-4 mx-3" role="button">Edit</a></p>
-            <p><a href="/users/users/0/10/" class="btn btn-secondary px-4" role="button">Back</a></p>
+            <p><a href="/users/edit_user/{{ muser.id }}" class="btn btn-success px-4 mx-3" role="button">{% trans "Edit" %}</a></p>
+            <p><a href="/users/users/0/10/" class="btn btn-secondary px-4" role="button">{% trans "Back" %}</a></p>
         </div>
     </div>
 </div>

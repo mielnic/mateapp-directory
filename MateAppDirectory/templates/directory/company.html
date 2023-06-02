@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-
+{% load i18n %}
 {% block content %}
 
 <div class="row py-3 justify-content-center">
@@ -27,12 +27,13 @@
     <div class="col shadow p-3 border rounded col-lg-10">
     {% if person_list %}
     <div class="table-responsive">
-    <table class="table table-hover table-bordered" id="person_list" name="Person_List">
+    <table class="table table-hover" id="person_list" name="Person_List">
         <!-- Cabecera de Tabla -->
-        <thead class="table-secondary">
-            <th>Name</th>
-            <th>eMail</th>
-            <th>CellPhone</th>
+        <thead class="table-primary">
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "eMail" %}</th>
+            <th>{% trans "CellPhone" %}
+            </th>
         </thead>
 
         <!-- Cuerpo de Tabla -->
@@ -69,7 +70,7 @@
       </nav>
 
     {% else %}
-        <p>No persons available.</p>
+        <p>{% trans "No persons available." %}</p>
     {% endif %}
     </div>
 </div>
@@ -84,8 +85,8 @@
 
 <div class="row py-3 justify-content-center">
     <div class="col d-flex justify-content-center shadow rounded px-5 py-3 col-lg-10">       
-        <p><a href="/directory/edit_company/{{ company.id }}" class="btn btn-success px-4 mx-3" role="button">Edit</a></p>
-        <p><a href="/directory/delete_company/{{ company.id }}" class="btn btn-danger" role="button">Delete</a></p>
+        <p><a href="/directory/edit_company/{{ company.id }}" class="btn btn-success px-4 mx-3" role="button">{% trans "Edit" %}</a></p>
+        <p><a href="/directory/delete_company/{{ company.id }}" class="btn btn-danger" role="button">{% trans "Delete" %}</a></p>
     </div>
     </div>
 

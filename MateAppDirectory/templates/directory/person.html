@@ -1,12 +1,19 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 
 <div class="row py-3 justify-content-center">
     <div class="col shadow px-5 py-3 col-lg-10 rounded bg-light">
         <h2>{{person.firstName}} {{person.lastName}}</h2>
-        <h5><a class="nav-link" href="/directory/company/{{ person.company.id }}/0/5">{{ person.company.companyName }}</a></h5>
+        <h5>
+            {% if person.company.deleted == False %}
+            <a class="nav-link" href="/directory/company/{{ person.company.id }}/0/5">{{ person.company.companyName }}</a>
+            {% else %}
+            <td>{{ person.company.companyName }} (deleted)</td>
+            {% endif %}
+        </h5>
     </div>
 </div>
 
@@ -14,14 +21,10 @@
     <div class="col shadow mx-1 px-5 py-3 mb-2 border col-lg-5 rounded">
         {% if person.celphone %}
         <h5><a class="nav-link" id="person-whapp-link" target="_blank" href="">{{person.celphone}} <i class="bi bi-whatsapp"></i></a></h5>
-        {% comment %} {% else %}
-        <div id="person-whapp-link"></div> {% endcomment %}
         {% endif %}
 
         {% if person.email %}
         <h5><a class="nav-link" id="mail-link" href="mailto:{{person.email}}">{{person.email}} <i class="bi bi-envelope-plus"></i></a></h5>
-        {% comment %} {% else %}
-        <p class="nav-link" id="mail-link"><i class="bi bi-envelope-plus"></i></p> {% endcomment %}
         {% endif %}
         
         <h5>{{person.workphone}}</h5>
@@ -45,8 +48,8 @@
 
 <div class="row py-3 justify-content-center">
 <div class="col d-flex justify-content-center shadow border rounded px-5 py-3 col-lg-10">       
-    <p><a href="/directory/edit_person/{{ person.id }}" class="btn btn-success px-4 mx-3" role="button">Edit</a></p>
-    <p><a href="/directory/delete_person/{{ person.id }}" class="btn btn-danger" role="button">Delete</a></p>
+    <p><a href="/directory/edit_person/{{ person.id }}" class="btn btn-success px-4 mx-3" role="button">{% trans "Edit" %}</a></p>
+    <p><a href="/directory/delete_person/{{ person.id }}" class="btn btn-danger" role="button">{% trans "Delete" %}</a></p>
 </div>
 </div>
 

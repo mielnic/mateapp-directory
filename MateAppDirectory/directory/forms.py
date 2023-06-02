@@ -1,5 +1,6 @@
 from django import forms
 from .models import Person, Company, Address
+from django.utils.translation import gettext_lazy as _
 
 class PersonForm(forms.ModelForm):
 
@@ -28,7 +29,7 @@ class PersonForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(PersonForm, self).__init__(*args, **kwargs)
         self.fields['company'].queryset = Company.objects.filter(deleted=False).order_by('companyName')
-        self.fields['company'].empty_label = 'Select Company:'
+        self.fields['company'].empty_label = _("Select Company:")
 
 class CompanyForm(forms.ModelForm):
 

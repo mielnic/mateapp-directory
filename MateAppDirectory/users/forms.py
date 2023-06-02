@@ -5,16 +5,17 @@ from django.forms.widgets import Widget, TextInput, PasswordInput
 from django.contrib.auth import login as auth_login, logout, authenticate, get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordResetForm
 from .models import CustomUser
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomUserCreationForm(UserCreationForm):
 
     password1 = forms.CharField(
-        label="Password",
+        label=_("Password"),
         widget=forms.PasswordInput(attrs={'class':'form-control', 'type':'password', 'placeholder':'password'}),
     )
     password2 = forms.CharField(
-        label="Confirm password",
+        label=_("Confirm password"),
         widget=forms.PasswordInput(attrs={'class':'form-control', 'type':'password', 'placeholder':'password'}),
     )
 
@@ -75,11 +76,11 @@ class CustomUserEditForm(UserChangeForm):
 class ChangePasswordForm(UserCreationForm):
 
     password1 = forms.CharField(
-        label="Password",
+        label=_("Password"),
         widget=forms.PasswordInput(attrs={'class':'form-control', 'type':'password', 'placeholder':'password'}),
     )
     password2 = forms.CharField(
-        label="Confirm password",
+        label=_("Confirm password"),
         widget=forms.PasswordInput(attrs={'class':'form-control', 'type':'password', 'placeholder':'password'}),
     )
 
@@ -93,7 +94,7 @@ class ChangePasswordForm(UserCreationForm):
 class PasswordResetForm(forms.Form):
 
     email = forms.EmailField(
-        label="email",
+        label=_("eMail"),
         widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'email'}),
     )
 

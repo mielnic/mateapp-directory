@@ -1,6 +1,7 @@
 {% extends 'main/base.html' %}
 
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 
@@ -13,10 +14,10 @@
         <form method="GET">
             <div class="form-floating">
                 {{searchform.q}}
-                <label for="Search" class="form-label">Search</label>
+                <label for="Search" class="form-label">{% trans "Search:" %}</label>
             </div>
             <br>
-            <button type="submit" class="w-100 btn btn-lg-5 btn-primary">Search</button>
+            <button type="submit" class="w-100 btn btn-lg-5 btn-primary">{% trans "Search" %}</button>
         </form>
        
         {% for result in results %}

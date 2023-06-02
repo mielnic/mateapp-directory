@@ -1,4 +1,4 @@
-//Paginator
+/* Paginator Helper */
 let currentURL = window.location.pathname
 let currentLink = document.querySelectorAll(`[href='${currentURL}']`)
 

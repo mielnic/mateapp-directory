@@ -1,5 +1,6 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 
@@ -31,13 +32,13 @@
             </div>
             <div id="new_company_title" class="col col-12 col-md-8">
                 <p>
-                    <h2>Create New Company</h2>
+                    <h2>{% trans "New Company" %}</h2>
                 </p>
             </div>
             {% if title %}
             <div class="col col-6 col-md-3">
                 <p>
-                    <div id="new_company" class="btn btn-primary btn-sm" onclick="toggle()">or Create New Company</div>
+                    <div id="new_company" class="btn btn-primary btn-sm" onclick="toggle()">{% trans "Add Company" %}</div>
                 </p>
             </div>
             {% endif %}
@@ -47,25 +48,25 @@
         <p>
         <div class="form-floating">
             {{companyform.companyName}}
-            <label for="id_company">Company Name</label>
+            <label for="id_company">{% trans "Company Name:" %}</label>
         </div>
         </p>
         <p>
         <div class="form-floating">
             {{companyform.tax_id}}
-            <label for="id_tax_id">Tax ID:</label>
+            <label for="id_tax_id">{% trans "Tax ID:" %}</label>
         </div>
         </p>
         <p>
             <div class="form-floating">
                 {{companyform.website}}
-                <label for="id_website">Website:</label>
+                <label for="id_website">{% trans "Website:" %}</label>
             </div>
         </p>
         <p>
             <div class="form-floating">
                 {{companyform.companyPhone}}
-                <label for="id_companyphone">Company Phone:</label>
+                <label for="id_companyphone">{% trans "Company Phone:" %}</label>
             </div>
         </p>
         </div>
@@ -77,31 +78,31 @@
         <p>
         <div class="form-floating">
            {{personform.firstName}}
-            <label for="id_firstname">First Name:</label>
+            <label for="id_firstname">{% trans "First Name:" %}</label>
         </div>
         </p>
         <p>
         <div class="form-floating">
             {{personform.lastName}}
-            <label for="id_lastname">Last Name:</label>
+            <label for="id_lastname">{% trans "Last Name:" %}</label>
         </div>
         </p>
         <p>
             <div class="form-floating">
                 {{personform.celphone}}
-                <label for="id_celphone">Cell Phone:</label>
+                <label for="id_celphone">{% trans "Cell Phone:" %}</label>
             </div>
         </p>
         <p>
             <div class="form-floating">
                 {{personform.email}}
-                <label for="id_email">eMail:</label>
+                <label for="id_email">{% trans "eMail:" %}</label>
             </div>
         </p>
         <p>
             <div class="form-floating">
                 {{personform.workphone}}
-                <label for="id_workphone" class="form-label">Work Phone:</label>
+                <label for="id_workphone" class="form-label">{% trans "Work Phone:" %}</label>
             </div>
         </p>
     </div>
@@ -109,40 +110,40 @@
         <p>
             <div class="form-floating">
                {{addressform.street}}
-                <label for="id_street">Street:</label>
+                <label for="id_street">{% trans "Street:" %}</label>
             </div>
         </p>
         <p>
             <div class="form-floating">
                 {{addressform.city}}
-                <label for="id_city">City:</label>
+                <label for="id_city">{% trans "City:" %}</label>
             </div>
         </p>
         <p>
             <div class="form-floating">
                 {{addressform.state}}
-                <label for="id_state">State:</label>
+                <label for="id_state">{% trans "State" %}:</label>
             </div>
         </p>
         <p>
             <div class="form-floating">
                 {{addressform.country}}
-                <label for="id_country">Country:</label>
+                <label for="id_country">{% trans "Country:" %}</label>
             </div>
         </p>
         <p>
             <div class="form-floating">
                 {{addressform.postalCode}}
-                <label for="id_postalecode">Postal Code:</label>
+                <label for="id_postalecode">{% trans "Postal Code:" %}</label>
             </div>
         </p>
         <div class="col d-flex justify-content-between px-5 py-3 col-lg-10">
     
-            <p><button type="submit" id="save_button" name="save_plain" value="save_plain" class="btn btn-primary px-3">Save</button></p>
+            <p><button type="submit" id="save_button" name="save_plain" value="save_plain" class="btn btn-primary px-3">{% trans "Save" %}</button></p>
             {% if person.id %}
-            <p><a href="/directory/person/{{ person.id }}" class="btn btn-secondary" role="button">Cancel</a></p>
+            <p><a href="/directory/person/{{ person.id }}" class="btn btn-secondary" role="button">{% trans "Cancel" %}</a></p>
             {% else %}
-            <p><a href="/directory/persons/0/10/" class="btn btn-secondary" role="button">Cancel</a></p>
+            <p><a href="/directory/persons/0/10/" class="btn btn-secondary" role="button">{% trans "Cancel" %}</a></p>
             {% endif %}
         </div>
     </div>
@@ -153,7 +154,7 @@
     <p>
         <div class="form-floating">
             {{personform.notes}}
-            <label for="id_notes">Notes:</label>
+            <label for="id_notes">{% trans "Notes:" %}</label>
         </div>
         </p>
     </div>

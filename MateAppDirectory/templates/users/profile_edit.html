@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-
+{% load i18n %}
 {% block content %}
 
 <form method="post">
@@ -9,7 +9,7 @@
     <div class="row row-col-1 py-3 justify-content-center">
         <div class="col shadow m-5 p-4 border col-md-5 rounded">
             <div style="text-align: center;">
-                <h2>Profile Update for:</h2>
+                <h2>{% trans "Profile Update for:" %}</h2>
                 <br>
                 <h3>{{user.email}}</h3>
                 </div>
@@ -17,22 +17,22 @@
             <p>
                 <div class="form-floating">
                     {{profileform.first_name}}
-                    <label for="first_name" class="form-label">First Name</label>
+                    <label for="first_name" class="form-label">{% trans "First Name:" %}</label>
                 </div>
             </p>
             <p>
                 <div class="form-floating">
                     {{profileform.last_name}}
-                    <label for="last_name" class="form-label">last Name</label>
+                    <label for="last_name" class="form-label">{% trans "Last Name:" %}</label>
                 </div>
             </p>
             <p class="lead mx-1">
-            <a class="nav-link" href="/users/change_password/">Change Password</a>
+            <a class="nav-link" href="/users/change_password/">{% trans "Change Password" %}</a>
             </p>
             <p>
                 <div class="col d-flex justify-content-center px-5 py-3 col-lg-10">
-                    <p><button class="btn btn-primary px-4 mx-5" type="submit">Save</button></p>
-                    <p><a href="/users/profile/" class="btn btn-secondary px-4" role="button">Cancel</a></p>
+                    <p><button class="btn btn-primary px-4 mx-5" type="submit">{% trans "Save" %}</button></p>
+                    <p><a href="/users/profile/" class="btn btn-secondary px-4" role="button">{% trans "Cancel" %}</a></p>
                 </div>
             </p>
         </div>

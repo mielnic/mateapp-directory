@@ -4,9 +4,13 @@ from django.template import loader
 from django.contrib import messages
 from .models import Address, Company, Person
 from main.functions import paginator
+from main.forms import SearchForm
 from .forms import PersonForm, CompanyForm, AddressFrom
 from django.contrib.auth.decorators import login_required, permission_required
 import copy
+from django.utils.translation import gettext_lazy as _
+from itertools import chain
+from operator import attrgetter
 
 ########
 # MAIN #
@@ -27,12 +31,28 @@ def index(response):
 
 @login_required
 def persons(request, a=0, b=10):
-    person_list = Person.objects.order_by('lastName').select_related('company').filter(deleted=False) [a:b]
-    length = Person.objects.filter(deleted=False).count()
-    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 10)
-    template = loader.get_template('directory/persons.html')
+    searchform = SearchForm
+    if 'q' in request.GET:
+        searchform = SearchForm(request.GET)
+        if searchform.is_valid():
+            q = searchform.cleaned_data['q']
+            ln_list = Person.objects.filter(lastName__icontains=q, deleted=False)
+            fn_list = Person.objects.filter(firstName__icontains=q, deleted=False)
+            person_list = sorted(chain(ln_list, fn_list),
+                             key=attrgetter('lastName'),
+                             )
+            links, idxPL, idxPR, idxNL, idxNR = '', '', '', '', ''
+            template = loader.get_template('directory/persons.html')
+            if not person_list:
+                messages.warning(request, _("The search didn't return any result."))
+    else:
+        person_list = Person.objects.order_by('lastName').select_related('company').filter(deleted=False) [a:b]
+        length = Person.objects.filter(deleted=False).count()
+        links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 10)
+        template = loader.get_template('directory/persons.html')
     context = {
         'person_list': person_list,
+        'searchform' : searchform,
         'links' : links,
         'idxPL' : idxPL,
         'idxPR' : idxPR,
@@ -45,12 +65,26 @@ def persons(request, a=0, b=10):
 
 @login_required
 def companies(request, a, b):
-    companies_list = Company.objects.order_by('companyName').select_related('address').filter(deleted=False) [a:b]
-    length = Company.objects.filter(deleted=False).count()
-    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 10)
-    template = loader.get_template('directory/companies.html')
+    searchform = SearchForm
+    if 'q' in request.GET:
+        searchform = SearchForm(request.GET)
+        if searchform.is_valid():
+            q = searchform.cleaned_data['q']
+            companies_list = Company.objects.filter(companyName__icontains=q, deleted=False)
+            links, idxPL, idxPR, idxNL, idxNR = '', '', '', '', ''
+            template = loader.get_template('directory/companies.html')
+            if not companies_list:
+                messages.warning(request, _("The search didn't return any result."))
+
+    else:
+        companies_list = Company.objects.order_by('companyName').select_related('address').filter(deleted=False) [a:b]
+        length = Company.objects.filter(deleted=False).count()
+        links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 10)
+        template = loader.get_template('directory/companies.html')
+
     context = {
         'companies_list': companies_list,
+        'searchform' : searchform,
         'links' : links,
         'idxPL' : idxPL,
         'idxPR' : idxPR,
@@ -189,7 +223,7 @@ def create_person(request):
         'companyform' : companyform,
         'personform': personform,
         'addressform' : addressform,
-        'title': 'New Person'
+        'title': _("New Person")
     }
     return render(request, 'directory/create_person.html', context)
 
@@ -231,10 +265,34 @@ def edit_person(request, id):
 
 @login_required
 def delete_person(request, id):
+    uid = request.user.id
     person = Person.objects.get(id=id)
     person.deleted = 1
+    person.deletedBy = uid
     person.save()
     return redirect('/directory/persons/0/10/')
+
+# Person Restore
+
+@login_required
+def restore_person(request, id, u):
+    person = Person.objects.get(id=id)
+    person.deleted = 0
+    person.save()
+    if u == 0:
+        return redirect('/user_trash/0/10/')
+    else:
+        return redirect('/admin_trash/0/10/')
+
+# Person Full Delete
+
+@login_required
+def full_delete_person(request, id):
+    person = Person.objects.get(id=id)
+    person.deletedBy = None
+    person.save()
+    return redirect('/user_trash/0/10/')
+
 
 # Company Create
 
@@ -260,7 +318,7 @@ def create_company(request):
     context = {
         'companyform': companyform,
         'addressform' : addressform,
-        'title': 'New Company'
+        'title': _("New Company")
     }
     return render(request, 'directory/create_company.html', context)
 
@@ -302,7 +360,30 @@ def edit_company(request, id):
 
 @login_required
 def delete_company(request, id):
+    uid = request.user.id
     company = Company.objects.get(id=id)
     company.deleted = 1
+    company.deletedBy = uid
     company.save()
     return redirect('/directory/companies/0/10/')
+
+# Company Restore
+
+@login_required
+def restore_company(request, id, u):
+    company = Company.objects.get(id=id)
+    company.deleted = 0
+    company.save()
+    if u == 0:
+        return redirect('/user_trash/0/10/')
+    else:
+        return redirect('/admin_trash/0/10/')
+
+# Company Full Delete
+
+@login_required
+def full_delete_company(request, id):
+    company = Company.objects.get(id=id)
+    company.deletedBy = None
+    company.save()
+    return redirect('/user_trash/0/10/')

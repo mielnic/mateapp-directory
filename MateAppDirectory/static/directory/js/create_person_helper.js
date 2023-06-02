@@ -5,6 +5,7 @@
 4) Make Street required if address form is not empty.
 5) Clear Address Form on toggle.
 6) Build and assign the Save Button value to signal the view to run the appropiate saving routine.
+7) Translate 2 button strings to spanish.
 */
 
 const companySelection = document.getElementById('id_company');
@@ -21,6 +22,14 @@ const companyForm = document.getElementById('company_form');
 const newCompany = document.getElementById('new_company');
 const newCompanyTitle = document.getElementById('new_company_title');
 const saveButton = document.getElementById('save_button');
+let messageNewCompany = 'Add Company';
+let messageSelectCompany = 'Select Company';
+const lan = navigator.language.includes("es") ? "es" : "en"
+
+if (lan == "es") {
+    messageNewCompany = 'Agregar Compañía';
+    messageSelectCompany = 'Seleccionar Compañía';
+}
 
 let css = '0'
 if (street.value == '') {
@@ -111,14 +120,14 @@ function toggle() {
     newCompanyTitle.style.display = 'block';
     companyForm.style.display = 'block';
     companyName.required = true
-    newCompany.innerHTML = 'Back to Select';
+    newCompany.innerHTML = messageSelectCompany;
     clear();
     buildss();
     } else { companySelector.style.display = 'block';
     companyForm.style.display = 'none';
     newCompanyTitle.style.display = 'none';
     companyName.required = false
-    newCompany.innerHTML = 'or Create New Company';
+    newCompany.innerHTML = messageNewCompany;
     clear();
     buildss();
 }

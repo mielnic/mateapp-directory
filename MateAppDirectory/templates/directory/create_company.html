@@ -1,5 +1,6 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 
@@ -23,25 +24,25 @@
         <p>
         <div class="form-floating">
            {{companyform.companyName}}
-            <label for="id_company">Company Name</label>
+            <label for="id_company">{% trans "Company Name:" %}</label>
         </div>
         </p>
         <p>
         <div class="form-floating">
             {{companyform.tax_id}}
-            <label for="id_tax_id">Tax ID:</label>
+            <label for="id_tax_id">{% trans "Tax ID:" %}</label>
         </div>
         </p>
         <p>
             <div class="form-floating">
                 {{companyform.website}}
-                <label for="id_website">Website:</label>
+                <label for="id_website">{% trans "Website:" %}</label>
             </div>
         </p>
         <p>
             <div class="form-floating">
                 {{companyform.companyPhone}}
-                <label for="id_companyphone">Company Phone:</label>
+                <label for="id_companyphone">{% trans "Company Phone:" %}</label>
             </div>
         </p>
     </div>
@@ -49,41 +50,41 @@
         <p>
             <div class="form-floating">
                {{addressform.street}}
-                <label for="id_street">Street:</label>
+                <label for="id_street">{% trans "Street:" %}</label>
             </div>
             </p>
             <p>
             <div class="form-floating">
                 {{addressform.city}}
-                <label for="id_city">City:</label>
+                <label for="id_city">{% trans "City:" %}</label>
             </div>
             </p>
             <p>
                 <div class="form-floating">
                     {{addressform.state}}
-                    <label for="id_state">State:</label>
+                    <label for="id_state">{% trans "State:" %}</label>
                 </div>
             </p>
             <p>
                 <div class="form-floating">
                     {{addressform.country}}
-                    <label for="id_country">Country:</label>
+                    <label for="id_country">{% trans "Country:" %}</label>
                 </div>
             </p>
             <p>
                 <div class="form-floating">
                     {{addressform.postalCode}}
-                    <label for="id_postalecode">Postal Code:</label>
+                    <label for="id_postalecode">{% trans "Postal Code:" %}</label>
                 </div>
             </p>
             <div class="col d-flex justify-content-between px-5 py-3 col-lg-10">
         
-                <p><button type="submit" class="btn btn-primary px-3">Save</button></p>
+                <p><button type="submit" class="btn btn-primary px-3">{% trans "Save" %}</button></p>
             
                 {% if company.id %}
-                <p><a href="/directory/company/{{ company.id }}/0/5/" class="btn btn-secondary" role="button">Cancel</a></p>
+                <p><a href="/directory/company/{{ company.id }}/0/5/" class="btn btn-secondary" role="button">{% trans "Cancel" %}</a></p>
                 {% else %}
-                <p><a href="/directory/companies/0/10/" class="btn btn-secondary" role="button">Cancel</a></p>
+                <p><a href="/directory/companies/0/10/" class="btn btn-secondary" role="button">{% trans "Cancel" %}</a></p>
                 {% endif %}
     
             </div>
@@ -95,7 +96,7 @@
     <p>
         <div class="form-floating">
             {{companyform.companyNotes}}
-            <label for="id_company_notes">Notes:</label>
+            <label for="id_company_notes">{% trans "Notes:" %}</label>
         </div>
         </p>
     </div>

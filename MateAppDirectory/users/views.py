@@ -16,6 +16,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
 from .tokens import account_activation_token
 from django.db.models.query_utils import Q
+from django.utils.translation import gettext_lazy as _
 
 # Create your views here.
 
@@ -32,16 +33,16 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        messages.success(request, 'Thank you for your confirmation. Your account is now active')
+        messages.success(request, _('Thank you for your confirmation. Your account is now active'))
         return redirect('/login/')
     else:
-        messages.error(request, "Activation link is invalid. Contact the administrator")
+        messages.error(request, _("Activation link is invalid. Contact the administrator"))
     return redirect('/login/')
 
 # Sends Activation Email
 
 def activationEmail(request, user, to_email):
-    mail_subject = 'Activate your user account.'
+    mail_subject = _('Activate your user account.')
     message = render_to_string('users/activate_account.html', {
         'user': user.first_name,
         'domain': get_current_site(request).domain,
@@ -56,7 +57,7 @@ def activationEmail(request, user, to_email):
                      the included activation link to enable your account. <b>Note:</b> Remember to check your spam folder.')
     except:
         user.delete()
-        messages.error(request, f'There was a problem sending the email. Please contact the Administrator')    
+        messages.error(request, _('There was a problem sending the email. Please contact the Administrator'))    
 
 # Handles registration form.
 
@@ -140,7 +141,7 @@ def passwordResetRequest(request):
             user_email = passwordresetform.cleaned_data['email']
             associated_user = get_user_model().objects.filter(Q(email = user_email)).first()
             if associated_user:
-                mail_subject = 'Password Reset Request'
+                mail_subject = _('Password Reset Request')
                 message = render_to_string('users/password_reset_email.html', {
                 'user': associated_user.first_name,
                 'domain': get_current_site(request).domain,
@@ -151,11 +152,12 @@ def passwordResetRequest(request):
                 email = EmailMessage(mail_subject, message, to=[associated_user])
                 try:
                     email.send()
-                    messages.success(request, f'Dear <b>{associated_user}</b>, please go to your email inbox and click on \
-                                the included link to reset your password. <b>Note:</b> Remember to check your spam folder.')
+                    messages.success(request, _("Please go to your email inbox and click on the included link to reset your password. <b>Note:</b> Remember to check your spam folder."))
                     return redirect('/login/')
                 except:
-                    messages.error(request, f'There was a problem sending the email. Please contact the Administrator')
+                    messages.error(request, _('There was a problem sending the email. Please contact the Administrator'))
+            else:
+                messages.error(request, _('The email address provided is not registered.'))
 
             return redirect('/login/')
         
@@ -180,7 +182,7 @@ def passwordResetConfirm(request, uidb64, token):
             changepasswordform = ChangePasswordForm(request.POST, instance=user)
             if changepasswordform.is_valid():
                 changepasswordform.save()
-                messages.success(request, "Your password has been set. You may go ahead and <b>log in </b> now.")
+                messages.success(request, _("Your password has been set. You may go ahead and <b>login</b> now."))
                 return redirect('/login/')
             else:
                 for error in list(changepasswordform.errors.values()):
@@ -189,9 +191,9 @@ def passwordResetConfirm(request, uidb64, token):
         changepasswordform = ChangePasswordForm(instance=user)
         return render(request, 'users/password_change.html', {'changepasswordform': changepasswordform})
     else:
-        messages.error(request, "Link is expired")
+        messages.error(request, _("Link is expired"))
 
-    messages.error(request, 'Something went wrong, redirecting back to Homepage')
+    messages.error(request, _('Something went wrong, redirecting back to Homepage'))
     return redirect("/login/")
 
 # Active Users list (Admin)
