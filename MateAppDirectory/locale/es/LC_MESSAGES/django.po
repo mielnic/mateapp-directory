@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MateApp 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-02 19:46-0300\n"
+"POT-Creation-Date: 2023-06-03 01:15-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,16 +82,16 @@ msgstr "eMail"
 msgid "CellPhone"
 msgstr "Celular"
 
-#: .\templates\directory\company.html:73 .\templates\directory\persons.html:81
+#: .\templates\directory\company.html:73 .\templates\directory\persons.html:79
 msgid "No persons available."
-msgstr "No hay presonas."
+msgstr "No hay personas."
 
-#: .\templates\directory\company.html:88 .\templates\directory\person.html:57
+#: .\templates\directory\company.html:88 .\templates\directory\person.html:51
 #: .\templates\users\profile.html:31 .\templates\users\user.html:32
 msgid "Edit"
 msgstr "Editar"
 
-#: .\templates\directory\company.html:89 .\templates\directory\person.html:58
+#: .\templates\directory\company.html:89 .\templates\directory\person.html:52
 #: .\templates\main\user_trash.html:46 .\templates\main\user_trash.html:48
 msgid "Delete"
 msgstr "Borrar"
