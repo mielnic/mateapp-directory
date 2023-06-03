@@ -6,15 +6,15 @@
 {% block content %}
 
 <div class="row row-col-1 py-3 justify-content-center">
-    <div class="col shadow m-5 p-4 border col-md-5 rounded">
+    <div class="col shadow m-5 p-4 border col-lg-5 rounded">
         <div style="text-align: center">
         <h2>MateApp Directory</h2>
         <br>
         </div>
         <form method="GET">
-            <div class="form-floating">
+            <div class="d-flex">
                 {{searchform.q}}
-                <label for="Search" class="form-label">{% trans "Search:" %}</label>
+                {% comment %} <label for="Search" class="form-label">{% trans "Search:" %}</label> {% endcomment %}
             </div>
             <br>
             <button type="submit" class="w-100 btn btn-lg-5 btn-primary">{% trans "Search" %}</button>

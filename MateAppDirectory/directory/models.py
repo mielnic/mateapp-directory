@@ -9,7 +9,7 @@ class Address(models.Model):
     city = models.CharField(max_length=50, blank=True)
     state = models.CharField(max_length=50, blank=True)
     country = models.CharField(max_length=50, blank=True)
-    deleted = models.BooleanField(blank=False)
+    deleted = models.BooleanField(blank=True, default=0)
     deletedBy = models.BigIntegerField(blank=True, null=True)
 
     def __str__(self):
@@ -22,7 +22,7 @@ class Company(models.Model):
     website = models.CharField(max_length=100, blank=True)
     companyPhone = models.CharField(max_length=25, blank=True)
     companyNotes = models.CharField(max_length=500, blank=True)
-    deleted = models.BooleanField(blank=False)
+    deleted = models.BooleanField(blank=True, default=0)
     deletedBy = models.BigIntegerField(blank=True, null=True)
 
     def __str__(self):
@@ -39,7 +39,7 @@ class Person(models.Model):
     address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, blank=True, null=True)
     notes = models.CharField(max_length=500, blank=True)
     company = models.ForeignKey(Company, on_delete=models.DO_NOTHING, blank=True, null=True)
-    deleted = models.BooleanField(blank=False)
+    deleted = models.BooleanField(blank=True, default=0)
     deletedBy = models.BigIntegerField(blank=True, null=True)
 
     def __str__(self):

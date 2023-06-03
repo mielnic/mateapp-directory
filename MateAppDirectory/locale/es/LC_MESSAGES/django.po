@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MateApp 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-03 01:15-0300\n"
+"POT-Creation-Date: 2023-06-03 19:27-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,6 +35,10 @@ msgstr "Nueva Persona"
 msgid "New Company"
 msgstr "Nueva Compañía"
 
+#: .\main\forms.py:8
+msgid "Search:"
+msgstr "Buscar:"
+
 #: .\main\views.py:31 .\main\views.py:34
 msgid "Incorrect Username or Password."
 msgstr "Usuario o Contraseña Incorrectos."
@@ -50,7 +54,7 @@ msgstr "Agregar Compañía"
 
 #: .\templates\directory\companies.html:21
 #: .\templates\directory\persons.html:21 .\templates\includes\navbar.html:24
-#: .\templates\main\admin_trash.html:22 .\templates\main\home.html:20
+#: .\templates\main\admin_trash.html:22 .\templates\main\home.html:21
 msgid "Search"
 msgstr "Buscar"
 
@@ -82,7 +86,7 @@ msgstr "eMail"
 msgid "CellPhone"
 msgstr "Celular"
 
-#: .\templates\directory\company.html:73 .\templates\directory\persons.html:79
+#: .\templates\directory\company.html:73 .\templates\directory\persons.html:85
 msgid "No persons available."
 msgstr "No hay personas."
 
@@ -92,7 +96,7 @@ msgid "Edit"
 msgstr "Editar"
 
 #: .\templates\directory\company.html:89 .\templates\directory\person.html:52
-#: .\templates\main\user_trash.html:46 .\templates\main\user_trash.html:48
+#: .\templates\main\user_trash.html:37 .\templates\main\user_trash.html:39
 msgid "Delete"
 msgstr "Borrar"
 
@@ -155,6 +159,7 @@ msgstr "Guardar"
 #: .\templates\users\password_change.html:41
 #: .\templates\users\password_reset.html:26
 #: .\templates\users\profile_edit.html:35
+#: .\templates\users\registration.html:63
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -216,22 +221,18 @@ msgstr "Registrarse"
 msgid "Trash"
 msgstr "Papelera"
 
-#: .\templates\main\admin_trash.html:16 .\templates\users\users.html:9
-msgid "Users"
-msgstr "Usuarios"
+#: .\templates\main\admin_trash.html:16 .\templates\users\user.html:33
+msgid "Back"
+msgstr "Volver"
 
 #: .\templates\main\admin_trash.html:47 .\templates\main\admin_trash.html:49
-#: .\templates\main\user_trash.html:39 .\templates\main\user_trash.html:41
+#: .\templates\main\user_trash.html:30 .\templates\main\user_trash.html:32
 msgid "Restore"
 msgstr "Restaurar"
 
-#: .\templates\main\admin_trash.html:78 .\templates\main\user_trash.html:76
+#: .\templates\main\admin_trash.html:78 .\templates\main\user_trash.html:67
 msgid "Trash is empty."
 msgstr "La Papelera está vacía."
-
-#: .\templates\main\home.html:17
-msgid "Search:"
-msgstr "Buscar:"
 
 #: .\templates\main\login.html:18
 msgid "Username:"
@@ -419,9 +420,9 @@ msgstr "Solo direcciones del dominio "
 msgid "addresses will be processed."
 msgstr "serán procesadas"
 
-#: .\templates\users\user.html:33
-msgid "Back"
-msgstr "Volver"
+#: .\templates\users\users.html:9
+msgid "Users"
+msgstr "Usuarios"
 
 #: .\templates\users\users.html:19
 msgid "Show Inactive"

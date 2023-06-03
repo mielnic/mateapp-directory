@@ -7,7 +7,7 @@
     {% csrf_token %}
 
     <div class="row row-col-1 py-3 justify-content-center">
-        <div class="col shadow m-5 p-4 border col-md-5 rounded">
+        <div class="col shadow m-5 p-4 border col-lg-5 rounded">
             <div style="text-align: center;">
                 <h2>{% trans "User Registration" %}</h2>
                 </div>
@@ -58,8 +58,9 @@
                 </div>
             </p>
             <p>
-                <div class="form-group">
-                    <button class="btn btn-primary " type="submit">{% trans "Register" %}</button>
+                <div class="col d-flex justify-content-center px-5 py-3 col-lg-10">
+                    <p><button class="btn btn-primary px-4 mx-2" type="submit">{% trans "Register" %}</button></p>
+                    <p><a href="/" class="btn btn-secondary px-4" role="button">{% trans "Cancel" %}</a></p>
                 </div>
             </p>
         </div>

@@ -136,7 +136,7 @@ def create_person(request):
         if '100' in request.POST:
             personform = PersonForm(request.POST)
             addressform = AddressFrom(request.POST)
-            companyform = CompanyForm(request.POST) 
+            companyform = CompanyForm(request.POST)
             if personform.is_valid():
                 personform.save()
                 id = Person.objects.last().id

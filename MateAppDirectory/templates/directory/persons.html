@@ -12,16 +12,16 @@
           </button>
           <div class="collapse navbar-collapse" id="personsNavbar">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
+              <li class="nav-item my-1">
                 <a class="btn btn-outline-secondary btn-sm" href="/directory/create_person/">{% trans "Add Person" %}</a>
               </li>
             </ul>
             <form class="d-flex" role="search">
               {{searchform.q}}
-              <button class="btn btn-primary" type="submit">{% trans "Search" %}</button>
+              <button class="btn btn-primary mx-2" type="submit">{% trans "Search" %}</button>
             </form>
             <div>
-              <a href="/directory/persons/0/10/" class="btn btn-outline-secondary m-2">{% trans "Clear" %}</a>
+              <a href="/directory/persons/0/10/" class="btn btn-outline-secondary my-2">{% trans "Clear" %}</a>
             </div>
           </div>
         </div>
@@ -43,8 +43,14 @@
         <tbody>
             {% for Person in person_list %}
             <tr>
+                {% if  Person.lastName and Person.firstName %}
                 <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}, {{ Person.firstName }}</a></td>
-                {% if Person.company.deleted == False %}
+                {% elif Person.lastName %}
+                <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}</a></td>
+                {% else %}
+                <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.firstName }}</a></td>
+                {% endif %}
+                {% if Person.company.deleted == False or not Person.company.id %}
                 <td><a class="nav-link" href="/directory/company/{{ Person.company.id }}/0/5">{{ Person.company.companyName }}</a></td>
                 {% else %}
                 <td>{{ Person.company.companyName }} (deleted)</td>
