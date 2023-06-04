@@ -9,6 +9,7 @@ class PersonForm(forms.ModelForm):
         fields = [
             'firstName',
             'lastName',
+            'position',
             'celphone',
             'workphone',
             'email',
@@ -19,6 +20,7 @@ class PersonForm(forms.ModelForm):
         widgets = {
             'firstName': forms.TextInput(attrs={'class':'form-control','placeholder':'First Name'}),
             'lastName': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}),
+            'position': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Position'}),
             'celphone': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Cell Phone'}),
             'workphone': forms.TextInput(attrs={'class':'form-control','placeholder':'Work Phone'}),
             'email': forms.TextInput(attrs={'class':'form-control','placeholder':'eMail','type':'email'}),

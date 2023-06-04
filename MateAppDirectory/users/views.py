@@ -53,8 +53,7 @@ def activationEmail(request, user, to_email):
     email = EmailMessage(mail_subject, message, to=[to_email])
     try:
         email.send()
-        messages.success(request, f'Dear <b>{user}</b>, please go to your email inbox and click on \
-                     the included activation link to enable your account. <b>Note:</b> Remember to check your spam folder.')
+        messages.success(request, _('Please go to your email inbox and click on the included activation link to enable your account. <b>Note:</b> Remember to check your spam folder.'))
     except:
         user.delete()
         messages.error(request, _('There was a problem sending the email. Please contact the Administrator'))    

@@ -7,6 +7,7 @@
 <div class="row py-3 justify-content-center">
     <div class="col shadow px-5 py-3 col-lg-10 rounded bg-light">
         <h2>{{person.firstName}} {{person.lastName}}</h2>
+        <h5 style="color: grey;">{{person.position}}</h5>
         <h5>
             {% if person.company.deleted == False or not Person.company.id %}
             <a class="nav-link" href="/directory/company/{{ person.company.id }}/0/5">{{ person.company.companyName }}</a>
@@ -20,11 +21,11 @@
 <div class="row row-col-2 py-3 justify-content-center">
     <div class="col shadow mx-1 px-5 py-3 mb-2 border col-lg-5 rounded">
         {% if person.celphone %}
-        <h5><a class="nav-link" id="person-whapp-link" target="_blank" href="">{{person.celphone}} <i class="bi bi-whatsapp"></i></a></h5>
+        <h5><a class="nav-link" id="person-whapp-link" target="_blank" href="">{{person.celphone}}<i class="bi bi-whatsapp m-2" style="color: green;"></i></a></h5>
         {% endif %}
 
         {% if person.email %}
-        <h5><a class="nav-link" id="mail-link" href="mailto:{{person.email}}">{{person.email}} <i class="bi bi-envelope-plus"></i></a></h5>
+        <h5><a class="nav-link" id="mail-link" href="mailto:{{person.email}}">{{person.email}}<i class="bi bi-envelope-plus m-2"></i></a></h5>
         {% endif %}
         
         <h5>{{person.workphone}}</h5>

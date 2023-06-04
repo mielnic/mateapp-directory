@@ -56,8 +56,10 @@ def search(request):
             q = searchform.cleaned_data['q']
             ln_results = Person.objects.annotate(similarity=TrigramSimilarity('lastName', q),).filter(similarity__gte=0.3, deleted=False).order_by('-similarity')
             fn_results = Person.objects.annotate(similarity=TrigramSimilarity('firstName', q),).filter(similarity__gte=0.5, deleted=False).order_by('-similarity')
+            pp_results = Person.objects.annotate(similarity=TrigramSimilarity('position', q),).filter(similarity__gte=0.5, deleted=False).order_by('-similarity')
             c_results = Company.objects.annotate(similarity=TrigramSimilarity('companyName', q),).filter(similarity__gte=0.3, deleted=False).order_by('-similarity')
-            results = sorted(chain(ln_results, fn_results, c_results),
+            ct_results = Company.objects.annotate(similarity=TrigramSimilarity('tax_id', q),).filter(similarity__gte=0.6, deleted=False).order_by('-similarity')
+            results = sorted(chain(ln_results, fn_results, c_results, pp_results, ct_results),
                              key=attrgetter('similarity'),
                              reverse=True,
                              )
