@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, response, request
 from django.contrib import messages
@@ -11,8 +12,10 @@ from itertools import chain
 from operator import attrgetter
 from django.contrib.postgres.search import TrigramSimilarity
 from django.utils.translation import gettext_lazy as _
-from .functions import paginator
+from .functions import paginator, to_link_tuple, to_lower, get_names, get_abs_virtual_root, inside_virtual_root, read_file_chunkwise, eventual_path
 from django.template import loader
+from django.conf import settings
+from django.http import StreamingHttpResponse, Http404
 
 # Create your views here.
 
@@ -134,3 +137,44 @@ def admin_trash(request, a, b):
         'idxNR' : idxNR,
     }
     return HttpResponse(template.render(context, request))
+
+def list_directory(request, directory):
+    """default view - listing of the directory"""
+    files, directories = get_names(directory)
+
+    if directory == get_abs_virtual_root():
+        directory_name = ''
+    else:
+        directory_name = os.path.basename(directory) + '/'
+
+    file_links = [to_link_tuple(directory, f) for f in sorted(files, key=to_lower)]
+    dir_links = [to_link_tuple(directory, d) for d in sorted(directories, key=to_lower)]
+    data = {
+        'directory_name': directory_name,
+        'directory_files': file_links,
+        'directory_directories': dir_links
+    }
+    template = getattr(settings, 'DIRECTORY_TEMPLATE', 'main/list.html')
+    return render(request, template, data)
+
+def download_file(request, file_path):
+    """Allows authorized user to download a given file"""
+    response = StreamingHttpResponse(content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=%s' % os.path.basename(file_path)
+    file_obj = open(file_path, 'rb')
+    response.streaming_content = read_file_chunkwise(file_obj)
+    return response
+
+
+def browse(request, path):
+    """Directory list view"""
+    eventualPath = eventual_path(os.path.join(settings.DIRECTORY_DIRECTORY, path))
+    print(eventualPath)
+    if not inside_virtual_root(eventualPath):
+        # Someone is playing tricks with .. or %2e%2e or so
+        raise Http404
+
+    if os.path.isfile(eventualPath):
+        return download_file(request, eventualPath)
+
+    return list_directory(request, eventualPath)
