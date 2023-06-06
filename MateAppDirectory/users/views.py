@@ -195,25 +195,6 @@ def passwordResetConfirm(request, uidb64, token):
     messages.error(request, _('Something went wrong, redirecting back to Homepage'))
     return redirect("/login/")
 
-# Active Users list (Admin)
-
-@login_required
-@allowed_users(allowed_roles=['admin', 'staff'])
-def users(request, a=0, b=10):
-    users_list = get_user_model().objects.order_by('last_name').filter(is_active=True) [a:b]
-    length = get_user_model().objects.filter(is_active=True).count()
-    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 10)
-    template = loader.get_template('users/users.html')
-    context = {
-        'users_list': users_list,
-        'links' : links,
-        'idxPL' : idxPL,
-        'idxPR' : idxPR,
-        'idxNL' : idxNL,
-        'idxNR' : idxNR,
-    }
-    return HttpResponse(template.render(context, request))
-
 # Inactive Users list (Admin)
 
 @login_required

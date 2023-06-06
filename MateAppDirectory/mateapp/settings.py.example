@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,7 +46,8 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     'main',
     'directory',
-    'users',   
+    'users',
+    'dbbackup',    
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"
@@ -131,7 +133,12 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR, 'static']
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static_base'),)
+STATIC_ROOT = (os.path.join(BASE_DIR, 'static'))
+
+MEDIA_URL = 'files/'
+MEDIA_ROOT = (os.path.join(BASE_DIR, 'files'))
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -167,3 +174,18 @@ REST_FRAMEWORK = {
 }
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# DDBACKUP Settings
+
+# Enable for plain sql dumps:
+# DBBACKUP_CONNECTOR_MAPPING = {'django.db.backends.postgresql_psycopg2':'dbbackup.db.postgresql.PgDumpConnector',}
+DBBACKUP_CLEANUP_KEEP = 5
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': (os.path.join(BASE_DIR, 'backup'))}
+
+""" 
+Only Linux
+
+CRONJOBS = [
+    ('0 0 * * *', 'main.cron.backup')
+] """

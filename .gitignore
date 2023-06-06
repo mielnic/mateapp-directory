@@ -27,3 +27,4 @@ node_modules/
 _pycache_/
 fixtures/
 zzz-varios/
+static/

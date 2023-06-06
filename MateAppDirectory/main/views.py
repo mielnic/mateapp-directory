@@ -1,4 +1,5 @@
 import os
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, response, request
 from django.contrib import messages
@@ -12,10 +13,9 @@ from itertools import chain
 from operator import attrgetter
 from django.contrib.postgres.search import TrigramSimilarity
 from django.utils.translation import gettext_lazy as _
-from .functions import paginator, to_link_tuple, to_lower, get_names, get_abs_virtual_root, inside_virtual_root, read_file_chunkwise, eventual_path
+from .functions import paginator
 from django.template import loader
-from django.conf import settings
-from django.http import StreamingHttpResponse, Http404
+from django.core.management import call_command
 
 # Create your views here.
 
@@ -138,43 +138,36 @@ def admin_trash(request, a, b):
     }
     return HttpResponse(template.render(context, request))
 
-def list_directory(request, directory):
-    """default view - listing of the directory"""
-    files, directories = get_names(directory)
+# Admin Home (Admin)
 
-    if directory == get_abs_virtual_root():
-        directory_name = ''
-    else:
-        directory_name = os.path.basename(directory) + '/'
-
-    file_links = [to_link_tuple(directory, f) for f in sorted(files, key=to_lower)]
-    dir_links = [to_link_tuple(directory, d) for d in sorted(directories, key=to_lower)]
-    data = {
-        'directory_name': directory_name,
-        'directory_files': file_links,
-        'directory_directories': dir_links
+@login_required
+@allowed_users(allowed_roles=['admin', 'staff'])
+def admin_home(request, a=0, b=10):
+    # Users List
+    users_list = get_user_model().objects.order_by('last_name').filter(is_active=True) [a:b]
+    length = get_user_model().objects.filter(is_active=True).count()
+    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 10)
+    # Backup files List
+    folder = 'files/backup'
+    file_list = os.listdir(folder)
+    file_list = file_list[::-1]
+    path = f'{settings.MEDIA_URL}backup/'
+    template = loader.get_template('main/admin_home.html')
+    context = {
+        'users_list': users_list,
+        'links' : links,
+        'idxPL' : idxPL,
+        'idxPR' : idxPR,
+        'idxNL' : idxNL,
+        'idxNR' : idxNR,
+        'file_list': file_list,
+        'path': path,
     }
-    template = getattr(settings, 'DIRECTORY_TEMPLATE', 'main/list.html')
-    return render(request, template, data)
+    return HttpResponse(template.render(context, request))
 
-def download_file(request, file_path):
-    """Allows authorized user to download a given file"""
-    response = StreamingHttpResponse(content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename=%s' % os.path.basename(file_path)
-    file_obj = open(file_path, 'rb')
-    response.streaming_content = read_file_chunkwise(file_obj)
-    return response
-
-
-def browse(request, path):
-    """Directory list view"""
-    eventualPath = eventual_path(os.path.join(settings.DIRECTORY_DIRECTORY, path))
-    print(eventualPath)
-    if not inside_virtual_root(eventualPath):
-        # Someone is playing tricks with .. or %2e%2e or so
-        raise Http404
-
-    if os.path.isfile(eventualPath):
-        return download_file(request, eventualPath)
-
-    return list_directory(request, eventualPath)
+@login_required
+@allowed_users(allowed_roles=['admin', 'staff'])
+def do_backup(request):
+    print('hola')
+    call_command('dbbackup', clean=True, interactive=False)
+    return redirect('/admin_home/0/10/')

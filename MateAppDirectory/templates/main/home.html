@@ -14,7 +14,6 @@
         <form method="GET">
             <div class="d-flex">
                 {{searchform.q}}
-                {% comment %} <label for="Search" class="form-label">{% trans "Search:" %}</label> {% endcomment %}
             </div>
             <br>
             <button type="submit" class="w-100 btn btn-lg-5 btn-primary">{% trans "Search" %}</button>
@@ -23,11 +22,11 @@
         {% for result in results %}
         <div class="col my-3 shadow p-4 border rounded">
         {% if result.lastName %}
-        <a class="nav-link" href="/directory/person/{{ result.id }}/">{{ result }}</a>
+        <strong><a class="nav-link" href="/directory/person/{{ result.id }}/">{{ result }}</a></strong>
         <p>{{ result.celphone }}</p>
         {% else %}
-        <a class="nav-link" href="/directory/company/{{ result.id }}/0/5/">{{ result }}</a>
-        <p>{{ result.companyphone }} </p>
+        <strong><a class="nav-link" href="/directory/company/{{ result.id }}/0/5/">{{ result }}</a></strong>
+        <p>{{ result.tax_id }} </p>
         {% endif %}
         </div>
         {% endfor %}
