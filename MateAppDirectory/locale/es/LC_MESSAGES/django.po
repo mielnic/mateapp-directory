@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MateApp 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-04 20:12-0300\n"
+"POT-Creation-Date: 2023-06-06 20:56-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,8 +22,8 @@ msgstr ""
 msgid "Select Company:"
 msgstr "Seleccione Compañía:"
 
-#: .\directory\views.py:47 .\directory\views.py:77 .\main\views.py:66
-#: .\main\views.py:116
+#: .\directory\views.py:47 .\directory\views.py:77 .\main\views.py:71
+#: .\main\views.py:121
 msgid "The search didn't return any result."
 msgstr "La búsqueda no arrojó ningún resultado."
 
@@ -39,7 +39,7 @@ msgstr "Nueva Compañía"
 msgid "Search:"
 msgstr "Buscar:"
 
-#: .\main\views.py:31 .\main\views.py:34
+#: .\main\views.py:34 .\main\views.py:37
 msgid "Incorrect Username or Password."
 msgstr "Usuario o Contraseña Incorrectos."
 
@@ -54,7 +54,7 @@ msgstr "Agregar Compañía"
 
 #: .\templates\directory\companies.html:22
 #: .\templates\directory\persons.html:22 .\templates\includes\navbar.html:24
-#: .\templates\main\admin_trash.html:22 .\templates\main\home.html:21
+#: .\templates\main\admin_trash.html:22 .\templates\main\home.html:19
 msgid "Search"
 msgstr "Buscar"
 
@@ -65,7 +65,8 @@ msgstr "Limpiar"
 
 #: .\templates\directory\companies.html:40
 #: .\templates\directory\company.html:33 .\templates\directory\persons.html:39
-#: .\templates\users\users.html:38 .\templates\users\users_inactive.html:31
+#: .\templates\main\admin_home.html:38 .\templates\main\admin_home.html:118
+#: .\templates\users\users_inactive.html:31
 msgid "Name"
 msgstr "Nombre"
 
@@ -77,7 +78,7 @@ msgstr "Teléfono"
 msgid "No companies available."
 msgstr "No hay compañias."
 
-#: .\templates\directory\company.html:34 .\templates\users\users.html:39
+#: .\templates\directory\company.html:34 .\templates\main\admin_home.html:39
 #: .\templates\users\users_inactive.html:32 .\users\forms.py:97
 msgid "eMail"
 msgstr "eMail"
@@ -221,6 +222,65 @@ msgstr "Compañías"
 msgid "Register"
 msgstr "Registrarse"
 
+#: .\templates\main\admin_home.html:9
+msgid "Users"
+msgstr "Usuarios"
+
+#: .\templates\main\admin_home.html:16 .\templates\users\create_user.html:14
+msgid "Create User"
+msgstr "Crear Usuario"
+
+#: .\templates\main\admin_home.html:19
+msgid "Show Inactive"
+msgstr "Mostrar Inactivos"
+
+#: .\templates\main\admin_home.html:22
+msgid "Admin Trash"
+msgstr "Papelera (Admin)"
+
+#: .\templates\main\admin_home.html:40 .\templates\users\users_inactive.html:33
+msgid "Status"
+msgstr "Estado"
+
+#: .\templates\main\admin_home.html:41 .\templates\users\create_user.html:64
+#: .\templates\users\users_inactive.html:34
+msgid "Is Staff?"
+msgstr "¿Es Staff?"
+
+#: .\templates\main\admin_home.html:52 .\templates\users\profile.html:25
+#: .\templates\users\user.html:26 .\templates\users\users_inactive.html:45
+msgid "Active"
+msgstr "Activo"
+
+#: .\templates\main\admin_home.html:54 .\templates\users\profile.html:27
+#: .\templates\users\user.html:28 .\templates\users\users_inactive.html:47
+msgid "Inactive"
+msgstr "Inactivo"
+
+#: .\templates\main\admin_home.html:57 .\templates\users\users_inactive.html:50
+msgid "Yes"
+msgstr "Si"
+
+#: .\templates\main\admin_home.html:59 .\templates\users\users_inactive.html:52
+msgid "No"
+msgstr "No"
+
+#: .\templates\main\admin_home.html:87 .\templates\users\users_inactive.html:80
+msgid "No users available."
+msgstr "No existen usuarios inactivos."
+
+#: .\templates\main\admin_home.html:95
+msgid "Backups"
+msgstr "Backups"
+
+#: .\templates\main\admin_home.html:102
+msgid "New Backup"
+msgstr "Nuevo Backup"
+
+#: .\templates\main\admin_home.html:136
+msgid "No backups available."
+msgstr "No existen backups."
+
 #: .\templates\main\admin_trash.html:9 .\templates\main\user_trash.html:9
 msgid "Trash"
 msgstr "Papelera"
@@ -262,10 +322,6 @@ msgid ""
 "Directory:"
 msgstr "Por favor haga click en el link de abajo para completar su registro."
 
-#: .\templates\users\create_user.html:14 .\templates\users\users.html:16
-msgid "Create User"
-msgstr "Crear Usuario"
-
 #: .\templates\users\create_user.html:44
 #: .\templates\users\password_change.html:25
 #: .\templates\users\registration.html:47
@@ -299,11 +355,6 @@ msgstr "Reingrese su contraseña:"
 #: .\templates\users\create_user.html:60 .\templates\users\edit_user.html:33
 msgid "Is Active?"
 msgstr "¿Está Activo?"
-
-#: .\templates\users\create_user.html:64 .\templates\users\users.html:41
-#: .\templates\users\users_inactive.html:34
-msgid "Is Staff?"
-msgstr "¿Es Staff?"
 
 #: .\templates\users\edit_user.html:14
 msgid "Editing User:"
@@ -394,16 +445,6 @@ msgstr "Regular"
 msgid "User Status:"
 msgstr "Estado del Usuario:"
 
-#: .\templates\users\profile.html:25 .\templates\users\user.html:26
-#: .\templates\users\users.html:52 .\templates\users\users_inactive.html:45
-msgid "Active"
-msgstr "Activo"
-
-#: .\templates\users\profile.html:27 .\templates\users\user.html:28
-#: .\templates\users\users.html:54 .\templates\users\users_inactive.html:47
-msgid "Inactive"
-msgstr "Inactivo"
-
 #: .\templates\users\profile_edit.html:12
 msgid "Profile Update for:"
 msgstr "Actualización del perfil de:"
@@ -423,34 +464,6 @@ msgstr "Solo direcciones del dominio "
 #: .\templates\users\registration.html:23
 msgid "addresses will be processed."
 msgstr "serán procesadas"
-
-#: .\templates\users\users.html:9
-msgid "Users"
-msgstr "Usuarios"
-
-#: .\templates\users\users.html:19
-msgid "Show Inactive"
-msgstr "Mostrar Inactivos"
-
-#: .\templates\users\users.html:22
-msgid "Admin Trash"
-msgstr "Papelera (Admin)"
-
-#: .\templates\users\users.html:40 .\templates\users\users_inactive.html:33
-msgid "Status"
-msgstr "Estado"
-
-#: .\templates\users\users.html:57 .\templates\users\users_inactive.html:50
-msgid "Yes"
-msgstr "Si"
-
-#: .\templates\users\users.html:59 .\templates\users\users_inactive.html:52
-msgid "No"
-msgstr "No"
-
-#: .\templates\users\users.html:87 .\templates\users\users_inactive.html:80
-msgid "No users available."
-msgstr "No existen usuarios inactivos."
 
 #: .\templates\users\users_inactive.html:15
 msgid "Show Active"
