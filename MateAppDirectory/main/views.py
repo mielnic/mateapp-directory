@@ -148,7 +148,7 @@ def admin_home(request, a=0, b=10):
     length = get_user_model().objects.filter(is_active=True).count()
     links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 10)
     # Backup files List
-    folder = 'files/backup'
+    folder = f'{settings.MEDIA_ROOT}/backup/'
     file_list = os.listdir(folder)
     file_list = file_list[::-1]
     path = f'{settings.MEDIA_URL}backup/'
