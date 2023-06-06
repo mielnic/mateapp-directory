@@ -16,6 +16,9 @@ settings.py
 todo.txt
 Search-Materialized-View.pgsql
 document.pgsql
+!login.html
+!logout.svg
+!login.svg
 
 # Carpetas
 docs/
