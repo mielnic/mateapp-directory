@@ -19,6 +19,7 @@ document.pgsql
 !login.html
 !logout.svg
 !login.svg
+!login.js
 
 # Carpetas
 docs/
