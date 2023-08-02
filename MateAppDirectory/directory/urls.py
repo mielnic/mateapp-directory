@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .api import CompanyViewSet, AddressViewSet
+from .api import CompanyViewSet, AddressViewSet, PersonViewSet
 from . import views
 from rest_framework import routers
 
@@ -8,11 +8,10 @@ app_name = 'directory'
 router = routers.DefaultRouter()
 router.register(r'companies', CompanyViewSet, 'companies')
 router.register(r'address', AddressViewSet, 'address')
+router.register(r'persons', PersonViewSet, 'persons')
 
 urlpatterns = [
     path('', views.index, name='Index'),
-    # path('login/', views.login, name='login'),
-    # path('signout/', views.signout, name='Logout'),
     # List
     path('persons/<int:a>/<int:b>/', views.persons, name='Persons'),
     path('companies/<int:a>/<int:b>/', views.companies, name='Companies'),

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MateApp 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 20:56-0300\n"
+"POT-Creation-Date: 2023-08-02 14:15-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,11 +27,11 @@ msgstr "Seleccione Compañía:"
 msgid "The search didn't return any result."
 msgstr "La búsqueda no arrojó ningún resultado."
 
-#: .\directory\views.py:226
+#: .\directory\views.py:227
 msgid "New Person"
 msgstr "Nueva Persona"
 
-#: .\directory\views.py:321 .\templates\directory\create_person.html:35
+#: .\directory\views.py:322 .\templates\directory\create_person.html:35
 msgid "New Company"
 msgstr "Nueva Compañía"
 
@@ -53,7 +53,7 @@ msgid "Add Company"
 msgstr "Agregar Compañía"
 
 #: .\templates\directory\companies.html:22
-#: .\templates\directory\persons.html:22 .\templates\includes\navbar.html:24
+#: .\templates\directory\persons.html:22 .\templates\includes\navbar.html:30
 #: .\templates\main\admin_trash.html:22 .\templates\main\home.html:19
 msgid "Search"
 msgstr "Buscar"
@@ -145,27 +145,27 @@ msgstr "País:"
 msgid "Postal Code:"
 msgstr "Código Postal:"
 
-#: .\templates\directory\create_company.html:82
-#: .\templates\directory\create_person.html:148
+#: .\templates\directory\create_company.html:81
+#: .\templates\directory\create_person.html:147
 #: .\templates\users\create_user.html:70 .\templates\users\edit_user.html:43
-#: .\templates\users\profile_edit.html:34
+#: .\templates\users\profile_edit.html:32
 msgid "Save"
 msgstr "Guardar"
 
+#: .\templates\directory\create_company.html:83
 #: .\templates\directory\create_company.html:85
-#: .\templates\directory\create_company.html:87
-#: .\templates\directory\create_person.html:150
-#: .\templates\directory\create_person.html:152
+#: .\templates\directory\create_person.html:149
+#: .\templates\directory\create_person.html:151
 #: .\templates\users\create_user.html:71 .\templates\users\edit_user.html:44
 #: .\templates\users\password_change.html:41
 #: .\templates\users\password_reset.html:26
-#: .\templates\users\profile_edit.html:35
-#: .\templates\users\registration.html:63
+#: .\templates\users\profile_edit.html:33
+#: .\templates\users\registration.html:62
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: .\templates\directory\create_company.html:99
-#: .\templates\directory\create_person.html:163
+#: .\templates\directory\create_company.html:97
+#: .\templates\directory\create_person.html:162
 msgid "Notes:"
 msgstr "Notas:"
 
@@ -218,7 +218,24 @@ msgstr "Agregar Persona"
 msgid "Company"
 msgstr "Compañías"
 
-#: .\templates\includes\navbar.html:58 .\templates\users\registration.html:62
+#: .\templates\includes\navbar.html:35 .\templates\main\admin_trash.html:9
+#: .\templates\main\user_trash.html:9
+msgid "Trash"
+msgstr "Papelera"
+
+#: .\templates\includes\navbar.html:41
+msgid "Admin"
+msgstr "Admin"
+
+#: .\templates\includes\navbar.html:47
+msgid "Profile"
+msgstr "Perfil"
+
+#: .\templates\includes\navbar.html:52
+msgid "Logout"
+msgstr "Logout"
+
+#: .\templates\includes\navbar.html:60 .\templates\users\registration.html:61
 msgid "Register"
 msgstr "Registrarse"
 
@@ -280,10 +297,6 @@ msgstr "Nuevo Backup"
 #: .\templates\main\admin_home.html:136
 msgid "No backups available."
 msgstr "No existen backups."
-
-#: .\templates\main\admin_trash.html:9 .\templates\main\user_trash.html:9
-msgid "Trash"
-msgstr "Papelera"
 
 #: .\templates\main\admin_trash.html:16 .\templates\users\user.html:33
 msgid "Back"
@@ -449,7 +462,7 @@ msgstr "Estado del Usuario:"
 msgid "Profile Update for:"
 msgstr "Actualización del perfil de:"
 
-#: .\templates\users\profile_edit.html:30
+#: .\templates\users\profile_edit.html:29
 msgid "Change Password"
 msgstr "Cambiar Contraseña"
 

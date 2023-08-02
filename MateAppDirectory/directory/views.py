@@ -132,6 +132,7 @@ def company(request, id, a, b):
 
 @login_required
 def create_person(request):
+    print(request)
     if request.method == 'POST':
         if '100' in request.POST:
             personform = PersonForm(request.POST)

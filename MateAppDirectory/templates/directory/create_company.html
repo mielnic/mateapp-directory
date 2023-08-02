@@ -77,14 +77,12 @@
                     <label for="id_postalecode">{% trans "Postal Code:" %}</label>
                 </div>
             </p>
-            <div class="col d-flex justify-content-between px-5 py-3 col-lg-10">
-        
+            <div class="d-flex justify-content-center my-3 px-5 py-3">
                 <p><button type="submit" class="btn btn-primary px-3 mx-2">{% trans "Save" %}</button></p>
-            
                 {% if company.id %}
-                <p><a href="/directory/company/{{ company.id }}/0/5/" class="btn btn-secondary" role="button">{% trans "Cancel" %}</a></p>
+                <p><a href="/directory/company/{{ company.id }}/0/5/" class="btn btn-secondary mx-2 px-4" role="button">{% trans "Cancel" %}</a></p>
                 {% else %}
-                <p><a href="/directory/companies/0/10/" class="btn btn-secondary" role="button">{% trans "Cancel" %}</a></p>
+                <p><a href="/directory/companies/0/10/" class="btn btn-secondary mx-2 px-4" role="button">{% trans "Cancel" %}</a></p>
                 {% endif %}
     
             </div>

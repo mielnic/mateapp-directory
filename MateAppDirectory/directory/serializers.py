@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Company, Address
+from .models import Company, Address, Person
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,6 +33,7 @@ class AddressSerializer(serializers.ModelSerializer):
             'city',
             'state',
             'country',
+            'deleted',
         ]
         read_only_fields = [
             'id',
@@ -41,4 +42,35 @@ class AddressSerializer(serializers.ModelSerializer):
             'city',
             'state',
             'country',
+            'deleted',
+        ]
+
+class PersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        Model = Person
+        fields = [
+            'id',
+            'lastName',
+            'firstName',
+            'celphone',
+            'workphone',
+            'email',
+            'position',
+            'address',
+            'notes',
+            'company',
+            'deleted',
+        ]
+        read_only_fields = [
+            'id',
+            'lastName',
+            'firstName',
+            'celphone',
+            'workphone',
+            'email',
+            'position',
+            'address',
+            'notes',
+            'company',
+            'deleted',
         ]
