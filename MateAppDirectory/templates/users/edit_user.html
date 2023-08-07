@@ -2,6 +2,10 @@
 {% load static %}
 {% load i18n %}
 
+{% block navbar %}
+{% include 'includes/admin_navbar.html' %}
+{% endblock navbar %}
+
 {% block content %}
 
 <form method="post">
@@ -9,7 +13,7 @@
     {% csrf_token %}
 
     <div class="row row-col-1 py-3 justify-content-center">
-        <div class="col shadow m-5 p-4 border col-md-5 rounded">
+        <div class="col shadow m-5 p-4 border col-lg-5 rounded">
             <div style="text-align: center;">
                 <h2>{% trans "Editing User:" %}</h2>
                 <h3>{{muser.email}}</h3>
@@ -40,7 +44,7 @@
 
             <p>
                 <div class="col d-flex justify-content-center px-5 py-3 col-lg-15">
-                    <p><button class="btn btn-primary px-4 mx-2" type="submit">{% trans "Save" %}</button></p>
+                    <p><button class="btn btn-success px-4 mx-2" type="submit">{% trans "Save" %}</button></p>
                     <p><a href="/admin_home/0/10/" class="btn btn-secondary px-4 mx-2" role="button">{% trans "Cancel" %}</a></p>
                 </div>
             </p>

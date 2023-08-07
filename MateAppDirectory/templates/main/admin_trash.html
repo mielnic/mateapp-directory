@@ -1,25 +1,26 @@
 {% extends 'main/base.html' %}
 {% load i18n %}
 
+{% block navbar %}
+{% include 'includes/admin_navbar.html' %}
+{% endblock navbar %}
+
 {% block content %}
 <div class="row mt-3 justify-content-md-center">
     <div class="col shadow p-2 col-lg-10 rounded bg-light">
       <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid px-4">
-          <a class="navbar-brand" href=""><h2>{% trans "Trash" %}</h2></a>
+          <a class="navbar-brand" href=""><h4><i class="bi bi-trash"></i>&nbsp;{% trans "System Trash" %}</h4></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#trashNavbar" aria-controls="trashNavbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="trashNavbar">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="btn btn-outline-secondary btn-sm" href="/admin_home/0/10/">{% trans "Back" %}</a>
-            </li>
             </ul>
             <div>
             <form class="d-flex" role="search">
                 {{searchform.q}}
-                <button class="btn btn-primary mx-2" type="submit">{% trans "Search" %}</button>
+                <button class="btn btn-success mx-2" type="submit">{% trans "Search" %}</button>
               </form>
             </div>
               <div><a href="/admin_trash/0/10/" class="btn btn-outline-secondary my-2">{% trans "Clear" %}</a></div>
@@ -44,9 +45,9 @@
             </td>
             <td>
               {% if trash.lastName %}
-              <div><a class="btn btn-primary btn-sm" href="/directory/restore_person/{{ trash.id }}/1">{% trans "Restore" %}</a></div>
+              <div><a class="btn btn-success btn-sm" href="/directory/restore_person/{{ trash.id }}/1">{% trans "Restore" %}</a></div>
               {% else %}
-                <div><a class="btn btn-primary btn-sm" href="/directory/restore_company/{{ trash.id }}/1">{% trans "Restore" %}</a></div>
+                <div><a class="btn btn-success btn-sm" href="/directory/restore_company/{{ trash.id }}/1">{% trans "Restore" %}</a></div>
               {% endif %}
             </td>
         </tr>

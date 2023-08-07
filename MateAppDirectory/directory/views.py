@@ -30,7 +30,7 @@ def index(response):
 # Persons List
 
 @login_required
-def persons(request, a=0, b=10):
+def persons(request, a, b):
     searchform = SearchForm
     if 'q' in request.GET:
         searchform = SearchForm(request.GET)
@@ -48,7 +48,7 @@ def persons(request, a=0, b=10):
     else:
         person_list = Person.objects.order_by('lastName').select_related('company').filter(deleted=False) [a:b]
         length = Person.objects.filter(deleted=False).count()
-        links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 10)
+        links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
         template = loader.get_template('directory/persons.html')
     context = {
         'person_list': person_list,
@@ -79,7 +79,7 @@ def companies(request, a, b):
     else:
         companies_list = Company.objects.order_by('companyName').select_related('address').filter(deleted=False) [a:b]
         length = Company.objects.filter(deleted=False).count()
-        links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 10)
+        links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
         template = loader.get_template('directory/companies.html')
 
     context = {
@@ -111,7 +111,7 @@ def company(request, id, a, b):
     company = Company.objects.get(id=id)
     person_list = Person.objects.filter(company_id=id).filter(deleted=False) [a:b]
     length = Person.objects.filter(company_id=id).filter(deleted=False).count()
-    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 5)
+    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
     template = loader.get_template('directory/company.html')
     context = {
         'company' : company,

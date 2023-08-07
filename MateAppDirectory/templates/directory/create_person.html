@@ -2,6 +2,10 @@
 {% load static %}
 {% load i18n %}
 
+{% block navbar %}
+{% include 'includes/navbar.html' %}
+{% endblock navbar %}
+
 {% block content %}
 
 
@@ -38,7 +42,7 @@
             {% if title %}
             <div class="col col-6 col-md-3">
                 <p>
-                    <div id="new_company" class="btn btn-primary btn-sm" onclick="toggle()">{% trans "Add Company" %}</div>
+                    <div id="new_company" class="btn btn-success btn-sm" onclick="toggle()">{% trans "Add Company" %}</div>
                 </p>
             </div>
             {% endif %}
@@ -144,7 +148,7 @@
             </div>
         </p>
         <div class="d-flex justify-content-center my-3 px-5 py-3">
-            <p><button type="submit" id="save_button" name="100" value="100" class="btn btn-primary px-3 mx-2">{% trans "Save" %}</button></p>
+            <p><button type="submit" id="save_button" name="100" value="100" class="btn btn-success px-3 mx-2">{% trans "Save" %}</button></p>
             {% if person.id %}
             <p><a href="/directory/person/{{ person.id }}" class="btn btn-secondary mx-2 px-4" role="button">{% trans "Cancel" %}</a></p>
             {% else %}

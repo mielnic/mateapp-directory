@@ -1,5 +1,10 @@
 {% extends 'main/base.html' %}
 {% load i18n %}
+
+{% block navbar %}
+{% include 'includes/navbar.html' %}
+{% endblock navbar %}
+
 {% block content %}
 
 <div class="row py-3 justify-content-center">
@@ -29,7 +34,7 @@
     <div class="table-responsive">
     <table class="table table-hover" id="person_list" name="Person_List">
         <!-- Cabecera de Tabla -->
-        <thead class="table-primary">
+        <thead class="table-success">
             <th>{% trans "Name" %}</th>
             <th>{% trans "eMail" %}</th>
             <th>{% trans "CellPhone" %}

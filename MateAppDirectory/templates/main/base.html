@@ -13,7 +13,8 @@
 </head>
 <body>
     
-    {% include 'includes/navbar.html' %}
+    {% block navbar %}
+    {% endblock navbar %}
     <br>
     <div class="container-sm" id="messaging" name="messaging">
         {% include 'includes/messaging.html' %}

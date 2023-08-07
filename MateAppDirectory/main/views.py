@@ -85,11 +85,12 @@ def user_trash(request, a, b):
     deleted_companies_list = Company.objects.filter(deleted=True, deletedBy=uid)
     deleted_person_list = Person.objects.filter(deleted=True, deletedBy=uid)
     trash = list(chain(deleted_person_list, deleted_companies_list))
+    trash_list = trash [a:b]
     length = len(trash)
-    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 10)
+    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
     template = loader.get_template('main/user_trash.html')
     context = {
-        'trash_list': trash,
+        'trash_list': trash_list,
         'links' : links,
         'idxPL' : idxPL,
         'idxPR' : idxPR,
@@ -123,13 +124,14 @@ def admin_trash(request, a, b):
         deleted_companies_list = Company.objects.filter(deleted=True)
         deleted_person_list = Person.objects.filter(deleted=True)
         trash = list(chain(deleted_person_list, deleted_companies_list))
+        trash_list = trash [a:b]
         length = len(trash)
-        links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 10)
+        links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
         template = loader.get_template('main/admin_trash.html')
     
     context = {
         'searchform' : searchform,
-        'trash_list': trash,
+        'trash_list': trash_list,
         'links' : links,
         'idxPL' : idxPL,
         'idxPR' : idxPR,
@@ -142,11 +144,11 @@ def admin_trash(request, a, b):
 
 @login_required
 @allowed_users(allowed_roles=['admin', 'staff'])
-def admin_home(request, a=0, b=10):
+def admin_home(request, a, b):
     # Users List
     users_list = get_user_model().objects.order_by('last_name').filter(is_active=True) [a:b]
     length = get_user_model().objects.filter(is_active=True).count()
-    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, 10)
+    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
     # Backup files List
     folder = f'{settings.MEDIA_ROOT}/backup/'
     file_list = os.listdir(folder)
