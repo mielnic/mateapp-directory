@@ -112,13 +112,13 @@ def admin_trash(request, a, b):
             ln_results = Person.objects.annotate(similarity=TrigramSimilarity('lastName', q),).filter(similarity__gte=0.3, deleted=True).order_by('-similarity')
             fn_results = Person.objects.annotate(similarity=TrigramSimilarity('firstName', q),).filter(similarity__gte=0.5, deleted=True).order_by('-similarity')
             c_results = Company.objects.annotate(similarity=TrigramSimilarity('companyName', q),).filter(similarity__gte=0.3, deleted=True).order_by('-similarity')
-            trash = sorted(chain(ln_results, fn_results, c_results),
+            trash_list = sorted(chain(ln_results, fn_results, c_results),
                              key=attrgetter('similarity'),
                              reverse=True,
                              )
             links, idxPL, idxPR, idxNL, idxNR = '', '', '', '', ''
             template = loader.get_template('main/admin_trash.html')
-            if trash == []:
+            if trash_list == []:
                 messages.warning(request, _("The search didn't return any result."))
     else:
         deleted_companies_list = Company.objects.filter(deleted=True)

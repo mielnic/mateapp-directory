@@ -64,6 +64,7 @@ class CustomUserEditForm(UserChangeForm):
             "last_name",
             "is_active",
             "is_staff",
+            "is_superuser",
             ]
         
         widgets = {
@@ -71,6 +72,7 @@ class CustomUserEditForm(UserChangeForm):
             'last_name': forms.TextInput(attrs={'class':'form-control','placeholder':'Last Name'}),
             'is_staff' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
             'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
+            'is_superuser' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
         }
 
 class ChangePasswordForm(UserCreationForm):

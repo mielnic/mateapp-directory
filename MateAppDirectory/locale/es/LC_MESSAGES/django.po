@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MateApp 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-03 17:03-0300\n"
+"POT-Creation-Date: 2023-08-18 20:00-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,420 +18,411 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\MateAppDirectory\directory\forms.py:34
+#: .\directory\forms.py:34
 msgid "Select Company:"
 msgstr "Seleccione Compañía:"
 
-#: .\MateAppDirectory\directory\views.py:47
-#: .\MateAppDirectory\directory\views.py:77 .\MateAppDirectory\main\views.py:71
-#: .\MateAppDirectory\main\views.py:121
+#: .\directory\views.py:47 .\directory\views.py:77 .\main\views.py:71
+#: .\main\views.py:122
 msgid "The search didn't return any result."
 msgstr "La búsqueda no arrojó ningún resultado."
 
-#: .\MateAppDirectory\directory\views.py:227
+#: .\directory\views.py:227
 msgid "New Person"
 msgstr "Nueva Persona"
 
-#: .\MateAppDirectory\directory\views.py:322
-#: .\MateAppDirectory\templates\directory\create_person.html:35
+#: .\directory\views.py:322 .\templates\directory\create_person.html:39
 msgid "New Company"
 msgstr "Nueva Compañía"
 
-#: .\MateAppDirectory\main\forms.py:8
+#: .\main\forms.py:8
 msgid "Search:"
 msgstr "Buscar:"
 
-#: .\MateAppDirectory\main\views.py:34 .\MateAppDirectory\main\views.py:37
+#: .\main\views.py:34 .\main\views.py:37
 msgid "Incorrect Username or Password."
 msgstr "Usuario o Contraseña Incorrectos."
 
-#: .\MateAppDirectory\templates\directory\companies.html:10
-#: .\MateAppDirectory\templates\includes\navbar.html:21
+#: .\templates\directory\companies.html:16
+#: .\templates\directory\companies.html:23 .\templates\includes\navbar.html:26
 msgid "Companies"
 msgstr "Compañías"
 
-#: .\MateAppDirectory\templates\directory\companies.html:17
-#: .\MateAppDirectory\templates\directory\create_person.html:41
+#: .\templates\directory\companies.html:29
+#: .\templates\directory\companies.html:42
+#: .\templates\directory\create_person.html:45
 msgid "Add Company"
 msgstr "Agregar Compañía"
 
-#: .\MateAppDirectory\templates\directory\companies.html:22
-#: .\MateAppDirectory\templates\directory\persons.html:22
-#: .\MateAppDirectory\templates\includes\navbar.html:30
-#: .\MateAppDirectory\templates\main\admin_trash.html:22
-#: .\MateAppDirectory\templates\main\home.html:19
+#: .\templates\directory\companies.html:32
+#: .\templates\directory\companies.html:47
+#: .\templates\directory\persons.html:31 .\templates\directory\persons.html:46
+#: .\templates\includes\navbar.html:36 .\templates\includes\navbar.html:83
+#: .\templates\main\admin_trash.html:23 .\templates\main\home.html:23
 msgid "Search"
 msgstr "Buscar"
 
-#: .\MateAppDirectory\templates\directory\companies.html:25
-#: .\MateAppDirectory\templates\directory\persons.html:25
-#: .\MateAppDirectory\templates\main\admin_trash.html:25
+#: .\templates\directory\companies.html:33
+#: .\templates\directory\companies.html:50
+#: .\templates\directory\persons.html:32 .\templates\directory\persons.html:49
+#: .\templates\main\admin_trash.html:26
 msgid "Clear"
 msgstr "Limpiar"
 
-#: .\MateAppDirectory\templates\directory\companies.html:40
-#: .\MateAppDirectory\templates\directory\company.html:33
-#: .\MateAppDirectory\templates\directory\persons.html:39
-#: .\MateAppDirectory\templates\main\admin_home.html:38
-#: .\MateAppDirectory\templates\main\admin_home.html:118
-#: .\MateAppDirectory\templates\users\users_inactive.html:31
+#: .\templates\directory\companies.html:67
+#: .\templates\directory\company.html:38 .\templates\directory\persons.html:65
+#: .\templates\main\admin_home.html:24 .\templates\main\admin_home.html:93
+#: .\templates\users\users_inactive.html:24
 msgid "Name"
 msgstr "Nombre"
 
-#: .\MateAppDirectory\templates\directory\companies.html:41
+#: .\templates\directory\companies.html:68
 msgid "Phone"
 msgstr "Teléfono"
 
-#: .\MateAppDirectory\templates\directory\companies.html:77
+#: .\templates\directory\companies.html:104
 msgid "No companies available."
 msgstr "No hay compañias."
 
-#: .\MateAppDirectory\templates\directory\company.html:34
-#: .\MateAppDirectory\templates\main\admin_home.html:39
-#: .\MateAppDirectory\templates\users\users_inactive.html:32
-#: .\MateAppDirectory\users\forms.py:97
+#: .\templates\directory\company.html:39 .\templates\main\admin_home.html:25
+#: .\templates\users\users_inactive.html:25 .\users\forms.py:99
 msgid "eMail"
 msgstr "eMail"
 
-#: .\MateAppDirectory\templates\directory\company.html:35
-#: .\MateAppDirectory\templates\directory\persons.html:41
+#: .\templates\directory\company.html:40 .\templates\directory\persons.html:67
 msgid "CellPhone"
 msgstr "Celular"
 
-#: .\MateAppDirectory\templates\directory\company.html:73
-#: .\MateAppDirectory\templates\directory\persons.html:86
+#: .\templates\directory\company.html:78 .\templates\directory\persons.html:112
 msgid "No persons available."
 msgstr "No hay personas."
 
-#: .\MateAppDirectory\templates\directory\company.html:88
-#: .\MateAppDirectory\templates\directory\person.html:52
-#: .\MateAppDirectory\templates\users\profile.html:31
-#: .\MateAppDirectory\templates\users\user.html:32
+#: .\templates\directory\company.html:93 .\templates\directory\person.html:56
+#: .\templates\users\profile.html:36 .\templates\users\user.html:37
 msgid "Edit"
 msgstr "Editar"
 
-#: .\MateAppDirectory\templates\directory\company.html:89
-#: .\MateAppDirectory\templates\main\admin_trash.html:16
-#: .\MateAppDirectory\templates\users\user.html:33
+#: .\templates\directory\company.html:94 .\templates\directory\person.html:57
+#: .\templates\users\user.html:38
 msgid "Back"
 msgstr "Volver"
 
-#: .\MateAppDirectory\templates\directory\company.html:91
-#: .\MateAppDirectory\templates\directory\person.html:53
-#: .\MateAppDirectory\templates\main\user_trash.html:37
-#: .\MateAppDirectory\templates\main\user_trash.html:39
+#: .\templates\directory\company.html:96 .\templates\directory\person.html:58
+#: .\templates\main\user_trash.html:41 .\templates\main\user_trash.html:43
 msgid "Delete"
 msgstr "Borrar"
 
-#: .\MateAppDirectory\templates\directory\create_company.html:27
-#: .\MateAppDirectory\templates\directory\create_person.html:51
+#: .\templates\directory\create_company.html:32
+#: .\templates\directory\create_person.html:55
 msgid "Company Name:"
 msgstr "Nombre:"
 
-#: .\MateAppDirectory\templates\directory\create_company.html:33
-#: .\MateAppDirectory\templates\directory\create_person.html:57
+#: .\templates\directory\create_company.html:38
+#: .\templates\directory\create_person.html:61
 msgid "Tax ID:"
 msgstr "Identificación Tributaria:"
 
-#: .\MateAppDirectory\templates\directory\create_company.html:39
-#: .\MateAppDirectory\templates\directory\create_person.html:63
+#: .\templates\directory\create_company.html:44
+#: .\templates\directory\create_person.html:67
 msgid "Website:"
 msgstr "Sitio Web:"
 
-#: .\MateAppDirectory\templates\directory\create_company.html:45
-#: .\MateAppDirectory\templates\directory\create_person.html:69
+#: .\templates\directory\create_company.html:50
+#: .\templates\directory\create_person.html:73
 msgid "Company Phone:"
 msgstr "Teléfono:"
 
-#: .\MateAppDirectory\templates\directory\create_company.html:53
-#: .\MateAppDirectory\templates\directory\create_person.html:119
+#: .\templates\directory\create_company.html:58
+#: .\templates\directory\create_person.html:123
 msgid "Street:"
 msgstr "Calle:"
 
-#: .\MateAppDirectory\templates\directory\create_company.html:59
-#: .\MateAppDirectory\templates\directory\create_person.html:125
+#: .\templates\directory\create_company.html:64
+#: .\templates\directory\create_person.html:129
 msgid "City:"
 msgstr "Ciudad:"
 
-#: .\MateAppDirectory\templates\directory\create_company.html:65
+#: .\templates\directory\create_company.html:70
 msgid "State:"
 msgstr "Estado:"
 
-#: .\MateAppDirectory\templates\directory\create_company.html:71
-#: .\MateAppDirectory\templates\directory\create_person.html:137
+#: .\templates\directory\create_company.html:76
+#: .\templates\directory\create_person.html:141
 msgid "Country:"
 msgstr "País:"
 
-#: .\MateAppDirectory\templates\directory\create_company.html:77
-#: .\MateAppDirectory\templates\directory\create_person.html:143
+#: .\templates\directory\create_company.html:82
+#: .\templates\directory\create_person.html:147
 msgid "Postal Code:"
 msgstr "Código Postal:"
 
-#: .\MateAppDirectory\templates\directory\create_company.html:81
-#: .\MateAppDirectory\templates\directory\create_person.html:147
-#: .\MateAppDirectory\templates\users\create_user.html:70
-#: .\MateAppDirectory\templates\users\edit_user.html:43
-#: .\MateAppDirectory\templates\users\profile_edit.html:32
+#: .\templates\directory\create_company.html:86
+#: .\templates\directory\create_person.html:151
+#: .\templates\users\create_user.html:74 .\templates\users\edit_user.html:51
+#: .\templates\users\profile_edit.html:37
 msgid "Save"
 msgstr "Guardar"
 
-#: .\MateAppDirectory\templates\directory\create_company.html:83
-#: .\MateAppDirectory\templates\directory\create_company.html:85
-#: .\MateAppDirectory\templates\directory\create_person.html:149
-#: .\MateAppDirectory\templates\directory\create_person.html:151
-#: .\MateAppDirectory\templates\users\create_user.html:71
-#: .\MateAppDirectory\templates\users\edit_user.html:44
-#: .\MateAppDirectory\templates\users\password_change.html:41
-#: .\MateAppDirectory\templates\users\password_reset.html:26
-#: .\MateAppDirectory\templates\users\profile_edit.html:33
-#: .\MateAppDirectory\templates\users\registration.html:64
+#: .\templates\directory\create_company.html:88
+#: .\templates\directory\create_company.html:90
+#: .\templates\directory\create_person.html:153
+#: .\templates\directory\create_person.html:155
+#: .\templates\users\create_user.html:75 .\templates\users\edit_user.html:52
+#: .\templates\users\password_change.html:45
+#: .\templates\users\password_reset.html:30
+#: .\templates\users\profile_edit.html:38
+#: .\templates\users\registration.html:69
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: .\MateAppDirectory\templates\directory\create_company.html:97
-#: .\MateAppDirectory\templates\directory\create_person.html:162
+#: .\templates\directory\create_company.html:102
+#: .\templates\directory\create_person.html:166
 msgid "Notes:"
 msgstr "Notas:"
 
-#: .\MateAppDirectory\templates\directory\create_person.html:81
-#: .\MateAppDirectory\templates\users\create_user.html:26
-#: .\MateAppDirectory\templates\users\edit_user.html:21
-#: .\MateAppDirectory\templates\users\profile_edit.html:20
-#: .\MateAppDirectory\templates\users\registration.html:31
+#: .\templates\directory\create_person.html:85
+#: .\templates\users\create_user.html:30 .\templates\users\edit_user.html:25
+#: .\templates\users\profile_edit.html:25
+#: .\templates\users\registration.html:36
 msgid "First Name:"
 msgstr "Nombre:"
 
-#: .\MateAppDirectory\templates\directory\create_person.html:87
-#: .\MateAppDirectory\templates\users\create_user.html:32
-#: .\MateAppDirectory\templates\users\edit_user.html:27
-#: .\MateAppDirectory\templates\users\profile_edit.html:26
-#: .\MateAppDirectory\templates\users\registration.html:37
+#: .\templates\directory\create_person.html:91
+#: .\templates\users\create_user.html:36 .\templates\users\edit_user.html:31
+#: .\templates\users\profile_edit.html:31
+#: .\templates\users\registration.html:42
 msgid "Last Name:"
 msgstr "Apellido:"
 
-#: .\MateAppDirectory\templates\directory\create_person.html:93
+#: .\templates\directory\create_person.html:97
 msgid "Position:"
 msgstr "Cargo:"
 
-#: .\MateAppDirectory\templates\directory\create_person.html:99
+#: .\templates\directory\create_person.html:103
 msgid "Cell Phone:"
 msgstr "Celular:"
 
-#: .\MateAppDirectory\templates\directory\create_person.html:105
-#: .\MateAppDirectory\templates\users\create_user.html:20
-#: .\MateAppDirectory\templates\users\password_reset.html:21
-#: .\MateAppDirectory\templates\users\profile.html:14
-#: .\MateAppDirectory\templates\users\registration.html:18
-#: .\MateAppDirectory\templates\users\user.html:15
+#: .\templates\directory\create_person.html:109
+#: .\templates\users\create_user.html:24
+#: .\templates\users\password_reset.html:25 .\templates\users\profile.html:19
+#: .\templates\users\registration.html:23 .\templates\users\user.html:20
 msgid "eMail:"
 msgstr "eMail:"
 
-#: .\MateAppDirectory\templates\directory\create_person.html:111
+#: .\templates\directory\create_person.html:115
 msgid "Work Phone:"
 msgstr "Teléfono:"
 
-#: .\MateAppDirectory\templates\directory\create_person.html:131
+#: .\templates\directory\create_person.html:135
 msgid "State"
 msgstr "Estado"
 
-#: .\MateAppDirectory\templates\directory\persons.html:10
-#: .\MateAppDirectory\templates\includes\navbar.html:18
+#: .\templates\directory\persons.html:15 .\templates\directory\persons.html:22
+#: .\templates\includes\navbar.html:23
 msgid "Persons"
 msgstr "Personas"
 
-#: .\MateAppDirectory\templates\directory\persons.html:17
+#: .\templates\directory\persons.html:28 .\templates\directory\persons.html:41
 msgid "Add Person"
 msgstr "Agregar Persona"
 
-#: .\MateAppDirectory\templates\directory\persons.html:40
+#: .\templates\directory\persons.html:66
 msgid "Company"
 msgstr "Compañías"
 
-#: .\MateAppDirectory\templates\includes\navbar.html:35
-#: .\MateAppDirectory\templates\main\admin_trash.html:9
-#: .\MateAppDirectory\templates\main\user_trash.html:9
-msgid "Trash"
-msgstr "Papelera"
+#: .\templates\includes\admin_navbar.html:14
+#: .\templates\includes\navbar.html:94
+msgid "Administration"
+msgstr "Administración"
 
-#: .\MateAppDirectory\templates\includes\navbar.html:41
-msgid "Admin"
-msgstr "Admin"
+#: .\templates\includes\admin_navbar.html:21
+msgid "Admin Home"
+msgstr "Admin Home"
 
-#: .\MateAppDirectory\templates\includes\navbar.html:47
-msgid "Profile"
-msgstr "Perfil"
+#: .\templates\includes\admin_navbar.html:24
+#: .\templates\users\users_inactive.html:12
+msgid "Inactive Users"
+msgstr "Usuarios Inactivo"
 
-#: .\MateAppDirectory\templates\includes\navbar.html:52
-msgid "Logout"
-msgstr "Logout"
-
-#: .\MateAppDirectory\templates\includes\navbar.html:61
-#: .\MateAppDirectory\templates\users\registration.html:63
-msgid "Register"
-msgstr "Registrarse"
-
-#: .\MateAppDirectory\templates\main\admin_home.html:9
-msgid "Users"
-msgstr "Usuarios"
-
-#: .\MateAppDirectory\templates\main\admin_home.html:16
-#: .\MateAppDirectory\templates\users\create_user.html:14
+#: .\templates\includes\admin_navbar.html:27
+#: .\templates\users\create_user.html:18
 msgid "Create User"
 msgstr "Crear Usuario"
 
-#: .\MateAppDirectory\templates\main\admin_home.html:19
-msgid "Show Inactive"
-msgstr "Mostrar Inactivos"
+#: .\templates\includes\admin_navbar.html:30
+#: .\templates\main\admin_trash.html:13
+msgid "System Trash"
+msgstr "Papelera del Sistema"
 
-#: .\MateAppDirectory\templates\main\admin_home.html:22
-msgid "Admin Trash"
-msgstr "Papelera (Admin)"
+#: .\templates\includes\admin_navbar.html:51
+#: .\templates\includes\admin_navbar.html:88
+msgid "Home"
+msgstr "Inicio"
 
-#: .\MateAppDirectory\templates\main\admin_home.html:40
-#: .\MateAppDirectory\templates\users\users_inactive.html:33
+#: .\templates\includes\admin_navbar.html:61
+#: .\templates\includes\admin_navbar.html:100
+#: .\templates\includes\navbar.html:58 .\templates\includes\navbar.html:105
+msgid "Logout"
+msgstr "Logout"
+
+#: .\templates\includes\admin_navbar.html:108
+#: .\templates\includes\navbar.html:67 .\templates\includes\navbar.html:113
+#: .\templates\users\registration.html:68
+msgid "Register"
+msgstr "Registrarse"
+
+#: .\templates\includes\navbar.html:41 .\templates\includes\navbar.html:88
+#: .\templates\main\user_trash.html:13
+msgid "Trash"
+msgstr "Papelera"
+
+#: .\templates\includes\navbar.html:47
+msgid "Admin"
+msgstr "Admin"
+
+#: .\templates\includes\navbar.html:53 .\templates\includes\navbar.html:100
+msgid "Profile"
+msgstr "Perfil"
+
+#: .\templates\main\admin_home.html:12
+msgid "Users"
+msgstr "Usuarios"
+
+#: .\templates\main\admin_home.html:26 .\templates\users\users_inactive.html:26
 msgid "Status"
 msgstr "Estado"
 
-#: .\MateAppDirectory\templates\main\admin_home.html:41
-#: .\MateAppDirectory\templates\users\create_user.html:64
-#: .\MateAppDirectory\templates\users\users_inactive.html:34
+#: .\templates\main\admin_home.html:27 .\templates\users\create_user.html:68
+#: .\templates\users\users_inactive.html:27
 msgid "Is Staff?"
 msgstr "¿Es Staff?"
 
-#: .\MateAppDirectory\templates\main\admin_home.html:52
-#: .\MateAppDirectory\templates\users\profile.html:25
-#: .\MateAppDirectory\templates\users\user.html:26
-#: .\MateAppDirectory\templates\users\users_inactive.html:45
+#: .\templates\main\admin_home.html:38 .\templates\users\profile.html:30
+#: .\templates\users\user.html:31 .\templates\users\users_inactive.html:38
 msgid "Active"
 msgstr "Activo"
 
-#: .\MateAppDirectory\templates\main\admin_home.html:54
-#: .\MateAppDirectory\templates\users\profile.html:27
-#: .\MateAppDirectory\templates\users\user.html:28
-#: .\MateAppDirectory\templates\users\users_inactive.html:47
+#: .\templates\main\admin_home.html:40 .\templates\users\profile.html:32
+#: .\templates\users\user.html:33 .\templates\users\users_inactive.html:40
 msgid "Inactive"
 msgstr "Inactivo"
 
-#: .\MateAppDirectory\templates\main\admin_home.html:57
-#: .\MateAppDirectory\templates\users\users_inactive.html:50
+#: .\templates\main\admin_home.html:43 .\templates\users\users_inactive.html:43
 msgid "Yes"
 msgstr "Si"
 
-#: .\MateAppDirectory\templates\main\admin_home.html:59
-#: .\MateAppDirectory\templates\users\users_inactive.html:52
+#: .\templates\main\admin_home.html:45 .\templates\users\users_inactive.html:45
 msgid "No"
 msgstr "No"
 
-#: .\MateAppDirectory\templates\main\admin_home.html:87
-#: .\MateAppDirectory\templates\users\users_inactive.html:80
+#: .\templates\main\admin_home.html:73 .\templates\users\users_inactive.html:73
 msgid "No users available."
 msgstr "No existen usuarios inactivos."
 
-#: .\MateAppDirectory\templates\main\admin_home.html:95
+#: .\templates\main\admin_home.html:80
 msgid "Backups"
 msgstr "Backups"
 
-#: .\MateAppDirectory\templates\main\admin_home.html:102
+#: .\templates\main\admin_home.html:81
 msgid "New Backup"
 msgstr "Nuevo Backup"
 
-#: .\MateAppDirectory\templates\main\admin_home.html:136
+#: .\templates\main\admin_home.html:111
 msgid "No backups available."
 msgstr "No existen backups."
 
-#: .\MateAppDirectory\templates\main\admin_trash.html:47
-#: .\MateAppDirectory\templates\main\admin_trash.html:49
-#: .\MateAppDirectory\templates\main\user_trash.html:30
-#: .\MateAppDirectory\templates\main\user_trash.html:32
+#: .\templates\main\admin_trash.html:48 .\templates\main\admin_trash.html:50
+#: .\templates\main\user_trash.html:34 .\templates\main\user_trash.html:36
 msgid "Restore"
 msgstr "Restaurar"
 
-#: .\MateAppDirectory\templates\main\admin_trash.html:78
-#: .\MateAppDirectory\templates\main\user_trash.html:67
+#: .\templates\main\admin_trash.html:79 .\templates\main\user_trash.html:71
 msgid "Trash is empty."
 msgstr "La Papelera está vacía."
 
-#: .\MateAppDirectory\templates\main\login.html:18
+#: .\templates\main\login.html:23
 msgid "Username:"
 msgstr "Usuario:"
 
-#: .\MateAppDirectory\templates\main\login.html:23
-#: .\MateAppDirectory\templates\users\create_user.html:38
-#: .\MateAppDirectory\templates\users\password_change.html:19
-#: .\MateAppDirectory\templates\users\registration.html:43
+#: .\templates\main\login.html:28 .\templates\users\create_user.html:42
+#: .\templates\users\password_change.html:23
+#: .\templates\users\registration.html:48
 msgid "Password:"
 msgstr "Contraseña:"
 
-#: .\MateAppDirectory\templates\main\login.html:29
+#: .\templates\main\login.html:34
 msgid "Forgot Password?"
 msgstr "¿Olvidó su contraseña?"
 
-#: .\MateAppDirectory\templates\users\activate_account.html:3
+#: .\templates\users\activate_account.html:3
 msgid "Dear"
 msgstr "Estimado"
 
-#: .\MateAppDirectory\templates\users\activate_account.html:5
+#: .\templates\users\activate_account.html:5
 msgid ""
 "Please click on the link below to complete your registration at MateApp "
 "Directory:"
 msgstr "Por favor haga click en el link de abajo para completar su registro."
 
-#: .\MateAppDirectory\templates\users\create_user.html:44
-#: .\MateAppDirectory\templates\users\password_change.html:25
-#: .\MateAppDirectory\templates\users\registration.html:49
+#: .\templates\users\create_user.html:48
+#: .\templates\users\password_change.html:29
+#: .\templates\users\registration.html:54
 msgid "Your password can’t be too similar to your other personal information."
 msgstr "Su contraseña no pude ser similar a otra información personal suya."
 
-#: .\MateAppDirectory\templates\users\create_user.html:45
-#: .\MateAppDirectory\templates\users\password_change.html:26
-#: .\MateAppDirectory\templates\users\registration.html:50
+#: .\templates\users\create_user.html:49
+#: .\templates\users\password_change.html:30
+#: .\templates\users\registration.html:55
 msgid "Your password must contain at least 8 characters."
 msgstr "Su contraseña debe contener al menos 8 caracteres."
 
-#: .\MateAppDirectory\templates\users\create_user.html:46
-#: .\MateAppDirectory\templates\users\password_change.html:27
-#: .\MateAppDirectory\templates\users\registration.html:51
+#: .\templates\users\create_user.html:50
+#: .\templates\users\password_change.html:31
+#: .\templates\users\registration.html:56
 msgid "Your password can’t be a commonly used password."
 msgstr "Su contraseña no puede ser una de uso común."
 
-#: .\MateAppDirectory\templates\users\create_user.html:47
-#: .\MateAppDirectory\templates\users\password_change.html:28
-#: .\MateAppDirectory\templates\users\registration.html:52
+#: .\templates\users\create_user.html:51
+#: .\templates\users\password_change.html:32
+#: .\templates\users\registration.html:57
 msgid "Your password can’t be entirely numeric."
 msgstr "Su contraseña no puede contener solo números."
 
-#: .\MateAppDirectory\templates\users\create_user.html:54
-#: .\MateAppDirectory\templates\users\password_change.html:35
-#: .\MateAppDirectory\templates\users\registration.html:59
+#: .\templates\users\create_user.html:58
+#: .\templates\users\password_change.html:39
+#: .\templates\users\registration.html:64
 msgid "Re-type Password:"
 msgstr "Reingrese su contraseña:"
 
-#: .\MateAppDirectory\templates\users\create_user.html:60
-#: .\MateAppDirectory\templates\users\edit_user.html:33
+#: .\templates\users\create_user.html:64 .\templates\users\edit_user.html:37
 msgid "Is Active?"
 msgstr "¿Está Activo?"
 
-#: .\MateAppDirectory\templates\users\edit_user.html:14
+#: .\templates\users\edit_user.html:18
 msgid "Editing User:"
 msgstr "Editando Usuario:"
 
-#: .\MateAppDirectory\templates\users\edit_user.html:37
+#: .\templates\users\edit_user.html:41
 msgid "Is Staff"
 msgstr "Es Staff"
 
-#: .\MateAppDirectory\templates\users\password_change.html:13
+#: .\templates\users\edit_user.html:45
+msgid "Is Administrator?"
+msgstr "Es Administrador?"
+
+#: .\templates\users\password_change.html:17
 msgid "Password Change"
 msgstr "Cambiar Contraseña"
 
-#: .\MateAppDirectory\templates\users\password_change.html:40
+#: .\templates\users\password_change.html:44
 msgid "Change"
 msgstr "Cambiar"
 
-#: .\MateAppDirectory\templates\users\password_reset.html:12
+#: .\templates\users\password_reset.html:16
 msgid "Password Reset"
 msgstr "Resetear Contraseña"
 
-#: .\MateAppDirectory\templates\users\password_reset.html:16
+#: .\templates\users\password_reset.html:20
 msgid ""
 "Forgot you password? Enter your email below, and we'll email instructions "
 "for setting a new one."
@@ -439,15 +430,15 @@ msgstr ""
 "¿Olvidó su contraseña? Ingrese su eMail abajo, y le enviaremos por ese medio "
 "instrucciones para reestablecerla."
 
-#: .\MateAppDirectory\templates\users\password_reset.html:25
+#: .\templates\users\password_reset.html:29
 msgid "Send"
 msgstr "Enviar"
 
-#: .\MateAppDirectory\templates\users\password_reset_email.html:3
+#: .\templates\users\password_reset_email.html:3
 msgid "Hello"
 msgstr "Hola"
 
-#: .\MateAppDirectory\templates\users\password_reset_email.html:5
+#: .\templates\users\password_reset_email.html:5
 msgid ""
 "We received a request to reset the password for your account for this email "
 "address. To initiate the password reset process for your account, click the "
@@ -457,7 +448,7 @@ msgstr ""
 "asociada a esta dirección de eMail. Para iniciar el proceso, por favor haga "
 "click en el link de abajo."
 
-#: .\MateAppDirectory\templates\users\password_reset_email.html:9
+#: .\templates\users\password_reset_email.html:9
 msgid ""
 "This link can only be used once. If you need to reset your password again, "
 "please visit"
@@ -465,117 +456,105 @@ msgstr ""
 "Este link solo pude ser utilizado una sola vez. Si precisa resetear su "
 "contraseña nuevamente, por favor visite"
 
-#: .\MateAppDirectory\templates\users\password_reset_email.html:9
+#: .\templates\users\password_reset_email.html:9
 msgid "and request another reset."
 msgstr "y solicite el reestablecimiento de nuevo."
 
-#: .\MateAppDirectory\templates\users\password_reset_email.html:11
+#: .\templates\users\password_reset_email.html:11
 msgid "If you did not make this request, you can simply ignore this email."
 msgstr "Si usted no hizo esta solicitur, ignore este correo."
 
-#: .\MateAppDirectory\templates\users\profile.html:9
-#: .\MateAppDirectory\templates\users\user.html:10
+#: .\templates\users\profile.html:14 .\templates\users\user.html:15
 msgid "User Profile"
 msgstr "Perfil de Usuario"
 
-#: .\MateAppDirectory\templates\users\profile.html:17
-#: .\MateAppDirectory\templates\users\profile.html:19
-#: .\MateAppDirectory\templates\users\profile.html:21
-#: .\MateAppDirectory\templates\users\user.html:18
-#: .\MateAppDirectory\templates\users\user.html:20
-#: .\MateAppDirectory\templates\users\user.html:22
+#: .\templates\users\profile.html:22 .\templates\users\profile.html:24
+#: .\templates\users\profile.html:26 .\templates\users\user.html:23
+#: .\templates\users\user.html:25 .\templates\users\user.html:27
 msgid "User Type:"
 msgstr "Tipo de Usuario:"
 
-#: .\MateAppDirectory\templates\users\profile.html:17
-#: .\MateAppDirectory\templates\users\user.html:18
+#: .\templates\users\profile.html:22 .\templates\users\user.html:23
 msgid "Administrator"
 msgstr "Administrador"
 
-#: .\MateAppDirectory\templates\users\profile.html:19
-#: .\MateAppDirectory\templates\users\user.html:20
+#: .\templates\users\profile.html:24 .\templates\users\user.html:25
 msgid "Staff"
 msgstr "Staff"
 
-#: .\MateAppDirectory\templates\users\profile.html:21
-#: .\MateAppDirectory\templates\users\user.html:22
+#: .\templates\users\profile.html:26 .\templates\users\user.html:27
 msgid "Regular"
 msgstr "Regular"
 
-#: .\MateAppDirectory\templates\users\profile.html:25
-#: .\MateAppDirectory\templates\users\profile.html:27
-#: .\MateAppDirectory\templates\users\user.html:26
-#: .\MateAppDirectory\templates\users\user.html:28
+#: .\templates\users\profile.html:30 .\templates\users\profile.html:32
+#: .\templates\users\user.html:31 .\templates\users\user.html:33
 msgid "User Status:"
 msgstr "Estado del Usuario:"
 
-#: .\MateAppDirectory\templates\users\profile_edit.html:12
+#: .\templates\users\profile_edit.html:17
 msgid "Profile Update for:"
 msgstr "Actualización del perfil de:"
 
-#: .\MateAppDirectory\templates\users\profile_edit.html:29
+#: .\templates\users\profile_edit.html:34
 msgid "Change Password"
 msgstr "Cambiar Contraseña"
 
-#: .\MateAppDirectory\templates\users\registration.html:12
+#: .\templates\users\registration.html:17
 msgid "User Registration"
 msgstr "Registro de Usuario"
 
-#: .\MateAppDirectory\templates\users\registration.html:24
+#: .\templates\users\registration.html:29
 msgid "Only"
 msgstr "Solo direcciones del dominio "
 
-#: .\MateAppDirectory\templates\users\registration.html:24
+#: .\templates\users\registration.html:29
 msgid "addresses will be processed."
 msgstr "serán procesadas"
 
-#: .\MateAppDirectory\templates\users\users_inactive.html:15
-msgid "Show Active"
-msgstr "Mostrar Activos"
-
-#: .\MateAppDirectory\users\forms.py:14 .\MateAppDirectory\users\forms.py:79
+#: .\users\forms.py:14 .\users\forms.py:81
 msgid "Password"
 msgstr "Contraseña"
 
-#: .\MateAppDirectory\users\forms.py:18 .\MateAppDirectory\users\forms.py:83
+#: .\users\forms.py:18 .\users\forms.py:85
 msgid "Confirm password"
 msgstr "Confirmar Contraseña"
 
-#: .\MateAppDirectory\users\managers.py:15
+#: .\users\managers.py:15
 msgid "The Email must be set"
 msgstr "El email es obligatorio"
 
-#: .\MateAppDirectory\users\managers.py:31
+#: .\users\managers.py:31
 msgid "Superuser must have is_staff=True."
 msgstr ""
 
-#: .\MateAppDirectory\users\managers.py:33
+#: .\users\managers.py:33
 msgid "Superuser must have is_superuser=True."
 msgstr ""
 
-#: .\MateAppDirectory\users\models.py:10
+#: .\users\models.py:10
 msgid "email address"
 msgstr "dirección de email"
 
-#: .\MateAppDirectory\users\views.py:37
+#: .\users\views.py:37
 msgid "Thank you for your confirmation. Your account is now active"
 msgstr "Gracias por su confirmación. Su cuenta ya esta activa."
 
-#: .\MateAppDirectory\users\views.py:42
+#: .\users\views.py:42
 msgid ""
 "Thank you for your confirmation. The Administrator will enable your account "
 "soon."
-msgstr "Gracias por su confirmación. El Administrador activará su cuenta pronto."
+msgstr ""
+"Gracias por su confirmación. El Administrador activará su cuenta pronto."
 
-#: .\MateAppDirectory\users\views.py:45
+#: .\users\views.py:45
 msgid "Activation link is invalid. Contact the administrator"
 msgstr "El link de activación es inválido. Contacte al Administrador."
 
-#: .\MateAppDirectory\users\views.py:51
+#: .\users\views.py:51
 msgid "Activate your user account."
 msgstr "Active su cuenta de usuario."
 
-#: .\MateAppDirectory\users\views.py:62
+#: .\users\views.py:62
 msgid ""
 "Please go to your email inbox and click on the included activation link to "
 "enable your account. <b>Note:</b> Remember to check your spam folder."
@@ -583,16 +562,16 @@ msgstr ""
 "Por favor revise su bandeja de entrada y haga click en el link porporcionado "
 "para activar su cuenta. <b>Nota:</b> Recuerde revisar la carpeta de Spam."
 
-#: .\MateAppDirectory\users\views.py:65 .\MateAppDirectory\users\views.py:166
+#: .\users\views.py:65 .\users\views.py:166
 msgid "There was a problem sending the email. Please contact the Administrator"
 msgstr ""
 "Hubo un problema al enviar el email. Por favor contacte al Administrador"
 
-#: .\MateAppDirectory\users\views.py:152
+#: .\users\views.py:152
 msgid "Password Reset Request"
 msgstr "Solicitud de reseteo de contraseña."
 
-#: .\MateAppDirectory\users\views.py:163
+#: .\users\views.py:163
 msgid ""
 "Please go to your email inbox and click on the included link to reset your "
 "password. <b>Note:</b> Remember to check your spam folder."
@@ -601,18 +580,24 @@ msgstr ""
 "para reestablecer su contraseña. <b>Nota:</b> Recuerde revisar la carpeta de "
 "Spam."
 
-#: .\MateAppDirectory\users\views.py:168
+#: .\users\views.py:168
 msgid "The email address provided is not registered."
 msgstr "El email porporcionado no se encuentra registrado."
 
-#: .\MateAppDirectory\users\views.py:193
+#: .\users\views.py:193
 msgid "Your password has been set. You may go ahead and <b>login</b> now."
 msgstr "Su contraseña se ha establecido. Puede continuar al <b>login.</b>"
 
-#: .\MateAppDirectory\users\views.py:202
+#: .\users\views.py:202
 msgid "Link is expired"
 msgstr "El link ha expirado."
 
-#: .\MateAppDirectory\users\views.py:204
+#: .\users\views.py:204
 msgid "Something went wrong, redirecting back to Homepage"
 msgstr "Algo salió mal. Lo estanos redireccionando al inicio."
+
+#~ msgid "Show Inactive"
+#~ msgstr "Mostrar Inactivos"
+
+#~ msgid "Show Active"
+#~ msgstr "Mostrar Activos"

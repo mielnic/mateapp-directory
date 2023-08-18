@@ -1,10 +1,20 @@
-thead {
-    background-color: rgba(16,131,192,0.1);
+:root,
+[data-bs-theme=light] {
+    --bs-success-bg-subtle: #d1e7d4 !important;
 }
 
-.custom_nav {
-    background-color: rgba(16,131,192,0.1);
+.table_nav {
+    background-color: white;
 }
+
+.border-cus-left {
+    border-left: 2px solid grey;
+    height: 2em;
+}
+
+.table-success {
+    --bs-table-bg: #d1e7d4 !important;
+  }
 
 .table-responsive {
     border-radius: 5px;
@@ -27,4 +37,4 @@ thead {
     --bs-pagination-active-bg: #28a745 !important;
     --bs-pagination-active-border-color: #28a745 !important;
     --bs-pagination-hover-color: #0a3622 !important;
-}
+  }
