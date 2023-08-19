@@ -40,13 +40,20 @@
   }
 
 .light-border {
-    border-top: 1px solid grey;
+    border-top: 1px solid lightgray;
     border-left: none;
 }
 
 @media (min-width:768px){
     .light-border {
         border-top: none;
-        border-left: 1px solid grey;
+        border-left: 1px solid lightgrey;
     }
+}
+
+.separator {
+    width: 10%;
+    text-align: left;
+    color: grey;
+    height: 1px;
 }

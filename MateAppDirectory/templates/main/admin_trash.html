@@ -22,7 +22,7 @@
           <div>
           <form class="d-flex" role="search">
               {{searchform.q}}
-              <button class="btn btn-success mx-2" type="submit">{% trans "Search" %}</button>
+              <button class="btn btn-outline-success mx-2" type="submit">{% trans "Search" %}</button>
             </form>
           </div>
             <div><a href="/admin_trash/0/10/" class="btn btn-outline-secondary my-2">{% trans "Clear" %}</a></div>
@@ -49,9 +49,9 @@
                   {{ trash }}
                 </td>
                 {% if trash.lastName %}
-                  <td><div><a class="btn btn-success btn-sm" href="/directory/restore_person/{{ trash.id }}/1">{% trans "Restore" %}</a></div></td>
+                  <td><div><a class="btn btn-outline-success btn-sm" href="/directory/restore_person/{{ trash.id }}/1">{% trans "Restore" %}</a></div></td>
                 {% else %}
-                  <td><div><a class="btn btn-success btn-sm" href="/directory/restore_company/{{ trash.id }}/1">{% trans "Restore" %}</a></div></td>
+                  <td><div><a class="btn btn-outline-success btn-sm" href="/directory/restore_company/{{ trash.id }}/1">{% trans "Restore" %}</a></div></td>
                 {% endif %}     
             </tr>
           {% endfor %}
@@ -72,10 +72,10 @@
                 </td>
                 {% if trash.lastName %}
                   <td>{% trans "Person" %}</td>
-                  <td><div><a class="btn btn-success btn-sm" href="/directory/restore_person/{{ trash.id }}/1">{% trans "Restore" %}</a></div></td>
+                  <td><div><a class="btn btn-outline-success btn-sm" href="/directory/restore_person/{{ trash.id }}/1">{% trans "Restore" %}</a></div></td>
                 {% else %}
                   <td>{% trans "Company" %}</td>
-                  <td><div><a class="btn btn-success btn-sm" href="/directory/restore_company/{{ trash.id }}/1">{% trans "Restore" %}</a></div></td>
+                  <td><div><a class="btn btn-outline-success btn-sm" href="/directory/restore_company/{{ trash.id }}/1">{% trans "Restore" %}</a></div></td>
                 {% endif %}
                 
             </tr>

@@ -39,7 +39,7 @@
                     {% if title %}
                     <div class="col col-6 col-md-3">
                         <p>
-                            <div id="new_company" class="btn btn-success btn-sm" onclick="toggle()">{% trans "Add Company" %}</div>
+                            <div id="new_company" class="btn btn-outline-success btn-sm" onclick="toggle()">{% trans "Add Company" %}</div>
                         </p>
                     </div>
                     {% endif %}
@@ -136,11 +136,11 @@
                 </div>
 
                 <div class="d-flex justify-content-center my-3 py-3">
-                    <p><button type="submit" id="save_button" name="100" value="100" class="btn btn-success px-3 mx-3">{% trans "Save" %}</button></p>
+                    <p><button type="submit" id="save_button" name="100" value="100" class="btn btn-outline-success px-3 mx-3">{% trans "Save" %}</button></p>
                     {% if person.id %}
-                    <p><a href="/directory/person/{{ person.id }}" class="btn btn-secondary mx-3 px-4" role="button">{% trans "Cancel" %}</a></p>
+                    <p><a href="/directory/person/{{ person.id }}" class="btn btn-outline-secondary mx-3 px-4" role="button">{% trans "Cancel" %}</a></p>
                     {% else %}
-                    <p><a href="/directory/persons/0/10/" class="btn btn-secondary mx-3 px-4" role="button">{% trans "Cancel" %}</a></p>
+                    <p><a href="/directory/persons/0/10/" class="btn btn-outline-secondary mx-3 px-4" role="button">{% trans "Cancel" %}</a></p>
                     {% endif %}
                 </div>
             </div>

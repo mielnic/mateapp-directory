@@ -31,25 +31,27 @@
                     <label for="last_name" class="form-label">{% trans "Last Name:" %}</label>
                 </div>
             </p>
-            <div>
-                <div class="form-check">
-                    {{usercreateform.is_active}}
-                    <label for="is_active" class="form-check-label">{% trans "Is Active?" %}</label>
+            {% if user != muser %}
+                <div>
+                    <div class="form-check">
+                        {{usercreateform.is_active}}
+                        <label for="is_active" class="form-check-label">{% trans "Is Active?" %}</label>
+                    </div>
+                    <div class="form-check">
+                        {{usercreateform.is_staff}}
+                        <label for="is_staff" class="form-check-label">{% trans "Is Staff" %}?</label>
+                    </div>
+                    <div class="form-check">
+                        {{usercreateform.is_superuser}}
+                        <label for="is_admin" class="form-check-label">{% trans "Is Administrator?" %}?</label>
+                    </div>
                 </div>
-                <div class="form-check">
-                    {{usercreateform.is_staff}}
-                    <label for="is_staff" class="form-check-label">{% trans "Is Staff" %}?</label>
-                </div>
-                <div class="form-check">
-                    {{usercreateform.is_superuser}}
-                    <label for="is_admin" class="form-check-label">{% trans "Is Administrator?" %}?</label>
-                </div>
-            </div>
+            {% endif %}
 
             <p>
                 <div class="col d-flex justify-content-center px-5 py-3 col-lg-15">
-                    <p><button class="btn btn-success px-4 mx-2" type="submit">{% trans "Save" %}</button></p>
-                    <p><a href="/admin_home/0/10/" class="btn btn-secondary px-4 mx-2" role="button">{% trans "Cancel" %}</a></p>
+                    <p><button class="btn btn-outline-success px-4 mx-2" type="submit">{% trans "Save" %}</button></p>
+                    <p><a href="/admin_home/0/10/" class="btn btn-outline-secondary px-4 mx-2" role="button">{% trans "Cancel" %}</a></p>
                 </div>
             </p>
         </div>

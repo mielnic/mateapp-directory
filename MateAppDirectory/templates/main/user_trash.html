@@ -31,16 +31,16 @@
             </td>
             <td>
               {% if trash.lastName %}
-                <div><a class="btn btn-success btn-sm" href="/directory/restore_person/{{ trash.id }}/0">{% trans "Restore" %}</a></div>
+                <div><a class="btn btn-outline-success btn-sm" href="/directory/restore_person/{{ trash.id }}/0">{% trans "Restore" %}</a></div>
               {% else %}
-                <div><a class="btn btn-success btn-sm" href="/directory/restore_company/{{ trash.id }}/0">{% trans "Restore" %}</a></div>
+                <div><a class="btn btn-outline-success btn-sm" href="/directory/restore_company/{{ trash.id }}/0">{% trans "Restore" %}</a></div>
               {% endif %}
             </td>
             <td>
               {% if trash.lastName %}
-                <div><a class="btn btn-danger btn-sm" href="/directory/full_delete_person/{{ trash.id }}/">{% trans "Delete" %}</a></div>
+                <div><a class="btn btn-outline-danger btn-sm" href="/directory/full_delete_person/{{ trash.id }}/">{% trans "Delete" %}</a></div>
               {% else %}
-                <div><a class="btn btn-danger btn-sm" href="/directory/full_delete_company/{{ trash.id }}/">{% trans "Delete" %}</a></div>
+                <div><a class="btn btn-outline-danger btn-sm" href="/directory/full_delete_company/{{ trash.id }}/">{% trans "Delete" %}</a></div>
               {% endif %}
             </td>
         </tr>

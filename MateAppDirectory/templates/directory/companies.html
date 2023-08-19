@@ -10,7 +10,7 @@
 {% block content %}
 <!-- Header -->
 <div class="row mt-3 justify-content-md-center">
-    <div class="col shadow p-2 mx-1 col-lg-10 border rounded bg-light">
+    <div class="col shadow p-2 mx-1 border rounded bg-light">
       <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid px-4">
           <a class="navbar-brand" href="#"><h4><i class="bi bi-buildings"></i>&nbsp;{% trans "Companies" %}</h4></a>
@@ -29,7 +29,7 @@
                 <a class="btn btn-outline-secondary btn-sm my-2" href="/directory/create_company/"><i class="bi bi-plus-square"></i>&nbsp;{% trans "Add Company" %}</a>
                 <form class="col btn-sm" role="search">
                   <div class="my-2">{{searchform.q}}</div>
-                  <button class="btn btn-success mr-2" type="submit">{% trans "Search" %}</button>
+                  <button class="btn btn-outline-success mr-2" type="submit">{% trans "Search" %}</button>
                   <a href="/directory/companies/0/10/" class="btn btn-outline-secondary my-2">{% trans "Clear" %}</a>
                 </form>
               </div>
@@ -44,7 +44,7 @@
                 </ul>
                 <form class="d-flex btn-sm" role="search">
                     {{searchform.q}}
-                  <button class="btn btn-success mx-2" type="submit">{% trans "Search" %}</button>
+                  <button class="btn btn-outline-success mx-2" type="submit">{% trans "Search" %}</button>
                 </form>
                 <div>
                   <a href="/directory/companies/0/10/" class="btn btn-outline-secondary my-2">{% trans "Clear" %}</a>
@@ -59,7 +59,7 @@
 
 <!-- Content -->
 <div class="row mt-3 justify-content-md-center" id="companies-table-block">
-    <div class="col shadow p-3 mx-1 border rounded col-lg-10">
+    <div class="col shadow p-3 mx-1 border rounded">
     {% if companies_list %}
 
     <!-- Table lg -->
