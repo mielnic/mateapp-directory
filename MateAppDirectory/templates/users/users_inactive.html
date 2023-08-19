@@ -6,72 +6,106 @@
 {% endblock navbar %}
 
 {% block content %}
+
+<!-- Header Users -->
 <div class="row mt-3 justify-content-md-center">
-    <div class="col shadow p-2 col-lg-10 rounded border bg-light">
+    <div class="col shadow p-2 col-lg-10 mx-1 rounded border bg-light">
       <div class="container-fluid px-4">
         <h4><i class="bi bi-person-slash"></i>&nbsp;{% trans "Inactive Users" %}</h4>
       </div>
-    </div>
-    
+    </div> 
 </div>
+
+<!-- Content -->
 <div class="row mt-3 justify-content-md-center">
-    <div class="col shadow p-3 border rounded col-lg-10">
+    <div class="col shadow p-3 mx-1 border rounded col-lg-10">
     {% if users_list %}
-    <div class="table-responsive">
-    <table class="table table-hover" id="users_list" name="Users_List">
-        <!-- Cabecera de Tabla -->
-        <thead class="table-secondary">
-            <th>{% trans "Name" %}</th>
-            <th>{% trans "eMail" %}</th>
-            <th>{% trans "Status" %}</th>
-            <th>{% trans "Is Staff?" %}</th>
-        </thead>
 
-        <!-- Cuerpo de Tabla -->
+      <!-- Table md -->
+      <div class="table-responsive d-none d-sm-block">
+        <table class="table table-hover" id="users_list" name="Users_List">
 
-        <tbody>
-            {% for User in users_list %}
-            <tr>
-                <td><a class="nav-link" href="/users/user/{{ User.id }}/">{{ User.last_name }}, {{ User.first_name }}</a></td>
-                <td>{{ User.email}}</td>
-                {% if User.is_active %}
-                <td class='text-success'>{% trans "Active" %}</td>
-                {% else %}
-                <td class='text-danger'>{% trans "Inactive" %}</td>
-                {% endif %}
-                {% if User.is_staff %}
-                <td class='text-success'>{% trans "Yes" %}</td>
-                {% else %}
-                <td>{% trans "No" %}</td>
-                {% endif %}
-            </tr>
+          <!-- Cabecera de Tabla -->
+          <thead class="table-secondary">
+              <th>{% trans "Name" %}</th>
+              <th>{% trans "eMail" %}</th>
+              <th>{% trans "Status" %}</th>
+              <th>{% trans "Is Staff?" %}</th>
+          </thead>
+
+          <!-- Cuerpo de Tabla -->
+          <tbody>
+              {% for User in users_list %}
+              <tr>
+                  <td><a class="nav-link" href="/users/user/{{ User.id }}/">{{ User.last_name }}, {{ User.first_name }}</a></td>
+                  <td>{{ User.email}}</td>
+                  {% if User.is_active %}
+                  <td class='text-success'>{% trans "Active" %}</td>
+                  {% else %}
+                  <td class='text-danger'>{% trans "Inactive" %}</td>
+                  {% endif %}
+                  {% if User.is_staff %}
+                  <td class='text-success'>{% trans "Yes" %}</td>
+                  {% else %}
+                  <td>{% trans "No" %}</td>
+                  {% endif %}
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Table sm -->
+      <div class="table-responsive d-block d-sm-none">
+        <table class="table table-hover" id="users_list" name="Users_List">
+
+          <!-- Cabecera de Tabla -->
+          <thead class="table-secondary">
+              <th>{% trans "Name" %}</th>
+              <th>{% trans "Status" %}</th>
+          </thead>
+
+          <!-- Cuerpo de Tabla -->
+          <tbody>
+              {% for User in users_list %}
+              <tr>
+                  <td><a class="nav-link" href="/users/user/{{ User.id }}/">{{ User.last_name }}, {{ User.first_name }}</a></td>
+                  {% if User.is_active %}
+                  <td class='text-success'>{% trans "Active" %}</td>
+                  {% else %}
+                  <td class='text-danger'>{% trans "Inactive" %}</td>
+                  {% endif %}
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    <!-- Pagination -->
+    {% if links %}
+      <nav aria-label="Page navigation">
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" href="/users/inactive_users/{{idxPL}}/{{idxPR}}/" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            {% for link in links %}
+            <li class="page-item"><a class="page-link" id="page-link" href="/users/inactive_users/{{link.pl}}/{{link.pr}}/">{{link.page}}</a></li>
             {% endfor %}
-        </tbody>
-
-    </table>
-    </div>
-
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" href="/users/inactive_users/{{idxPL}}/{{idxPR}}/" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          {% for link in links %}
-          <li class="page-item"><a class="page-link" id="page-link" href="/users/inactive_users/{{link.pl}}/{{link.pr}}/">{{link.page}}</a></li>
-          {% endfor %}
-          <li class="page-item">
-            <a class="page-link" href="/users/inactive_users/{{idxNL}}/{{idxNR}}/" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+            <li class="page-item">
+              <a class="page-link" href="/users/inactive_users/{{idxNL}}/{{idxNR}}/" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+    {% endif %}
 
     {% else %}
         <p>{% trans "No users available." %}</p>
     {% endif %}
-    </div>
+
+  </div>
 </div>
 {% endblock %}

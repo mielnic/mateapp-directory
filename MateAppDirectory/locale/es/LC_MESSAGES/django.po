@@ -242,7 +242,7 @@ msgstr "Admin Home"
 #: .\templates\includes\admin_navbar.html:24
 #: .\templates\users\users_inactive.html:12
 msgid "Inactive Users"
-msgstr "Usuarios Inactivo"
+msgstr "Usuarios Inactivos"
 
 #: .\templates\includes\admin_navbar.html:27
 #: .\templates\users\create_user.html:18

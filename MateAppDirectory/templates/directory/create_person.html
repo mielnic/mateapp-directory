@@ -8,6 +8,9 @@
 
 {% block content %}
 
+<form action="" method="post">
+
+{% csrf_token %}
 
 <div class="row py-3 justify-content-center">
     <div class="col shadow p-3 mx-1 col-lg-10 rounded border bg-light">
@@ -16,157 +19,146 @@
         {% else %}
         <h2>{{person.firstName}} {{person.lastName}}</h2>
         {% endif %}
-    </div>
-</div>
 
-<form action="" method="post">
-
-{% csrf_token %}
-
-<div class="row py-3 justify-content-center">
-    <div class="col shadow p-3 mx-1 col-lg-10 border rounded">
-        <div class="row row-col-2 py-3 me-auto justify-content-between align-items-center">
-            
-            <div id="company_selector" class="col col-12 col-md-8"> 
+        <div class="row justify-content-start">
+            <div class="col p-3 mx-1">
+                <div class="row row-col-2 py-3 me-auto justify-content-between align-items-center">
+                    
+                    <div id="company_selector" class="col col-12 col-md-8"> 
+                        <p>
+                            <div>
+                            {{personform.company}}
+                            </div>
+                        </p>
+                    </div>
+                    <div id="new_company_title" class="col col-12 col-md-8">
+                        <p>
+                            <h2>{% trans "New Company" %}</h2>
+                        </p>
+                    </div>
+                    {% if title %}
+                    <div class="col col-6 col-md-3">
+                        <p>
+                            <div id="new_company" class="btn btn-success btn-sm" onclick="toggle()">{% trans "Add Company" %}</div>
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+        
+                <div id="company_form">
                 <p>
-                    <div>
-                    {{personform.company}}
+                <div class="form-floating">
+                    {{companyform.companyName}}
+                    <label for="id_company">{% trans "Company Name:" %}</label>
+                </div>
+                </p>
+                <p>
+                <div class="form-floating">
+                    {{companyform.tax_id}}
+                    <label for="id_tax_id">{% trans "Tax ID:" %}</label>
+                </div>
+                </p>
+                <p>
+                    <div class="form-floating">
+                        {{companyform.website}}
+                        <label for="id_website">{% trans "Website:" %}</label>
                     </div>
                 </p>
-            </div>
-            <div id="new_company_title" class="col col-12 col-md-8">
                 <p>
-                    <h2>{% trans "New Company" %}</h2>
+                    <div class="form-floating">
+                        {{companyform.companyPhone}}
+                        <label for="id_companyphone">{% trans "Company Phone:" %}</label>
+                    </div>
+                </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-col-2 py-3 justify-content-center">
+            <div class="col col-10 col-md-6 py-1">
+  
+                <div class="form-floating my-3 mx-2">
+                   {{personform.firstName}}
+                    <label for="id_firstname">{% trans "First Name:" %}</label>
+                </div>
+
+                <div class="form-floating my-3 mx-2">
+                    {{personform.lastName}}
+                    <label for="id_lastname">{% trans "Last Name:" %}</label>
+                </div>
+
+                <div class="form-floating my-3 mx-2">
+                    {{personform.position}}
+                    <label for="id_position">{% trans "Position:" %}</label>
+                </div>
+
+                <div class="form-floating my-3 mx-2">
+                    {{personform.celphone}}
+                    <label for="id_celphone">{% trans "Cell Phone:" %}</label>
+                </div>
+
+                <div class="form-floating my-3 mx-2">
+                    {{personform.email}}
+                    <label for="id_email">{% trans "eMail:" %}</label>
+                </div>
+
+                <div class="form-floating my-3 mx-2">
+                    {{personform.workphone}}
+                    <label for="id_workphone" class="form-label">{% trans "Work Phone:" %}</label>
+                </div>
+
+            </div>
+            <div class="col col-10 col-md-6 py-1 light-border">
+
+                <div class="form-floating my-3 mx-2">
+                    {{addressform.street}}
+                    <label for="id_street">{% trans "Street:" %}</label>
+                </div>
+
+                <div class="form-floating my-3 mx-2">
+                    {{addressform.city}}
+                    <label for="id_city">{% trans "City:" %}</label>
+                </div>
+
+                <div class="form-floating my-3 mx-2">
+                    {{addressform.state}}
+                    <label for="id_state">{% trans "State" %}:</label>
+                </div>
+
+                <div class="form-floating my-3 mx-2">
+                    {{addressform.country}}
+                    <label for="id_country">{% trans "Country:" %}</label>
+                </div>
+
+                <div class="form-floating my-3 mx-2">
+                    {{addressform.postalCode}}
+                    <label for="id_postalecode">{% trans "Postal Code:" %}</label>
+                </div>
+
+                <div class="d-flex justify-content-center my-3 py-3">
+                    <p><button type="submit" id="save_button" name="100" value="100" class="btn btn-success px-3 mx-3">{% trans "Save" %}</button></p>
+                    {% if person.id %}
+                    <p><a href="/directory/person/{{ person.id }}" class="btn btn-secondary mx-3 px-4" role="button">{% trans "Cancel" %}</a></p>
+                    {% else %}
+                    <p><a href="/directory/persons/0/10/" class="btn btn-secondary mx-3 px-4" role="button">{% trans "Cancel" %}</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="row py-3 justify-content-center">
+            <div class="col p-3 mx-1">
+            <p>
+                <div class="form-floating my-2">
+                    {{personform.notes}}
+                    <label for="id_notes">{% trans "Notes:" %}</label>
+                </div>
                 </p>
             </div>
-            {% if title %}
-            <div class="col col-6 col-md-3">
-                <p>
-                    <div id="new_company" class="btn btn-success btn-sm" onclick="toggle()">{% trans "Add Company" %}</div>
-                </p>
-            </div>
-            {% endif %}
         </div>
 
-        <div id="company_form">
-        <p>
-        <div class="form-floating">
-            {{companyform.companyName}}
-            <label for="id_company">{% trans "Company Name:" %}</label>
-        </div>
-        </p>
-        <p>
-        <div class="form-floating">
-            {{companyform.tax_id}}
-            <label for="id_tax_id">{% trans "Tax ID:" %}</label>
-        </div>
-        </p>
-        <p>
-            <div class="form-floating">
-                {{companyform.website}}
-                <label for="id_website">{% trans "Website:" %}</label>
-            </div>
-        </p>
-        <p>
-            <div class="form-floating">
-                {{companyform.companyPhone}}
-                <label for="id_companyphone">{% trans "Company Phone:" %}</label>
-            </div>
-        </p>
-        </div>
     </div>
 </div>
 
-<div class="row py-3 justify-content-center">
-    <div class="col col-lg-5 shadow mx-1 px-3 py-3 mb-2 border rounded">
-        <p>
-        <div class="form-floating">
-           {{personform.firstName}}
-            <label for="id_firstname">{% trans "First Name:" %}</label>
-        </div>
-        </p>
-        <p>
-        <div class="form-floating">
-            {{personform.lastName}}
-            <label for="id_lastname">{% trans "Last Name:" %}</label>
-        </div>
-        </p>
-        <p>
-            <div class="form-floating">
-                {{personform.position}}
-                <label for="id_position">{% trans "Position:" %}</label>
-            </div>
-            </p>
-        <p>
-            <div class="form-floating">
-                {{personform.celphone}}
-                <label for="id_celphone">{% trans "Cell Phone:" %}</label>
-            </div>
-        </p>
-        <p>
-            <div class="form-floating">
-                {{personform.email}}
-                <label for="id_email">{% trans "eMail:" %}</label>
-            </div>
-        </p>
-        <p>
-            <div class="form-floating">
-                {{personform.workphone}}
-                <label for="id_workphone" class="form-label">{% trans "Work Phone:" %}</label>
-            </div>
-        </p>
-    </div>
-    <div class="col col-lg-5 shadow mx-1 px-3 py-3 mb-2 border rounded">
-        <p>
-            <div class="form-floating">
-               {{addressform.street}}
-                <label for="id_street">{% trans "Street:" %}</label>
-            </div>
-        </p>
-        <p>
-            <div class="form-floating">
-                {{addressform.city}}
-                <label for="id_city">{% trans "City:" %}</label>
-            </div>
-        </p>
-        <p>
-            <div class="form-floating">
-                {{addressform.state}}
-                <label for="id_state">{% trans "State" %}:</label>
-            </div>
-        </p>
-        <p>
-            <div class="form-floating">
-                {{addressform.country}}
-                <label for="id_country">{% trans "Country:" %}</label>
-            </div>
-        </p>
-        <p>
-            <div class="form-floating">
-                {{addressform.postalCode}}
-                <label for="id_postalecode">{% trans "Postal Code:" %}</label>
-            </div>
-        </p>
-        <div class="d-flex justify-content-center my-3 py-3">
-            <p><button type="submit" id="save_button" name="100" value="100" class="btn btn-success px-3 mx-3">{% trans "Save" %}</button></p>
-            {% if person.id %}
-            <p><a href="/directory/person/{{ person.id }}" class="btn btn-secondary mx-3 px-4" role="button">{% trans "Cancel" %}</a></p>
-            {% else %}
-            <p><a href="/directory/persons/0/10/" class="btn btn-secondary mx-3 px-4" role="button">{% trans "Cancel" %}</a></p>
-            {% endif %}
-        </div>
-    </div>
-</div>
-
-<div class="row py-3 justify-content-center">
-    <div class="col shadow p-3 mx-1 col-lg-10 border rounded">
-    <p>
-        <div class="form-floating">
-            {{personform.notes}}
-            <label for="id_notes">{% trans "Notes:" %}</label>
-        </div>
-        </p>
-    </div>
-</div>
 <script src="{% static 'directory/js/create_person_helper.js' %}"></script>
 {% endblock %}

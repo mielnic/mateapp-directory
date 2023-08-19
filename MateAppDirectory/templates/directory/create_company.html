@@ -9,6 +9,9 @@
 
 {% block content %}
 
+<form action="" method="post">
+
+{% csrf_token %}
 
 <div class="row py-3 justify-content-center">
     <div class="col shadow p-3 mx-1 col-lg-10 rounded border bg-light">
@@ -17,92 +20,85 @@
         {% else %}
         <h2>{{company.companyName}}</h2>
         {% endif %}
-    </div>
-</div>
 
-<form action="" method="post">
+        <div class="row row-col-2 py-3 justify-content-center">
+            <div class="col col-10 col-md-6 py-1">
 
-{% csrf_token %}
+                <div class="form-floating my-3 mx-2">
+                   {{companyform.companyName}}
+                    <label for="id_company">{% trans "Company Name:" %}</label>
+                </div>
 
-<div class="row row-col-2 py-3 justify-content-center">
-    <div class="col shadow mx-1 px-3 py-3 mb-2 border col-lg-5 rounded">
-        <p>
-        <div class="form-floating">
-           {{companyform.companyName}}
-            <label for="id_company">{% trans "Company Name:" %}</label>
-        </div>
-        </p>
-        <p>
-        <div class="form-floating">
-            {{companyform.tax_id}}
-            <label for="id_tax_id">{% trans "Tax ID:" %}</label>
-        </div>
-        </p>
-        <p>
-            <div class="form-floating">
-                {{companyform.website}}
-                <label for="id_website">{% trans "Website:" %}</label>
+                <div class="form-floating my-3 mx-2">
+                    {{companyform.tax_id}}
+                    <label for="id_tax_id">{% trans "Tax ID:" %}</label>
+                </div>
+
+                <div class="form-floating my-3 mx-2">
+                    {{companyform.website}}
+                    <label for="id_website">{% trans "Website:" %}</label>
+                </div>
+
+                <div class="form-floating my-3 mx-2">
+                    {{companyform.companyPhone}}
+                    <label for="id_companyphone">{% trans "Company Phone:" %}</label>
+                </div>
+
             </div>
-        </p>
-        <p>
-            <div class="form-floating">
-                {{companyform.companyPhone}}
-                <label for="id_companyphone">{% trans "Company Phone:" %}</label>
-            </div>
-        </p>
-    </div>
-    <div class="col shadow mx-1 px-3 py-3 mb-2 border col-lg-5 rounded">
-        <p>
-            <div class="form-floating">
-               {{addressform.street}}
-                <label for="id_street">{% trans "Street:" %}</label>
-            </div>
-            </p>
-            <p>
-            <div class="form-floating">
-                {{addressform.city}}
-                <label for="id_city">{% trans "City:" %}</label>
-            </div>
-            </p>
-            <p>
-                <div class="form-floating">
+
+            <div class="col col-10 col-md-6 py-1 light-border">
+
+                <div class="form-floating my-3 mx-2">
+                    {{addressform.street}}
+                    <label for="id_street">{% trans "Street:" %}</label>
+                </div>
+
+                <div class="form-floating my-3 mx-2">
+                    {{addressform.city}}
+                    <label for="id_city">{% trans "City:" %}</label>
+                </div>
+
+                <div class="form-floating my-3 mx-2">
                     {{addressform.state}}
                     <label for="id_state">{% trans "State:" %}</label>
                 </div>
-            </p>
-            <p>
-                <div class="form-floating">
+
+                <div class="form-floating my-3 mx-2">
                     {{addressform.country}}
                     <label for="id_country">{% trans "Country:" %}</label>
                 </div>
-            </p>
-            <p>
-                <div class="form-floating">
+
+                <div class="form-floating my-3 mx-2">
                     {{addressform.postalCode}}
                     <label for="id_postalecode">{% trans "Postal Code:" %}</label>
                 </div>
-            </p>
-            <div class="d-flex justify-content-center my-3 px-5 py-3">
-                <p><button type="submit" class="btn btn-success px-3 mx-2">{% trans "Save" %}</button></p>
-                {% if company.id %}
-                <p><a href="/directory/company/{{ company.id }}/0/5/" class="btn btn-secondary mx-2 px-4" role="button">{% trans "Cancel" %}</a></p>
-                {% else %}
-                <p><a href="/directory/companies/0/10/" class="btn btn-secondary mx-2 px-4" role="button">{% trans "Cancel" %}</a></p>
-                {% endif %}
-    
+
+                <div class="d-flex justify-content-center my-3 px-5 py-3">
+                    <p><button type="submit" class="btn btn-success px-3 mx-2">{% trans "Save" %}</button></p>
+                    {% if company.id %}
+                    <p><a href="/directory/company/{{ company.id }}/0/5/" class="btn btn-secondary mx-2 px-4" role="button">{% trans "Cancel" %}</a></p>
+                    {% else %}
+                    <p><a href="/directory/companies/0/10/" class="btn btn-secondary mx-2 px-4" role="button">{% trans "Cancel" %}</a></p>
+                    {% endif %}
+                </div>
+
             </div>
+        </div>
+        
+        <div class="row py-3 justify-content-center">
+            <div class="col p-3 mx-1">
+
+                <div class="form-floating my-2">
+                    {{companyform.companyNotes}}
+                    <label for="id_company_notes">{% trans "Notes:" %}</label>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 </div>
 
-<div class="row py-3 justify-content-center">
-    <div class="col shadow p-3 mx-1 col-lg-10 border rounded">
-    <p>
-        <div class="form-floating">
-            {{companyform.companyNotes}}
-            <label for="id_company_notes">{% trans "Notes:" %}</label>
-        </div>
-        </p>
-    </div>
-</div>
+
 <script src="{% static 'directory/js/create_company_helper.js' %}"></script>
 {% endblock %}

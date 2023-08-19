@@ -16,40 +16,48 @@
             {% if person.company.deleted == False or not Person.company.id %}
             <a class="nav-link" href="/directory/company/{{ person.company.id }}/0/5">{{ person.company.companyName }}</a>
             {% else %}
-            <td>{{ person.company.companyName }} (deleted)</td>
+            {{ person.company.companyName }} (deleted)
             {% endif %}
         </h5>
-    </div>
-</div>
 
-<div class="row row-col-2 py-3 justify-content-center">
-    <div class="col shadow mx-1 px-5 py-3 mb-2 border col-lg-5 rounded">
-        {% if person.celphone %}
-        <h5><a class="nav-link" id="person-whapp-link" target="_blank" href="">{{person.celphone}}<i class="bi bi-whatsapp m-2" style="color: green;"></i></a></h5>
+        <div class="row row-col-2 py-3 justify-content-start">
+            <div class="col col-10 col-md-6 py-1">
+                <p class="mb-2"><small>{% trans "CONTACT:" %}</small></p>
+                <div class="ps-1">
+                    {% if person.celphone %}
+                    <h6><a class="nav-link" id="person-whapp-link" target="_blank" href="">{{person.celphone}}<i class="bi bi-whatsapp m-2" style="color: green;"></i></a></h6>
+                    {% endif %}
+            
+                    {% if person.email %}
+                    <h6><a class="nav-link" id="mail-link" href="mailto:{{person.email}}">{{person.email}}<i class="bi bi-envelope-plus m-2"></i></a></h6>
+                    {% endif %}
+                
+                    <h5>{{person.workphone}}</h5>
+                </div>
+            </div>
+            <div class="col col-10 col-md-6 py-1 light-border">
+                <p class="mb-2"><small>{% trans "ADDRESS:" %}</small></p>
+                <div class="ps-1">
+                    <h6>{{person.address.street}}</h6>
+                    <h6>{{person.address.postalCode}}</h6>
+                    <h6>{{person.address.city}}</h6>
+                    <h6>{{person.address.state}}</h6>
+                    <h6>{{person.address.country}}</h6>
+                </div>
+            </div>
+        </div>
+
+        {% if person.notes %}
+        <div class="row py-3 justify-content-start">
+            <div class="col p-3 col-lg-10">
+                <p><i class="bi bi-pencil-square"></i>&nbsp;{{person.notes}}</p>
+            </div>
+        </div>
         {% endif %}
 
-        {% if person.email %}
-        <h5><a class="nav-link" id="mail-link" href="mailto:{{person.email}}">{{person.email}}<i class="bi bi-envelope-plus m-2"></i></a></h5>
-        {% endif %}
-        
-        <h5>{{person.workphone}}</h5>
-    </div>
-    <div class="col shadow mx-1 px-5 py-3 mb-2 border col-lg-5 rounded">
-        <h5>{{person.address.street}}</h5>
-        <h6>{{person.address.postalCode}}</h6>
-        <h6>{{person.address.city}}</h6>
-        <h6>{{person.address.state}}</h6>
-        <h6>{{person.address.country}}</h6>
-    </div>
-</div>
 
-{% if person.notes %}
-<div class="row py-3 justify-content-center">
-    <div class="col p-3 mx-1 shadow col-lg-10 border rounded">
-        <p>{{person.notes}}</p>
     </div>
 </div>
-{% endif %}
 
 <div class="row py-3 justify-content-center">
     <div class="col col-lg-10 d-flex justify-content-center shadow border rounded mx-1 px-4 py-3">       

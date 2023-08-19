@@ -9,7 +9,7 @@
 {% block content %}
 <!-- Header -->
 <div class="row mt-3 justify-content-md-center">
-    <div class="col shadow p-2 mx-1 col-lg-10 rounded border bg-light">
+    <div class="col shadow p-2 mx-1 rounded border bg-light">
       <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid px-4">
           <a class="navbar-brand" href="#"><h4><i class="bi bi-people"></i>&nbsp;{% trans "Persons" %}</h4></a>
@@ -55,40 +55,108 @@
       </nav>
     </div>
 </div>
-<div class="row mt-3 justify-content-md-center">
-    <div class="col shadow p-3 mx-1 border rounded col-lg-10">
-    {% if person_list %}
-    <div class="table-responsive">
-    <table class="table table-hover" id="person_list" name="Person_List">
-        <!-- Table Header -->
-        <thead class="table-success">
-            <th class="px-3">{% trans "Name" %}</th>
-            <th>{% trans "Company" %}</th>
-            <th class="d-none d-sm-block">{% trans "CellPhone" %}</th>
-        </thead>
-        <!-- Table Body -->
-        <tbody>
-            {% for Person in person_list %}
-            <tr>
-                {% if  Person.lastName and Person.firstName %}
-                <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}, {{ Person.firstName }}</a></td>
-                {% elif Person.lastName %}
-                <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}</a></td>
-                {% else %}
-                <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.firstName }}</a></td>
-                {% endif %}
-                {% if Person.company.deleted == False or not Person.company.id %}
-                <td><a class="nav-link" href="/directory/company/{{ Person.company.id }}/0/5">{{ Person.company.companyName }}</a></td>
-                {% else %}
-                <td>{{ Person.company.companyName }} (deleted)</td>
-                {% endif %}
-                <td class="d-none d-sm-block">{{ Person.celphone }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
 
-    </table>
+<!-- Content -->
+<div class="row mt-3 justify-content-md-center">
+    <div class="col shadow p-3 mx-1 border rounded">
+    {% if person_list %}
+    <!-- Table lg -->
+    <div class="table-responsive d-none d-lg-block">
+      <table class="table table-hover" id="person_list" name="Person_List">
+          <!-- Table Header -->
+          <thead class="table-success">
+              <th class="px-3">{% trans "Name" %}</th>
+              <th>{% trans "Position" %}</th>
+              <th>{% trans "Company" %}</th>
+              <th>{% trans "CellPhone" %}</th>
+              <th>{% trans "eMail" %}</th>
+          </thead>
+          <!-- Table Body -->
+          <tbody>
+              {% for Person in person_list %}
+              <tr>
+                  {% if  Person.lastName and Person.firstName %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}, {{ Person.firstName }}</a></td>
+                  {% elif Person.lastName %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}</a></td>
+                  {% else %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.firstName }}</a></td>
+                  {% endif %}
+                  <td>{{ Person.position }}</td>
+                  {% if Person.company.deleted == False or not Person.company.id %}
+                  <td><a class="nav-link" href="/directory/company/{{ Person.company.id }}/0/5">{{ Person.company.companyName }}</a></td>
+                  {% else %}
+                  <td>{{ Person.company.companyName }} (deleted)</td>
+                  {% endif %}
+                  <td>{{ Person.celphone }}</td>
+                  <td>{{ Person.email }}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
     </div>
+
+    <!-- Table md -->
+    <div class="table-responsive d-none d-sm-block d-lg-none">
+      <table class="table table-hover" id="person_list" name="Person_List">
+          <!-- Table Header -->
+          <thead class="table-success">
+              <th class="px-3">{% trans "Name" %}</th>
+              <th>{% trans "Company" %}</th>
+              <th>{% trans "CellPhone" %}</th>
+              <th>{% trans "eMail" %}</th>
+          </thead>
+          <!-- Table Body -->
+          <tbody>
+              {% for Person in person_list %}
+              <tr>
+                  {% if  Person.lastName and Person.firstName %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}, {{ Person.firstName }}</a></td>
+                  {% elif Person.lastName %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}</a></td>
+                  {% else %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.firstName }}</a></td>
+                  {% endif %}
+                  {% if Person.company.deleted == False or not Person.company.id %}
+                  <td><a class="nav-link" href="/directory/company/{{ Person.company.id }}/0/5">{{ Person.company.companyName }}</a></td>
+                  {% else %}
+                  <td>{{ Person.company.companyName }} (deleted)</td>
+                  {% endif %}
+                  <td>{{ Person.celphone }}</td>
+                  <td>{{ Person.email }}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+    </div>
+
+    <!-- Table xs -->
+    <div class="table-responsive d-block d-sm-none">
+      <table class="table table-hover" id="person_list" name="Person_List">
+          <!-- Table Header -->
+          <thead class="table-success">
+              <th class="px-3">{% trans "Name" %}</th>
+              <th>{% trans "CellPhone" %}</th>
+          </thead>
+          <!-- Table Body -->
+          <tbody>
+              {% for Person in person_list %}
+              <tr>
+                  {% if  Person.lastName and Person.firstName %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}, {{ Person.firstName }}</a></td>
+                  {% elif Person.lastName %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}</a></td>
+                  {% else %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.firstName }}</a></td>
+                  {% endif %}
+                  <td>{{ Person.celphone }}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
     {% if links %}
     <nav aria-label="Page navigation">
         <ul class="pagination">
@@ -108,10 +176,13 @@
         </ul>
       </nav>
     {% endif %}
+
     {% else %}
         <p>{% trans "No persons available." %}</p>
     {% endif %}
     </div>
 </div>
+
 <script src="{% static 'directory/js/persons_helper.js' %}"></script>
+
 {% endblock %}
