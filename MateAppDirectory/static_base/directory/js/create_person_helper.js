@@ -26,32 +26,41 @@ let messageNewCompany = 'Add Company';
 let messageSelectCompany = 'Select Company';
 const lan = navigator.language.includes("es") ? "es" : "en"
 
+// Idioma del formulario:
 if (lan == "es") {
     messageNewCompany = 'Agregar Compañía';
     messageSelectCompany = 'Seleccionar Compañía';
 }
 
+// Inicializa en 0 el botón de submit.
 let css = '0'
-if (street.value == '') {
-    city.disabled = true;
-    state.disabled = true;
-    country.disabled = true;
-    postalCode.disabled = true;
-} else {
-    city.disabled = false;
-    state.disabled = false;
-    country.disabled = false;
-    postalCode.disabled = false;
-}
 
+// Bloquea la edición de los datos secundarios de Address hasta que ingresa algo o existe algo en Street.
+(function () {
+    if (street.value == '') {
+        city.disabled = true;
+        state.disabled = true;
+        country.disabled = true;
+        postalCode.disabled = true;
+    } else {
+        city.disabled = false;
+        state.disabled = false;
+        country.disabled = false;
+        postalCode.disabled = false;
+    }
+})();
+
+// Oculta el formulario de nueva compañía,
 companyForm.style.display = 'none';
 newCompanyTitle.style.display = 'none';
-lastName.required = true;
 
+// Hace mandatorio alternativamente le campo de lastName y firstName
+lastName.required = true;
 firstName.addEventListener('keyup', (event) => {
     lastName.required = firstName.value == '' ? true : false;
 })
 
+// Habilita la edición de los campos secundarios de Address al tipear en street.
 street.addEventListener('keyup', (event) => {
     if (street.value == '') {
         city.disabled = true;
@@ -72,6 +81,7 @@ street.addEventListener('keyup', (event) => {
     }
 })
 
+// Carga los campos de Address desde Company al seleccionar una compañía existente.
 companySelection.addEventListener('change', (event) => {
     ajax({
         url : `/directory/api/companies/${event.target.value}`,
@@ -90,6 +100,7 @@ companySelection.addEventListener('change', (event) => {
     })
 });
 
+// XHR llamado por el evento de arriba.
 function ajax(config) {
     
     const xhr = new XMLHttpRequest();
@@ -113,6 +124,7 @@ function ajax(config) {
     };
 };
 
+// Muestra u oculta el formulario de nueva compañía.
 function toggle() {
     
     if (companyForm.style.display === 'none'){
@@ -133,6 +145,7 @@ function toggle() {
 }
 }
 
+//Limpia el formulario de address si hubo una compañía seleccionada y se vuelve a crear compañia.
 function clear() {
     companySelection.value = '';
     companyName.value = '';
@@ -143,6 +156,7 @@ function clear() {
     postalCode.value = '';
 }
 
+// Construye el value del botón para señalizar a la vista los formularios correctos.
 function buildss() {
     if (companyForm.style.display === 'none' && companyName.value === '') {
         css = '0';

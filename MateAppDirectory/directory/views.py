@@ -5,7 +5,7 @@ from django.contrib import messages
 from .models import Address, Company, Person
 from main.functions import paginator
 from main.forms import SearchForm
-from .forms import PersonForm, CompanyForm, AddressFrom, PersonNotesForm
+from .forms import PersonForm, CompanyForm, AddressFrom, PersonNotesForm, CompanyNotesForm
 from django.contrib.auth.decorators import login_required, permission_required
 import copy
 from django.utils.translation import gettext_lazy as _
@@ -427,3 +427,38 @@ def personNotesEdit(request, id):
         'person' : person,
     }
     return render(request, 'directory/partials/edit_person_notes.html', context)
+
+# Company Notes:
+
+@login_required
+def companyNotes(request, id):
+    '''Esta vista de la de display del partial de company notes de htmx'''
+    company = Company.objects.get(id=id)
+    context = {
+        'company' : company,
+    }
+    return render(request, 'directory/partials/company_notes.html', context)
+
+@login_required
+def companyNotesEdit(request, id):
+    '''Esta vista es el tramo de edición del partial de company notes de htmx'''
+    company = Company.objects.get(id=id)
+    if request.method == 'PUT':
+        data = QueryDict(request.body).dict()
+        notesform = CompanyNotesForm(data, instance=company)
+        if notesform.is_valid():
+            notesform.save()
+            context = {
+                'notesform' : notesform,
+                'company' : company,
+            }
+            return render(request, 'directory/partials/company_notes.html', context)
+
+    else:
+        notesform = CompanyNotesForm(instance=company)
+
+    context = {
+        'notesform' : notesform,
+        'company' : company,
+    }
+    return render(request, 'directory/partials/edit_company_notes.html', context)

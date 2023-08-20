@@ -75,6 +75,7 @@ class AddressFrom(forms.ModelForm):
         }
 
 class PersonNotesForm(forms.ModelForm):
+    '''Short form for partial edit with htmx'''
 
     class Meta:
         model = Person
@@ -84,4 +85,17 @@ class PersonNotesForm(forms.ModelForm):
 
         widgets = {
             'notes': forms.Textarea(attrs={'class':'form-control','placeholder':'Notes','style':'height: 200px'}),
+        }
+
+class CompanyNotesForm(forms.ModelForm):
+    '''Short form for partial edit with htmx'''
+
+    class Meta:
+        model = Company
+        fields = {
+            'companyNotes',
+        }
+
+        widgets = {
+            'companyNotes': forms.Textarea(attrs={'class':'form-control','placeholder':'Notes','style':'height: 200px'}),
         }

@@ -61,3 +61,8 @@
 .hx-pointer {
     cursor: pointer;
 }
+
+div.htmx-swapping div {
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+}

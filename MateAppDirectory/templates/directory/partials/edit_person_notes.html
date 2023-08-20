@@ -1,6 +1,6 @@
 {% load i18n %} 
 
-<form hx-put="/directory/edit_person_notes/{{ person.id }}/" hx-target="#notes" hx-swap="outerHTML" id="notes">
+<form hx-put="/directory/edit_person_notes/{{ person.id }}/" hx-target="#notes" hx-swap="outerHTML swap:0.2s" id="notes">
 
     {% csrf_token %}
 
