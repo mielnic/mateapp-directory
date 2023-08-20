@@ -52,15 +52,14 @@
             {% include 'directory/partials/person_notes.html' %}
         </div>
 
+        <div class="row pt-3 justify-content-center">
+            <div class="col col-lg-10 d-flex justify-content-center">       
+                <p><a href="/directory/edit_person/{{ person.id }}" class="btn btn-outline-success mt-1 px-4 mx-2" role="button">{% trans "Edit" %}</a></p>
+                <p><a href="/directory/persons/0/10/" class="btn btn-outline-secondary mt-1 px-4 mx-2" role="button">{% trans "Back" %}</a></p>
+                <p><a href="/directory/delete_person/{{ person.id }}" class="btn btn-outline-danger mt-1 mx-2" role="button">{% trans "Delete" %}</a></p>
+            </div>
+        </div>        
 
-    </div>
-</div>
-
-<div class="row py-3 justify-content-center">
-    <div class="col col-lg-10 d-flex justify-content-center shadow border rounded mx-1 px-4 py-3">       
-        <p><a href="/directory/edit_person/{{ person.id }}" class="btn btn-outline-success mt-1 px-4 mx-2" role="button">{% trans "Edit" %}</a></p>
-        <p><a href="/directory/persons/0/10/" class="btn btn-outline-secondary mt-1 px-4 mx-2" role="button">{% trans "Back" %}</a></p>
-        <p><a href="/directory/delete_person/{{ person.id }}" class="btn btn-outline-danger mt-1 mx-2" role="button">{% trans "Delete" %}</a></p>
     </div>
 </div>
 
