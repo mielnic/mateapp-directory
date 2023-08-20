@@ -57,3 +57,7 @@
     color: grey;
     height: 1px;
 }
+
+.hx-pointer {
+    cursor: pointer;
+}

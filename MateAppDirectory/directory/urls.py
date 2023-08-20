@@ -23,6 +23,8 @@ urlpatterns = [
     path('delete_person/<int:id>/', views.delete_person, name='Delete Person'),
     path('restore_person/<int:id>/<int:u>/', views.restore_person, name='Restore Person'),
     path('full_delete_person/<int:id>/', views.full_delete_person, name='Full Delete Person'),
+    path('person_notes/<int:id>/', views.personNotes, name='personNotes'),
+    path('edit_person_notes/<int:id>/', views.personNotesEdit, name='personNotesEdit'),
     #  CUD Company
     path('create_company/', views.create_company, name='Create Company'),
     path('edit_company/<int:id>/', views.edit_company, name='Edit Company'),

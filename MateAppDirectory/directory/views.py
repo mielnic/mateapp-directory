@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect, response, request
+from django.http import HttpResponse, HttpResponseRedirect, response, request, QueryDict
 from django.template import loader
 from django.contrib import messages
 from .models import Address, Company, Person
 from main.functions import paginator
 from main.forms import SearchForm
-from .forms import PersonForm, CompanyForm, AddressFrom
+from .forms import PersonForm, CompanyForm, AddressFrom, PersonNotesForm
 from django.contrib.auth.decorators import login_required, permission_required
 import copy
 from django.utils.translation import gettext_lazy as _
@@ -388,3 +388,42 @@ def full_delete_company(request, id):
     company.deletedBy = None
     company.save()
     return redirect('/user_trash/0/10/')
+
+##############
+# htmx Views #
+##############
+
+# Person Notes
+
+@login_required
+def personNotes(request, id):
+    '''Esta vista de la de display del partial de person notes de htmx'''
+    person = Person.objects.get(id=id)
+    context = {
+        'person' : person,
+    }
+    return render(request, 'directory/partials/person_notes.html', context)
+
+@login_required
+def personNotesEdit(request, id):
+    '''Esta vista es el tramo de edición del partial de person notes de htmx'''
+    person = Person.objects.get(id=id)
+    if request.method == 'PUT':
+        data = QueryDict(request.body).dict()
+        notesform = PersonNotesForm(data, instance=person)
+        if notesform.is_valid():
+            notesform.save()
+            context = {
+                'notesform' : notesform,
+                'person' : person,
+            }
+            return render(request, 'directory/partials/person_notes.html', context)
+
+    else:
+        notesform = PersonNotesForm(instance=person)
+
+    context = {
+        'notesform' : notesform,
+        'person' : person,
+    }
+    return render(request, 'directory/partials/edit_person_notes.html', context)

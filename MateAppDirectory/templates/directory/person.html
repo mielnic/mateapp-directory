@@ -47,14 +47,10 @@
                 </div>
             </div>
         </div>
-
-        {% if person.notes %}
-        <div class="row py-3 justify-content-start">
-            <div class="col p-3 col-lg-10">
-                <p><i class="bi bi-pencil-square"></i>&nbsp;{{person.notes}}</p>
-            </div>
+        <!-- Placeholder para los partials de htmx -->
+        <div>
+            {% include 'directory/partials/person_notes.html' %}
         </div>
-        {% endif %}
 
 
     </div>
@@ -69,4 +65,9 @@
 </div>
 
 <script src="{% static 'directory/js/contact_helper.js' %}"></script>
+<script>
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+        })
+</script>
 {% endblock %}

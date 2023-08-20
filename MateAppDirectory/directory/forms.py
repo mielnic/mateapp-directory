@@ -73,3 +73,15 @@ class AddressFrom(forms.ModelForm):
             'state': forms.TextInput(attrs={'class':'form-control','placeholder':'State'}),
             'country': forms.TextInput(attrs={'class':'form-control','placeholder':'Country'}),
         }
+
+class PersonNotesForm(forms.ModelForm):
+
+    class Meta:
+        model = Person
+        fields = {
+            'notes',
+        }
+
+        widgets = {
+            'notes': forms.Textarea(attrs={'class':'form-control','placeholder':'Notes','style':'height: 200px'}),
+        }
