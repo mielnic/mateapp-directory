@@ -89,7 +89,7 @@
                   <td>{{ Person.company.companyName }} (deleted)</td>
                   {% endif %}
                   <td>{{ Person.celphone }}</td>
-                  <td>{{ Person.email }}</td>
+                  <td><a class="nav-link" id="mail-link" href="mailto:{{Person.email}}">{{ Person.email }}</a></td>
               </tr>
               {% endfor %}
           </tbody>
@@ -123,7 +123,7 @@
                   <td>{{ Person.company.companyName }} (deleted)</td>
                   {% endif %}
                   <td>{{ Person.celphone }}</td>
-                  <td>{{ Person.email }}</td>
+                  <td><a class="nav-link" id="mail-link" href="mailto:{{Person.email}}">{{ Person.email }}</a></td>
               </tr>
               {% endfor %}
           </tbody>

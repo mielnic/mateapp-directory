@@ -38,7 +38,8 @@ def persons(request, a, b):
             q = searchform.cleaned_data['q']
             ln_list = Person.objects.filter(lastName__icontains=q, deleted=False)
             fn_list = Person.objects.filter(firstName__icontains=q, deleted=False)
-            person_list = sorted(chain(ln_list, fn_list),
+            cn_list = Person.objects.filter(company__companyName__icontains=q, deleted=False)
+            person_list = sorted(chain(ln_list, fn_list, cn_list),
                              key=attrgetter('lastName'),
                              )
             links, idxPL, idxPR, idxNL, idxNR = '', '', '', '', ''
