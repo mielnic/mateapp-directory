@@ -24,7 +24,7 @@ const newCompanyTitle = document.getElementById('new_company_title');
 const saveButton = document.getElementById('save_button');
 let messageNewCompany = 'Add Company';
 let messageSelectCompany = 'Select Company';
-const lan = navigator.language.includes("es") ? "es" : "en"
+const lan = navigator.language.includes("es") ? "es" : "en";
 
 // Idioma del formulario:
 if (lan == "es") {
@@ -33,7 +33,7 @@ if (lan == "es") {
 }
 
 // Inicializa en 0 el botón de submit.
-let css = '0'
+let css = '0';
 
 // Bloquea la edición de los datos secundarios de Address hasta que ingresa algo o existe algo en Street.
 (function () {

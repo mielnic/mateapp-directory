@@ -1,9 +1,14 @@
 from unittest.util import _MAX_LENGTH
 from django.db import models
 
-# Create your models here.
+class BaseModel(models.Model):
+    create_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        abstract = True
 
-class Address(models.Model):
+class Address(BaseModel):
     street = models.CharField(max_length=200, blank=True)
     postalCode = models.CharField(max_length=7, blank=True)
     city = models.CharField(max_length=50, blank=True)
@@ -15,7 +20,7 @@ class Address(models.Model):
     def __str__(self):
         return f'{self.street}, {self.city}'
 
-class Company(models.Model):
+class Company(BaseModel):
     companyName = models.CharField(max_length=100, blank=True)
     tax_id = models.CharField(max_length=15, blank=True)
     address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -29,7 +34,7 @@ class Company(models.Model):
         return self.companyName
 
 
-class Person(models.Model):
+class Person(BaseModel):
     lastName = models.CharField(max_length=50, blank=True)
     firstName = models.CharField(max_length=50, blank=True)
     celphone = models.CharField(max_length=25, blank=True)

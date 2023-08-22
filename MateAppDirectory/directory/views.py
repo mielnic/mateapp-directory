@@ -281,10 +281,7 @@ def restore_person(request, id, u):
     person = Person.objects.get(id=id)
     person.deleted = 0
     person.save()
-    if u == 0:
-        return redirect('/user_trash/0/10/')
-    else:
-        return redirect('/admin_trash/0/10/')
+    return HttpResponse(status = 200)
 
 # Person Full Delete
 
@@ -293,7 +290,7 @@ def full_delete_person(request, id):
     person = Person.objects.get(id=id)
     person.deletedBy = None
     person.save()
-    return redirect('/user_trash/0/10/')
+    return HttpResponse(status = 200)
 
 
 # Company Create
@@ -376,10 +373,7 @@ def restore_company(request, id, u):
     company = Company.objects.get(id=id)
     company.deleted = 0
     company.save()
-    if u == 0:
-        return redirect('/user_trash/0/10/')
-    else:
-        return redirect('/admin_trash/0/10/')
+    return HttpResponse(status = 200)
 
 # Company Full Delete
 
@@ -388,7 +382,7 @@ def full_delete_company(request, id):
     company = Company.objects.get(id=id)
     company.deletedBy = None
     company.save()
-    return redirect('/user_trash/0/10/')
+    return HttpResponse(status = 200)
 
 ##############
 # htmx Views #

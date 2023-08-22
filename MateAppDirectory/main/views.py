@@ -84,7 +84,10 @@ def user_trash(request, a, b):
     uid = request.user.id
     deleted_companies_list = Company.objects.filter(deleted=True, deletedBy=uid)
     deleted_person_list = Person.objects.filter(deleted=True, deletedBy=uid)
-    trash = list(chain(deleted_person_list, deleted_companies_list))
+    trash = sorted(chain(deleted_person_list, deleted_companies_list),
+                   key=attrgetter('modified_date'),
+                   reverse=True,
+                   )
     trash_list = trash [a:b]
     length = len(trash)
     links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
@@ -123,7 +126,10 @@ def admin_trash(request, a, b):
     else:
         deleted_companies_list = Company.objects.filter(deleted=True)
         deleted_person_list = Person.objects.filter(deleted=True)
-        trash = list(chain(deleted_person_list, deleted_companies_list))
+        trash = sorted(chain(deleted_person_list, deleted_companies_list),
+                       key=attrgetter('modified_date'),
+                       reverse=True,
+                       )
         trash_list = trash [a:b]
         length = len(trash)
         links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
