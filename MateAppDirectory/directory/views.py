@@ -12,7 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from itertools import chain
 from operator import attrgetter
 from django.contrib.auth import get_user_model
-from django.db.models import Q, Count
+from django.db.models import Q, Value, Count, Min
 
 ########
 # MAIN #
@@ -29,12 +29,29 @@ def index(response):
 # READ Views #
 ##############
 
+# Fav List
+
+@login_required
+def favs(request):
+    uid = request.user.id
+    user = get_user_model().objects.get(id=uid)
+    person_list = Person.objects.filter(Q(favorite__user=user, deleted=False)).annotate(entity=Value('lastName')).annotate(is_person=Value(True)).annotate(fav_id=Min('favorite__id', filter=Q(favorite__user=user)))
+    companies_list = Company.objects.filter(Q(favorite__user=user, deleted=False)).annotate(entity=Value('companyName')).annotate(is_person=Value(False)).annotate(fav_id=Min('favorite__id', filter=Q(favorite__user=user)))
+    fav_list = sorted(chain(person_list, companies_list),
+                      key=attrgetter('entity'),
+                      reverse=False,
+                      )
+    context = {
+        'fav_list' : fav_list,
+    }
+    return render(request, 'directory/favs.html', context)
+
 # Persons List
 
 @login_required
 def persons(request, a, b):
     uid = request.user.id
-    user = get_user_model().objects.get(pk=uid)
+    user = get_user_model().objects.get(id=uid)
     searchform = SearchForm
     if 'q' in request.GET:
         searchform = SearchForm(request.GET)
@@ -430,6 +447,11 @@ def unlink_favorite(request, lid):
         pid = Favorite.objects.get(id=lid).company.id
         Favorite.objects.filter(id=lid).delete()
         return HttpResponse(f'<span class="px-2" hx-get="/directory/link_fav/company_obj/{ pid }/" hx-swap="outerHTML"><i class="bi bi-star h5 hx-pointer text-warning"></i></span>')
+
+@login_required
+def unlink_favorite_favs(request, lid):
+    Favorite.objects.filter(id=lid).delete()
+    return HttpResponse(status = 200)
 
 ##############
 # htmx Views #

@@ -7,6 +7,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout, authenticate, get_user_model
 from .decorators import user_not_authenticated, allowed_users
 from .forms import SearchForm
+from directory.views import favs
+from directory.models import Favorite
 from django.contrib.auth.decorators import login_required
 from directory.models import Person, Company, Address
 from itertools import chain
@@ -20,7 +22,13 @@ from django.core.management import call_command
 # Create your views here.
 
 def home(request):
-    return render(request,'main/home.html')
+    uid = request.user.id
+    user = get_user_model().objects.get(id=uid)
+    favorites = Favorite.objects.filter(user=user)
+    if favorites:
+        return favs(request)
+    else:
+        return search(request)
 
 # Login
 
@@ -75,7 +83,7 @@ def search(request):
         'results' : results,
     }
 
-    return render(request, 'main/home.html', context)
+    return render(request, 'main/search.html', context)
 
 # User Trash
 

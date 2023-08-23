@@ -36,6 +36,8 @@ urlpatterns = [
     # Favorites
     path('link_fav/<str:obj>/<int:oid>/', views.link_favorite, name='LinkFav'),
     path('unlink_fav/<int:lid>/', views.unlink_favorite, name='UnLinkFav'),
+    path('favs/', views.favs, name='Favs'),
+    path('unlink_fav_favs/<int:lid>/', views.unlink_favorite_favs, name='UnLinkFavFavs'),
     #  API
     path('api/', include(router.urls))
 ]

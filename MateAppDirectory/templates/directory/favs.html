@@ -1,0 +1,144 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{% block navbar %}
+{% include 'includes/navbar.html' %}
+{% endblock navbar %}
+
+{% block content %}
+
+<!--Header-->
+<div class="row mt-3 justify-content-md-center">
+    <div class="col shadow p-2 mx-1 border rounded bg-light">
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid px-4">
+            <a class="navbar-brand" href="#"><h4><i class="bi bi-star"></i>&nbsp;{% trans "Favorites" %}</h4></a>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- Content -->
+<div class="row mt-3 justify-content-md-center">
+    <div class="col shadow p-3 mx-1 border rounded">
+    {% if fav_list %}
+    <!-- Table lg -->
+    <div class="table-responsive d-none d-lg-block">
+      <table class="table table-hover" id="fav_list" name="Fav_List">
+          <!-- Table Header -->
+          <thead class="table-success">
+              <th class="px-3">{% trans "Name" %}</th>
+              <th>{% trans "Company" %}</th>
+              <th>{% trans "Phone" %}</th>
+              <th>{% trans "eMail/Web" %}</th>
+              <th>UnFav</th>
+          </thead>
+          <!-- Table Body -->
+          <tbody hx-target="closest tr" hx-swap="outerHTML swap:0.5s">
+              {% for fav in fav_list %}
+              <tr>
+                {% if fav.is_person %}
+                    {% if  fav.lastName and fav.firstName %}
+                    <td class="px-3"><a class="nav-link" href="/directory/person/{{ fav.id }}/">{{ fav.lastName }}, {{ fav.firstName }}</a></td>
+                    {% elif fav.lastName %}
+                    <td class="px-3"><a class="nav-link" href="/directory/person/{{ fav.id }}/">{{ fav.lastName }}</a></td>
+                    {% else %}
+                    <td class="px-3"><a class="nav-link" href="/directory/person/{{ fav.id }}/">{{ fav.firstName }}</a></td>
+                    {% endif %}
+                    {% if fav.company.deleted == False or not fav.company.id %}
+                    <td><a class="nav-link" href="/directory/company/{{ fav.company.id }}/0/5">{{ fav.company.companyName }}</a></td>
+                    {% else %}
+                    <td>{{ fav.company.companyName }} (deleted)</td>
+                    {% endif %}
+                    <td>{{ fav.celphone }}</td>
+                    <td><a class="nav-link" id="mail-link" href="mailto:{{fav.email}}">{{ fav.email }}</a></td>
+                    <td>
+                        <span class="px-2" hx-delete="/directory/unlink_fav_favs/{{ fav.fav_id }}/"><i class="bi bi-star-fill h5 hx-pointer text-warning"></i></span>
+                    </td>
+                {% else %}
+                    <td class="px-3"><a class="nav-link" href="/directory/company/{{ fav.id }}/0/5/">{{ fav.companyName }}</a></td>
+                    <td>N/A</td>
+                    <td>{{ fav.companyPhone }}</td>
+                    <td><a class="nav-link" href="{{ fav.website }}" target="_blank">{{ fav.website }}</a></td>
+                    <td>
+                        <span class="px-2" hx-delete="/directory/unlink_fav_favs/{{ fav.fav_id }}/"><i class="bi bi-star-fill h5 hx-pointer text-warning"></i></span>
+                    </td>
+                {% endif %}
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+    </div>
+    <!-- Table md -->
+    <div class="table-responsive d-none d-sm-block d-lg-none">
+        <table class="table table-hover" id="fav_list" name="Fav_List">
+            <!-- Table Header -->
+            <thead class="table-success">
+                <th class="px-3">{% trans "Name" %}</th>
+                <th>{% trans "eMail/Web" %}</th>
+                <th>UnFav</th>
+            </thead>
+            <!-- Table Body -->
+            <tbody hx-target="closest tr" hx-swap="outerHTML swap:0.5s">
+                {% for fav in fav_list %}
+                <tr>
+                  {% if fav.is_person %}
+                      {% if  fav.lastName and fav.firstName %}
+                      <td class="px-3"><a class="nav-link" href="/directory/person/{{ fav.id }}/">{{ fav.lastName }}, {{ fav.firstName }}</a></td>
+                      {% elif fav.lastName %}
+                      <td class="px-3"><a class="nav-link" href="/directory/person/{{ fav.id }}/">{{ fav.lastName }}</a></td>
+                      {% else %}
+                      <td class="px-3"><a class="nav-link" href="/directory/person/{{ fav.id }}/">{{ fav.firstName }}</a></td>
+                      {% endif %}
+                      <td><a class="nav-link" id="mail-link" href="mailto:{{fav.email}}">{{ fav.email }}</a></td>
+                      <td>
+                          <span class="px-2" hx-delete="/directory/unlink_fav_favs/{{ fav.fav_id }}/"><i class="bi bi-star-fill h5 hx-pointer text-warning"></i></span>
+                      </td>
+                  {% else %}
+                      <td class="px-3"><a class="nav-link" href="/directory/company/{{ fav.id }}/0/5/">{{ fav.companyName }}</a></td>
+                      <td><a class="nav-link" href="{{ fav.website }}" target="_blank">{{ fav.website }}</a></td>
+                      <td>
+                          <span class="px-2" hx-delete="/directory/unlink_fav_favs/{{ fav.fav_id }}/"><i class="bi bi-star-fill h5 hx-pointer text-warning"></i></span>
+                      </td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    <!-- Table xs -->
+    <div class="table-responsive d-block d-sm-none">
+        <table class="table table-hover" id="fav_list" name="Fav_List">
+            <!-- Table Header -->
+            <thead class="table-success">
+                <th class="px-3">{% trans "Name" %}</th>
+                <th>{% trans "Phone" %}</th>
+            </thead>
+            <!-- Table Body -->
+            <tbody hx-target="closest tr" hx-swap="outerHTML swap:0.5s">
+                {% for fav in fav_list %}
+                <tr>
+                  {% if fav.is_person %}
+                      {% if  fav.lastName and fav.firstName %}
+                      <td class="px-3"><a class="nav-link" href="/directory/person/{{ fav.id }}/">{{ fav.lastName }}, {{ fav.firstName }}</a></td>
+                      {% elif fav.lastName %}
+                      <td class="px-3"><a class="nav-link" href="/directory/person/{{ fav.id }}/">{{ fav.lastName }}</a></td>
+                      {% else %}
+                      <td class="px-3"><a class="nav-link" href="/directory/person/{{ fav.id }}/">{{ fav.firstName }}</a></td>
+                      {% endif %}
+                      <td>{{ fav.celphone }}</td>
+                  {% else %}
+                      <td class="px-3"><a class="nav-link" href="/directory/company/{{ fav.id }}/0/5/">{{ fav.companyName }}</a></td>
+                      <td>{{ fav.companyPhone }}</td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    {% endif %}
+    </div>
+</div>
+
+{% endblock content %}
