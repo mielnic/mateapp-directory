@@ -21,6 +21,7 @@ from django.core.management import call_command
 
 # Create your views here.
 
+@login_required
 def home(request):
     uid = request.user.id
     user = get_user_model().objects.get(id=uid)
