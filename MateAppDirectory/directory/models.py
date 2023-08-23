@@ -1,5 +1,6 @@
 from unittest.util import _MAX_LENGTH
 from django.db import models
+from django.conf import settings
 
 class BaseModel(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
@@ -51,6 +52,10 @@ class Person(BaseModel):
         return f'{self.lastName}, {self.firstName}'
 
 
+class Favorite(BaseModel):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=True, null=True)
+    person = models.ForeignKey(Person, on_delete=models.DO_NOTHING, blank=True, null=True)
+    company = models.ForeignKey(Company, on_delete=models.DO_NOTHING, blank=True, null=True)
 
 
 

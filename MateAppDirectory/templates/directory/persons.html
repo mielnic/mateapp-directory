@@ -70,26 +70,34 @@
               <th>{% trans "Company" %}</th>
               <th>{% trans "CellPhone" %}</th>
               <th>{% trans "eMail" %}</th>
+              <th>Fav</th>
           </thead>
           <!-- Table Body -->
           <tbody>
-              {% for Person in person_list %}
+              {% for person in person_list %}
               <tr>
-                  {% if  Person.lastName and Person.firstName %}
-                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}, {{ Person.firstName }}</a></td>
-                  {% elif Person.lastName %}
-                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}</a></td>
+                  {% if  person.lastName and person.firstName %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ person.id }}/">{{ person.lastName }}, {{ person.firstName }}</a></td>
+                  {% elif person.lastName %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ person.id }}/">{{ person.lastName }}</a></td>
                   {% else %}
-                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.firstName }}</a></td>
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ person.id }}/">{{ person.firstName }}</a></td>
                   {% endif %}
-                  <td>{{ Person.position }}</td>
-                  {% if Person.company.deleted == False or not Person.company.id %}
-                  <td><a class="nav-link" href="/directory/company/{{ Person.company.id }}/0/5">{{ Person.company.companyName }}</a></td>
+                  <td>{{ person.position }}</td>
+                  {% if person.company.deleted == False or not person.company.id %}
+                  <td><a class="nav-link" href="/directory/company/{{ person.company.id }}/0/5">{{ person.company.companyName }}</a></td>
                   {% else %}
-                  <td>{{ Person.company.companyName }} (deleted)</td>
+                  <td>{{ person.company.companyName }} (deleted)</td>
                   {% endif %}
-                  <td>{{ Person.celphone }}</td>
-                  <td><a class="nav-link" id="mail-link" href="mailto:{{Person.email}}">{{ Person.email }}</a></td>
+                  <td>{{ person.celphone }}</td>
+                  <td><a class="nav-link" id="mail-link" href="mailto:{{person.email}}">{{ person.email }}</a></td>
+                  <td>
+                    {% if person.fav %}
+                  <span class="px-2" hx-get="/directory/unlink_fav/{{ fav.id }}/" hx-swap="outerHTML"><i class="bi bi-star-fill h5 hx-pointer text-warning"></i></span>
+                  {% else %}
+                  <span class="px-2" hx-get="/directory/link_fav/person_obj/{{ person.id }}/" hx-swap="outerHTML"><i class="bi bi-star h5 hx-pointer text-warning"></i></span>
+                  {% endif %}
+                  </td>
               </tr>
               {% endfor %}
           </tbody>
@@ -108,22 +116,22 @@
           </thead>
           <!-- Table Body -->
           <tbody>
-              {% for Person in person_list %}
+              {% for person in person_list %}
               <tr>
-                  {% if  Person.lastName and Person.firstName %}
-                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}, {{ Person.firstName }}</a></td>
-                  {% elif Person.lastName %}
-                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}</a></td>
+                  {% if  person.lastName and person.firstName %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ person.id }}/">{{ person.lastName }}, {{ person.firstName }}</a></td>
+                  {% elif person.lastName %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ person.id }}/">{{ person.lastName }}</a></td>
                   {% else %}
-                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.firstName }}</a></td>
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ person.id }}/">{{ person.firstName }}</a></td>
                   {% endif %}
-                  {% if Person.company.deleted == False or not Person.company.id %}
-                  <td><a class="nav-link" href="/directory/company/{{ Person.company.id }}/0/5">{{ Person.company.companyName }}</a></td>
+                  {% if person.company.deleted == False or not person.company.id %}
+                  <td><a class="nav-link" href="/directory/company/{{ person.company.id }}/0/5">{{ person.company.companyName }}</a></td>
                   {% else %}
-                  <td>{{ Person.company.companyName }} (deleted)</td>
+                  <td>{{ person.company.companyName }} (deleted)</td>
                   {% endif %}
-                  <td>{{ Person.celphone }}</td>
-                  <td><a class="nav-link" id="mail-link" href="mailto:{{Person.email}}">{{ Person.email }}</a></td>
+                  <td>{{ person.celphone }}</td>
+                  <td><a class="nav-link" id="mail-link" href="mailto:{{person.email}}">{{ person.email }}</a></td>
               </tr>
               {% endfor %}
           </tbody>
@@ -140,16 +148,16 @@
           </thead>
           <!-- Table Body -->
           <tbody>
-              {% for Person in person_list %}
+              {% for person in person_list %}
               <tr>
-                  {% if  Person.lastName and Person.firstName %}
-                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}, {{ Person.firstName }}</a></td>
-                  {% elif Person.lastName %}
-                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}</a></td>
+                  {% if  person.lastName and person.firstName %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ person.id }}/">{{ person.lastName }}, {{ person.firstName }}</a></td>
+                  {% elif person.lastName %}
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ person.id }}/">{{ person.lastName }}</a></td>
                   {% else %}
-                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.firstName }}</a></td>
+                  <td class="px-3"><a class="nav-link" href="/directory/person/{{ person.id }}/">{{ person.firstName }}</a></td>
                   {% endif %}
-                  <td>{{ Person.celphone }}</td>
+                  <td>{{ person.celphone }}</td>
               </tr>
               {% endfor %}
           </tbody>

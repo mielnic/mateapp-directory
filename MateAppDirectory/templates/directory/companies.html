@@ -73,17 +73,25 @@
             <th>{% trans "Address" %}</th>
             <th>{% trans "Website" %}</th>
             <th>{% trans "Tax ID" %}</th>
+            <th>Fav</th>
         </thead>
 
         <!-- Cuerpo de Tabla -->
         <tbody>
-            {% for Company in companies_list %}
+            {% for company in companies_list %}
             <tr>
-                <td class="px-3"><a class="nav-link" href="/directory/company/{{ Company.id }}/0/5/">{{ Company.companyName }}</a></td>
-                <td>{{ Company.companyPhone }}</td>
-                <td>{{ Company.address.street }} {% if Company.address.city %}, {{ Company.address.city }}{% endif %}</td>
-                <td><a class="nav-link" href="{{ Company.website }}" target="_blank">{{ Company.website }}</a></td>
-                <td>{{ Company.tax_id }}</td>
+                <td class="px-3"><a class="nav-link" href="/directory/company/{{ company.id }}/0/5/">{{ company.companyName }}</a></td>
+                <td>{{ company.companyPhone }}</td>
+                <td>{{ company.address.street }} {% if company.address.city %}, {{ company.address.city }}{% endif %}</td>
+                <td><a class="nav-link" href="{{ company.website }}" target="_blank">{{ company.website }}</a></td>
+                <td>{{ company.tax_id }}</td>
+                <td>
+                  {% if company.fav %}
+                  <span class="px-2" hx-get="/directory/unlink_fav/{{ fav.id }}/" hx-swap="outerHTML"><i class="bi bi-star-fill h5 hx-pointer text-warning"></i></span>
+                  {% else %}
+                  <span class="px-2" hx-get="/directory/link_fav/company_obj/{{ company.id }}/" hx-swap="outerHTML"><i class="bi bi-star h5 hx-pointer text-warning"></i></span>
+                  {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -103,11 +111,11 @@
 
         <!-- Cuerpo de Tabla -->
         <tbody>
-            {% for Company in companies_list %}
+            {% for company in companies_list %}
             <tr>
-                <td class="px-3"><a class="nav-link" href="/directory/company/{{ Company.id }}/0/5/">{{ Company.companyName }}</a></td>
-                <td>{{ Company.companyPhone }}</td>
-                <td>{{ Company.address.street }} {% if Company.address.city %}, {{ Company.address.city }}{% endif %}</td>
+                <td class="px-3"><a class="nav-link" href="/directory/company/{{ company.id }}/0/5/">{{ company.companyName }}</a></td>
+                <td>{{ company.companyPhone }}</td>
+                <td>{{ company.address.street }} {% if company.address.city %}, {{ company.address.city }}{% endif %}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -126,10 +134,10 @@
 
         <!-- Cuerpo de Tabla -->
         <tbody>
-            {% for Company in companies_list %}
+            {% for company in companies_list %}
             <tr>
-                <td class="px-3"><a class="nav-link" href="/directory/company/{{ Company.id }}/0/5/">{{ Company.companyName }}</a></td>
-                <td>{{ Company.companyPhone }}</td>
+                <td class="px-3"><a class="nav-link" href="/directory/company/{{ company.id }}/0/5/">{{ company.companyName }}</a></td>
+                <td>{{ company.companyPhone }}</td>
             </tr>
             {% endfor %}
         </tbody>

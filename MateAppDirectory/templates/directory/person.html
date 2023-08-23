@@ -8,9 +8,16 @@
 
 {% block content %}
 
+
 <div class="row py-3 justify-content-center">
     <div class="col shadow px-5 py-3 mx-1 col-lg-10 rounded border bg-light">
-        <h2>{{person.firstName}} {{person.lastName}}</h2>
+        <h2>{{person.firstName}} {{person.lastName}}
+            {% if fav %}
+            <span class="px-2" hx-get="/directory/unlink_fav/{{ fav.id }}/" hx-swap="outerHTML"><i class="bi bi-star-fill h5 hx-pointer text-warning"></i></span>
+            {% else %}
+            <span class="px-2" hx-get="/directory/link_fav/person_obj/{{ person.id }}/" hx-swap="outerHTML"><i class="bi bi-star h5 hx-pointer text-warning"></i></span>
+            {% endif %}
+        </h2>
         <h5>{{person.position}}</h5>
         <h5>
             {% if person.company.deleted == False or not Person.company.id %}

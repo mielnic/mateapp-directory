@@ -33,6 +33,9 @@ urlpatterns = [
     path('delete_company/<int:id>/', views.delete_company, name='Delete Company'),
     path('restore_company/<int:id>/<int:u>/', views.restore_company, name='Restore Company'),
     path('full_delete_company/<int:id>/', views.full_delete_company, name='Full Delete Company'),
+    # Favorites
+    path('link_fav/<str:obj>/<int:oid>/', views.link_favorite, name='LinkFav'),
+    path('unlink_fav/<int:lid>/', views.unlink_favorite, name='UnLinkFav'),
     #  API
     path('api/', include(router.urls))
 ]

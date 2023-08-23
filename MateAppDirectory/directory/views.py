@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, response, request, QueryDict
 from django.template import loader
 from django.contrib import messages
-from .models import Address, Company, Person
+from .models import Address, Company, Person, Favorite
 from main.functions import paginator
 from main.forms import SearchForm
 from .forms import PersonForm, CompanyForm, AddressFrom, PersonNotesForm, CompanyNotesForm
@@ -11,6 +11,8 @@ import copy
 from django.utils.translation import gettext_lazy as _
 from itertools import chain
 from operator import attrgetter
+from django.contrib.auth import get_user_model
+from django.db.models import Q, Count
 
 ########
 # MAIN #
@@ -31,14 +33,16 @@ def index(response):
 
 @login_required
 def persons(request, a, b):
+    uid = request.user.id
+    user = get_user_model().objects.get(pk=uid)
     searchform = SearchForm
     if 'q' in request.GET:
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
             q = searchform.cleaned_data['q']
-            ln_list = Person.objects.filter(lastName__icontains=q, deleted=False)
-            fn_list = Person.objects.filter(firstName__icontains=q, deleted=False)
-            cn_list = Person.objects.filter(company__companyName__icontains=q, deleted=False)
+            ln_list = Person.objects.filter(lastName__icontains=q, deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user)))
+            fn_list = Person.objects.filter(firstName__icontains=q, deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user)))
+            cn_list = Person.objects.filter(company__companyName__icontains=q, deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user)))
             person_list = sorted(chain(ln_list, fn_list, cn_list),
                              key=attrgetter('lastName'),
                              )
@@ -47,7 +51,7 @@ def persons(request, a, b):
             if not person_list:
                 messages.warning(request, _("The search didn't return any result."))
     else:
-        person_list = Person.objects.order_by('lastName').select_related('company').filter(deleted=False) [a:b]
+        person_list = Person.objects.order_by('lastName').select_related('company').filter(deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user)))  [a:b]
         length = Person.objects.filter(deleted=False).count()
         links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
         template = loader.get_template('directory/persons.html')
@@ -66,19 +70,21 @@ def persons(request, a, b):
 
 @login_required
 def companies(request, a, b):
+    uid = request.user.id
+    user = get_user_model().objects.get(pk=uid)
     searchform = SearchForm
     if 'q' in request.GET:
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
             q = searchform.cleaned_data['q']
-            companies_list = Company.objects.filter(companyName__icontains=q, deleted=False)
+            companies_list = Company.objects.filter(companyName__icontains=q, deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user))) 
             links, idxPL, idxPR, idxNL, idxNR = '', '', '', '', ''
             template = loader.get_template('directory/companies.html')
             if not companies_list:
                 messages.warning(request, _("The search didn't return any result."))
 
     else:
-        companies_list = Company.objects.order_by('companyName').select_related('address').filter(deleted=False) [a:b]
+        companies_list = Company.objects.order_by('companyName').select_related('address').filter(deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user))) [a:b]
         length = Company.objects.filter(deleted=False).count()
         links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
         template = loader.get_template('directory/companies.html')
@@ -98,10 +104,16 @@ def companies(request, a, b):
 
 @login_required
 def person(request, id):
+    uid = request.user.id
     person = Person.objects.get(id=id)
+    try:
+        fav = Favorite.objects.get(user = uid, person=person.id)
+    except:
+        fav = False
     template = loader.get_template('directory/person.html')
     context = {
         'person' : person,
+        'fav' : fav,
     }
     return HttpResponse(template.render(context, request))
 
@@ -109,13 +121,19 @@ def person(request, id):
 
 @login_required
 def company(request, id, a, b):
+    uid = request.user.id
     company = Company.objects.get(id=id)
+    try:
+        fav = Favorite.objects.get(user = uid, company=company.id)
+    except:
+        fav = False
     person_list = Person.objects.filter(company_id=id).filter(deleted=False) [a:b]
     length = Person.objects.filter(company_id=id).filter(deleted=False).count()
     links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
     template = loader.get_template('directory/company.html')
     context = {
         'company' : company,
+        'fav' : fav,
         'person_list' : person_list,
         'links' : links,
         'idxPL' : idxPL,
@@ -383,6 +401,35 @@ def full_delete_company(request, id):
     company.deletedBy = None
     company.save()
     return HttpResponse(status = 200)
+
+#############
+# Favorites #
+#############
+
+@login_required
+def link_favorite(request, obj, oid):
+    uid = request.user.id
+    user = get_user_model().objects.get(pk=uid)
+    if obj == 'person_obj':
+        person = Person.objects.get(id=oid)
+        favorite = Favorite(user=user, person=person)
+        favorite.save()
+    else:
+        company = Company.objects.get(id=oid)
+        favorite = Favorite(user=user, company=company)
+        favorite.save()
+    return HttpResponse(f'<span class="px-2" hx-get="/directory/unlink_fav/{ favorite.id }/" hx-swap="outerHTML"><i class="bi bi-star-fill h5 hx-pointer text-warning"></i></span>')
+
+@login_required
+def unlink_favorite(request, lid):
+    try:
+        pid = Favorite.objects.get(id=lid).person.id
+        Favorite.objects.filter(id=lid).delete()
+        return HttpResponse(f'<span class="px-2" hx-get="/directory/link_fav/person_obj/{ pid }/" hx-swap="outerHTML"><i class="bi bi-star h5 hx-pointer text-warning"></i></span>')
+    except:
+        pid = Favorite.objects.get(id=lid).company.id
+        Favorite.objects.filter(id=lid).delete()
+        return HttpResponse(f'<span class="px-2" hx-get="/directory/link_fav/company_obj/{ pid }/" hx-swap="outerHTML"><i class="bi bi-star h5 hx-pointer text-warning"></i></span>')
 
 ##############
 # htmx Views #
