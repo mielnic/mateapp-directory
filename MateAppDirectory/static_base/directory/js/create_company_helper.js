@@ -20,11 +20,19 @@ companyName.required = true;
 // Otherwise it clears a blocks the rest of the form.
 
 // Initial state:
-
-city.disabled = true;
-state.disabled = true;
-country.disabled = true;
-postalCode.disabled = true;
+(function () {
+    if (street.value == '') {
+        city.disabled = true;
+        state.disabled = true;
+        country.disabled = true;
+        postalCode.disabled = true;
+    } else {
+        city.disabled = false;
+        state.disabled = false;
+        country.disabled = false;
+        postalCode.disabled = false;
+    }
+})();
 
 // Event Listener:
 

@@ -94,6 +94,10 @@ companySelection.addEventListener('change', (event) => {
                     state.value = address.state;
                     country.value = address.country;
                     postalCode.value = address.postalCode;
+                    city.disabled = false;
+                    state.disabled = false;
+                    country.disabled = false;
+                    postalCode.disabled = false;
                 }
             })
         }
