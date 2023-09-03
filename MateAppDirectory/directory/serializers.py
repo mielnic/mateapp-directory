@@ -47,7 +47,7 @@ class AddressSerializer(serializers.ModelSerializer):
 
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
-        Model = Person
+        model = Person
         fields = [
             'id',
             'lastName',
