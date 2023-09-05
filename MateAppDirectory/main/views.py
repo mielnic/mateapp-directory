@@ -8,9 +8,9 @@ from django.contrib.auth import login as auth_login, logout, authenticate, get_u
 from .decorators import user_not_authenticated, allowed_users
 from .forms import SearchForm
 from directory.views import favs
-from directory.models import Favorite
+from posts.models import Post
 from django.contrib.auth.decorators import login_required
-from directory.models import Person, Company, Address
+from directory.models import Person, Company, Address, Favorite
 from itertools import chain
 from operator import attrgetter
 from django.contrib.postgres.search import TrigramSimilarity
@@ -18,6 +18,7 @@ from django.utils.translation import gettext_lazy as _
 from .functions import paginator
 from django.template import loader
 from django.core.management import call_command
+from django.db.models import Value
 
 # Create your views here.
 
@@ -91,9 +92,10 @@ def search(request):
 @login_required
 def user_trash(request, a, b):
     uid = request.user.id
-    deleted_companies_list = Company.objects.filter(deleted=True, deletedBy=uid)
-    deleted_person_list = Person.objects.filter(deleted=True, deletedBy=uid)
-    trash = sorted(chain(deleted_person_list, deleted_companies_list),
+    deleted_companies_list = Company.objects.filter(deleted=True, deletedBy=uid).annotate(entity=Value('company'))
+    deleted_person_list = Person.objects.filter(deleted=True, deletedBy=uid).annotate(entity=Value('person'))
+    deleted_posts_list = Post.objects.filter(deleted=True, deletedBy=uid).annotate(entity=Value('post'))
+    trash = sorted(chain(deleted_person_list, deleted_companies_list, deleted_posts_list),
                    key=attrgetter('modified_date'),
                    reverse=True,
                    )
@@ -121,10 +123,11 @@ def admin_trash(request, a, b):
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
             q = searchform.cleaned_data['q']
-            ln_results = Person.objects.annotate(similarity=TrigramSimilarity('lastName', q),).filter(similarity__gte=0.3, deleted=True).order_by('-similarity')
-            fn_results = Person.objects.annotate(similarity=TrigramSimilarity('firstName', q),).filter(similarity__gte=0.5, deleted=True).order_by('-similarity')
-            c_results = Company.objects.annotate(similarity=TrigramSimilarity('companyName', q),).filter(similarity__gte=0.3, deleted=True).order_by('-similarity')
-            trash_list = sorted(chain(ln_results, fn_results, c_results),
+            ln_results = Person.objects.annotate(similarity=TrigramSimilarity('lastName', q),).filter(similarity__gte=0.3, deleted=True).order_by('-similarity').annotate(entity=Value('person'))
+            fn_results = Person.objects.annotate(similarity=TrigramSimilarity('firstName', q),).filter(similarity__gte=0.5, deleted=True).order_by('-similarity').annotate(entity=Value('person'))
+            c_results = Company.objects.annotate(similarity=TrigramSimilarity('companyName', q),).filter(similarity__gte=0.3, deleted=True).order_by('-similarity').annotate(entity=Value('company'))
+            p_results = Post.objects.annotate(similarity=TrigramSimilarity('post_title', q),).filter(similarity__gte=0.3, deleted=True).order_by('-similarity').annotate(entity=Value('post'))
+            trash_list = sorted(chain(ln_results, fn_results, c_results, p_results),
                              key=attrgetter('similarity'),
                              reverse=True,
                              )
@@ -133,9 +136,10 @@ def admin_trash(request, a, b):
             if trash_list == []:
                 messages.warning(request, _("The search didn't return any result."))
     else:
-        deleted_companies_list = Company.objects.filter(deleted=True)
-        deleted_person_list = Person.objects.filter(deleted=True)
-        trash = sorted(chain(deleted_person_list, deleted_companies_list),
+        deleted_companies_list = Company.objects.filter(deleted=True).annotate(entity=Value('company'))
+        deleted_person_list = Person.objects.filter(deleted=True).annotate(entity=Value('person'))
+        deleted_posts_list = Post.objects.filter(deleted=True).annotate(entity=Value('post'))
+        trash = sorted(chain(deleted_person_list, deleted_companies_list, deleted_posts_list),
                        key=attrgetter('modified_date'),
                        reverse=True,
                        )

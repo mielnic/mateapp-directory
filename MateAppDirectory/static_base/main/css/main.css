@@ -66,3 +66,15 @@ div.htmx-swapping div {
     opacity: 0;
     transition: opacity 0.5s ease-out;
 }
+
+.light-border-lg {
+    border-top: 1px solid lightgray;
+    border-left: none;
+}
+
+@media (min-width:850px){
+    .light-border-lg {
+        border-top: none;
+        border-left: 1px solid lightgrey;
+    }
+}

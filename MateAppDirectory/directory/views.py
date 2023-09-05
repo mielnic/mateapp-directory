@@ -168,15 +168,14 @@ def company(request, id, a, b):
 
 @login_required
 def create_person(request):
-    print(request)
     if request.method == 'POST':
         if '100' in request.POST:
             personform = PersonForm(request.POST)
             addressform = AddressFrom(request.POST)
             companyform = CompanyForm(request.POST)
             if personform.is_valid():
-                personform.save()
-                id = Person.objects.last().id
+                person = personform.save()
+                id = person.id
                 return HttpResponseRedirect(f'/directory/person/{id}/')
         
         elif '110' in request.POST:
@@ -184,13 +183,11 @@ def create_person(request):
             addressform = AddressFrom(request.POST)
             companyform = CompanyForm(request.POST) 
             if personform.is_valid() and addressform.is_valid():
-                addressform.save()
-                aid = Address.objects.last().id
-                personform.save()
-                id = Person.objects.last().id
-                person = Person.objects.get(id=id)
-                person.address_id = aid
+                address = addressform.save()
+                person = personform.save(commit=False)
+                person.address = address
                 person.save()
+                id = person.id
                 return HttpResponseRedirect(f'/directory/person/{id}/')
 
         elif '111' in request.POST:
@@ -198,14 +195,11 @@ def create_person(request):
             addressform = AddressFrom(request.POST)
             companyform = CompanyForm(request.POST)
             if personform.is_valid() and addressform.is_valid():
-                addressform.save()
-                aid = Address.objects.last().id
-                personform.save()
-                id = Person.objects.last().id
-                person = Person.objects.get(id=id)
-                person.address_id = aid
+                address = addressform.save()
+                personform.save(commit=False)
+                person.address = address
                 person.save()
-
+                id = person.id
                 return HttpResponseRedirect(f'/directory/person/{id}/')
 
 
@@ -215,23 +209,18 @@ def create_person(request):
             companyform = CompanyForm(request.POST)
             if personform.is_valid() and addressform.is_valid() and companyform.is_valid():
                 addressform_company = copy.deepcopy(addressform)
-                addressform.save()
-                aid = Address.objects.last().id
-                addressform_company.save()
-                caid = Address.objects.last().id
-                personform.save()
-                pid = Person.objects.last().id
-                companyform.save()
-                cid = Company.objects.last().id
+                paddress = addressform.save()
+                caddress = addressform_company.save()
+                person = personform.save(commit=False)
+                company = companyform.save(commit=False)
                 
-                person = Person.objects.get(id=pid)
-                person.company_id = cid
-                person.address_id = aid
-                person.save()
-               
-                company = Company.objects.get(id=cid)
-                company.address_id = caid
+                company.address = caddress
                 company.save()
+
+                person.company = company
+                person.address = paddress
+                person.save()
+                pid = person.id
 
                 return HttpResponseRedirect(f'/directory/person/{pid}/')
         
@@ -240,15 +229,12 @@ def create_person(request):
             addressform = AddressFrom(request.POST)
             companyform = CompanyForm(request.POST)
             if personform.is_valid() and companyform.is_valid():
-                personform.save()
-                pid = Person.objects.last().id
-                companyform.save()
-                cid = Company.objects.last().id
-                
-                person = Person.objects.get(id=pid)
-                person.company_id = cid
-                person.save()
+                person = personform.save(commit=False)
+                company = companyform.save()
 
+                person.company = company
+                person.save()
+                pid = person.id
                 return HttpResponseRedirect(f'/directory/person/{pid}/')
 
     else:
@@ -284,11 +270,11 @@ def edit_person(request, id):
         personform = PersonForm(request.POST or None, instance=person)
         addressform = AddressFrom(request.POST or None)
         if personform.is_valid() and addressform.is_valid():
-            addressform.save()
-            aid = Address.objects.last().id
-            personform.save()
-            person.address_id = aid
+            address = addressform.save()
+            person = personform.save(commit=False)
+            person.address = address
             person.save()
+            id = person.id
             return HttpResponseRedirect(f'/directory/person/{id}/')
     
     context = {
@@ -336,13 +322,11 @@ def create_company(request):
         companyform = CompanyForm(request.POST)
         addressform = AddressFrom(request.POST)
         if companyform.is_valid() and addressform.is_valid():
-            addressform.save()
-            aid = Address.objects.last().id
-            companyform.save()
-            id = Company.objects.last().id
-            company = Company.objects.get(id=id)
-            company.address_id = aid
+            address = addressform.save()
+            company = companyform.save(commit=False)
+            company.address = address
             company.save()
+            id = company.id
             return HttpResponseRedirect(f'/directory/company/{id}/0/5/')     
 
     else:
@@ -376,11 +360,11 @@ def edit_company(request, id):
         addressform = AddressFrom(request.POST or None)
         companyform = CompanyForm(request.POST or None, instance=company)
         if companyform.is_valid() and addressform.is_valid():
-            addressform.save()
-            aid = Address.objects.last().id
-            companyform.save()
-            company.address_id = aid
+            address = addressform.save()
+            company = companyform.save(commit=False)
+            company.address = address
             company.save()
+            id = company.id
             return HttpResponseRedirect(f'/directory/company/{id}/0/5/')
     
     context = {

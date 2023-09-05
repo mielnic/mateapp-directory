@@ -33,17 +33,21 @@
               <p>{{ trash }}</p>
             </td>
             <td>
-              {% if trash.lastName%}
-                <div class="btn btn-outline-success btn-sm" hx-delete="/directory/restore_person/{{ trash.id }}/0">{% trans "Restore" %}</div>
+              {% if trash.entity == 'person' %}
+                  <td><div class="btn btn-outline-success btn-sm" hx-get="/directory/restore_person/{{ trash.id }}/1">{% trans "Restore" %}</div></td>
+              {% elif trash.entity == 'post' %}
+                <td><div class="btn btn-outline-success btn-sm" hx-get="/posts/post_restore/{{ trash.id }}/">{% trans "Restore" %}</div></td>
               {% else %}
-                <div class="btn btn-outline-success btn-sm" hx-delete="/directory/restore_company/{{ trash.id }}/0">{% trans "Restore" %}</div>
+                  <td><div class="btn btn-outline-success btn-sm" hx-get="/directory/restore_company/{{ trash.id }}/1">{% trans "Restore" %}</div></td>
               {% endif %}
             </td>
             <td>
-              {% if trash.lastName%}
-                <div class="btn btn-outline-danger btn-sm" hx-delete="/directory/full_delete_person/{{ trash.id }}/">{% trans "Delete" %}</div>
+              {% if trash.entity == 'person' %}
+                  <td><div class="btn btn-outline-danger btn-sm" hx-get="/directory/full_delete_person/{{ trash.id }}/1">{% trans "Delete" %}</div></td>
+              {% elif trash.entity == 'post' %}
+                <td><div class="btn btn-outline-danger btn-sm" hx-get="/posts/post_full_delete/{{ trash.id }}/">{% trans "Delete" %}</div></td>
               {% else %}
-                <div class="btn btn-outline-danger btn-sm" hx-delete="/directory/full_delete_company/{{ trash.id }}/">{% trans "Delete" %}</div>
+                  <td><div class="btn btn-outline-danger btn-sm" hx-get="/directory/full_delete_company/{{ trash.id }}/1">{% trans "Delete" %}</div></td>
               {% endif %}
             </td>
         </tr>
