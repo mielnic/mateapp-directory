@@ -101,15 +101,11 @@ def user_trash(request, a, b):
                    )
     trash_list = trash [a:b]
     length = len(trash)
-    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
+    pgx = paginator(a, length, b)
     template = loader.get_template('main/user_trash.html')
     context = {
         'trash_list': trash_list,
-        'links' : links,
-        'idxPL' : idxPL,
-        'idxPR' : idxPR,
-        'idxNL' : idxNL,
-        'idxNR' : idxNR,
+        'pgx' : pgx,
     }
     return HttpResponse(template.render(context, request))
 
@@ -131,7 +127,7 @@ def admin_trash(request, a, b):
                              key=attrgetter('similarity'),
                              reverse=True,
                              )
-            links, idxPL, idxPR, idxNL, idxNR = '', '', '', '', ''
+            pgx = ''
             template = loader.get_template('main/admin_trash.html')
             if trash_list == []:
                 messages.warning(request, _("The search didn't return any result."))
@@ -145,17 +141,13 @@ def admin_trash(request, a, b):
                        )
         trash_list = trash [a:b]
         length = len(trash)
-        links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
+        pgx = paginator(a, length, b)
         template = loader.get_template('main/admin_trash.html')
     
     context = {
         'searchform' : searchform,
         'trash_list': trash_list,
-        'links' : links,
-        'idxPL' : idxPL,
-        'idxPR' : idxPR,
-        'idxNL' : idxNL,
-        'idxNR' : idxNR,
+        'pgx' : pgx,
     }
     return HttpResponse(template.render(context, request))
 
@@ -167,7 +159,7 @@ def admin_home(request, a, b):
     # Users List
     users_list = get_user_model().objects.order_by('last_name').filter(is_active=True) [a:b]
     length = get_user_model().objects.filter(is_active=True).count()
-    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
+    pgx = paginator(a, length, b)
     # Backup files List
     folder = f'{settings.MEDIA_ROOT}/backup/'
     file_list = os.listdir(folder)
@@ -176,13 +168,9 @@ def admin_home(request, a, b):
     template = loader.get_template('main/admin_home.html')
     context = {
         'users_list': users_list,
-        'links' : links,
-        'idxPL' : idxPL,
-        'idxPR' : idxPR,
-        'idxNL' : idxNL,
-        'idxNR' : idxNR,
         'file_list': file_list,
         'path': path,
+        'pgx' : pgx,
     }
     return HttpResponse(template.render(context, request))
 

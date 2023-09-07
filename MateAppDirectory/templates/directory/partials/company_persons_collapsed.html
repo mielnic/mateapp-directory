@@ -1,0 +1,7 @@
+{% load i18n %}
+
+<div class="row justify-content-start" id="persons_list" hx-swap="outerHTML swap:0.2s" hx-target="#persons_list">
+    <div class="col py-1 col-lg-10">
+        <span class="btn btn-outline-secondary btn-sm" hx-get="{% url 'directory:companyPersons' id=company.id a=0 b=5 %}">{% trans "Persons" %}&nbsp;<i class="bi bi-arrow-right"></i></span>
+    </div>
+</div>

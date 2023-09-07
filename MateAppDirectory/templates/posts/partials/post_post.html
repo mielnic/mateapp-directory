@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div class="row px-3 mb-2 justify-content-start" id="post" hx-swap="outerHTML swap:0.2s" hx-target="this">
-    <div class="col mt-3 py-1 px-3 col-lg-10 hx-pointer" hx-get="/posts/post_title/{{ post.id }}/">
+    <div class="col mt-3 py-1 px-3 col-lg-10 hx-pointer" hx-get="{% url 'posts:title' id=post.id %}">
         {{ post.post|linebreaks }} <span><small>{% trans "< less" %}&nbsp;|&nbsp;</small></span>
     </div>
 </div>

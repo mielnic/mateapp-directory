@@ -165,19 +165,19 @@
     </div>
 
     <!-- Pagination -->
-    {% if links %}
+    {% if pgx.pgs > 1 %}
     <nav aria-label="Page navigation">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" href="/directory/persons/{{idxPL}}/{{idxPR}}/" aria-label="Previous">
+            <a class="page-link" href="{% url 'directory:Persons' a=pgx.idxpl b=pgx.idxpr %}" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          {% for link in links %}
-          <li class="page-item"><a class="page-link" id="page-link" href="/directory/persons/{{link.pl}}/{{link.pr}}/">{{link.page}}</a></li>
+          {% for link in pgx.lks %}
+          <li class="page-item"><a class="page-link" id="page-link" href="{% url 'directory:Persons' a=link.pl b=link.pr %}">{{link.page}}</a></li>
           {% endfor %}
           <li class="page-item">
-            <a class="page-link" href="/directory/persons/{{idxNL}}/{{idxNR}}/" aria-label="Next">
+            <a class="page-link" href="{% url 'directory:Persons' a=pgx.idxnl b=pgx.idxnr %}" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>

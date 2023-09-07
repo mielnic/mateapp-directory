@@ -1,5 +1,4 @@
 {% extends 'main/base.html' %}
-{% load static %}
 {% load i18n %}
 
 {% block navbar %}
@@ -10,55 +9,15 @@
 
 <div class="row mt-1 justify-content-md-center">
     <div class="col shadow p-3 mx-1 border rounded bg-light">
-        <span hx-get="/posts/create/" hx-target="#create" hx-swap="outerHTML">Posts</span>
-    </div>
-</div>
-
-<div id="create">
-
-</div>
-
-{% if posts_list %}
-
-{% for post in posts_list  %}
-
-<!--Card-->
-
-<div class="row mt-3 justify-content-md-center" id="card" hx-target="this" hx-swap="outerHTML swap:0.5s">
-    <div class="col shadow p-3 mx-1 border rounded bg-light">
-        <div class="row row row-col-2 px-3 justify-content-start">
-            <div class="col col-10 col-lg-8 px-3 pt-1">
-                {% if post.company.companyName %}
-                <strong><a class="nav-link" href="">{{ post.company.companyName }}</a></strong>
-                {% else %}
-                <strong><a class="nav-link" href="">{{ post.person.firstName }}
-                {{ post.person.lastName }}</a></strong>
-                {{ post.person.company.companyName }}
-                {% endif %}
-                 <!-- Placeholder para los partials de htmx -->
-                <div>
-                    {% include 'posts/partials/post_title.html' %}
-                </div>     
-            </div>
-            <div class="col col-10 col-lg-4 pt-1 light-border-lg">
-                <div>
-                    <small>{% trans "Created on " %}{{ post.date }}{% trans " by " %}{{ post.user.first_name }} {{ post.user.last_name }}.</small>
-                </div>
-                <div class="ms-3 my-2"> 
-                    {% if post.action %}
-                    <span hx-get="/posts/post_action/{{ post.id }}/" hx-swap="outerHTML" hx-target="this"><i class="bi bi-star-fill h5 hx-pointer text-primary me-4"></i></span>
-                    {% else %}
-                    <span hx-get="/posts/post_action/{{ post.id }}/" hx-swap="outerHTML" hx-target="this"><i class="bi bi-star h5 hx-pointer text-primary me-4"></i></span>
-                    {% endif %}
-                    <span hx-delete="/posts/post_delete/{{ post.id }}/"><i class="bi bi-trash h5 hx-pointer text-secondary"></i></span>
-                </div>
-            </div>
+        <div class="container-fluid px-4">
+            <span class="h4"><i class="bi bi-stickies"></i>&nbsp;{% trans "Posts" %}</span>
+            <span class="ms-3 mb-2 btn btn-outline-secondary btn-sm" hx-get="{% url 'posts:create' %}" hx-target="#create" hx-swap="outerHTML swap:0.2s"><i class="bi bi-plus-square"></i>&nbsp;{% trans "Add Post" %}</span>
         </div>
     </div>
 </div>
 
-{% endfor %}
 
-{% endif %}
+{% include 'posts/partials/posts_list.html' %}
+
 
 {% endblock content %}

@@ -2,17 +2,23 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, response, request, QueryDict
 from django.template import loader
 from django.contrib import messages
-from .models import Address, Company, Person, Favorite
-from main.functions import paginator
-from main.forms import SearchForm
-from .forms import PersonForm, CompanyForm, AddressFrom, PersonNotesForm, CompanyNotesForm
-from django.contrib.auth.decorators import login_required, permission_required
-import copy
-from django.utils.translation import gettext_lazy as _
-from itertools import chain
-from operator import attrgetter
+from django.db.models.functions import TruncDate
 from django.contrib.auth import get_user_model
 from django.db.models import Q, Value, Count, Min
+from django.core.paginator import Paginator
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.decorators import login_required, permission_required
+from django.urls import reverse_lazy
+from .models import Address, Company, Person, Favorite
+from posts.models import Post
+from main.functions import paginator
+from main.forms import SearchForm
+from posts.forms import PostCreationForm
+from .forms import PersonForm, CompanyForm, AddressFrom, PersonNotesForm, CompanyNotesForm
+import copy
+from itertools import chain
+from operator import attrgetter
+
 
 ########
 # MAIN #
@@ -63,23 +69,19 @@ def persons(request, a, b):
             person_list = sorted(chain(ln_list, fn_list, cn_list),
                              key=attrgetter('lastName'),
                              )
-            links, idxPL, idxPR, idxNL, idxNR = '', '', '', '', ''
+            pgx = ''
             template = loader.get_template('directory/persons.html')
             if not person_list:
                 messages.warning(request, _("The search didn't return any result."))
     else:
         person_list = Person.objects.order_by('lastName').select_related('company').filter(deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user)))  [a:b]
         length = Person.objects.filter(deleted=False).count()
-        links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
+        pgx = paginator(a, length, b)
         template = loader.get_template('directory/persons.html')
     context = {
         'person_list': person_list,
         'searchform' : searchform,
-        'links' : links,
-        'idxPL' : idxPL,
-        'idxPR' : idxPR,
-        'idxNL' : idxNL,
-        'idxNR' : idxNR,
+        'pgx' : pgx,
     }
     return HttpResponse(template.render(context, request))
 
@@ -95,7 +97,7 @@ def companies(request, a, b):
         if searchform.is_valid():
             q = searchform.cleaned_data['q']
             companies_list = Company.objects.filter(companyName__icontains=q, deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user))) 
-            links, idxPL, idxPR, idxNL, idxNR = '', '', '', '', ''
+            pgx = ''
             template = loader.get_template('directory/companies.html')
             if not companies_list:
                 messages.warning(request, _("The search didn't return any result."))
@@ -103,17 +105,13 @@ def companies(request, a, b):
     else:
         companies_list = Company.objects.order_by('companyName').select_related('address').filter(deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user))) [a:b]
         length = Company.objects.filter(deleted=False).count()
-        links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
+        pgx = paginator(a, length, b)
         template = loader.get_template('directory/companies.html')
 
     context = {
         'companies_list': companies_list,
         'searchform' : searchform,
-        'links' : links,
-        'idxPL' : idxPL,
-        'idxPR' : idxPR,
-        'idxNL' : idxNL,
-        'idxNR' : idxNR,
+        'pgx' : pgx,
     }
     return HttpResponse(template.render(context, request))
 
@@ -123,14 +121,22 @@ def companies(request, a, b):
 def person(request, id):
     uid = request.user.id
     person = Person.objects.get(id=id)
+    posts_list = Post.objects.filter(person=person, deleted=False).order_by('-modified_date').annotate(date=TruncDate('create_date'))
+    paginator = Paginator(posts_list, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     try:
         fav = Favorite.objects.get(user = uid, person=person.id)
     except:
         fav = False
-    template = loader.get_template('directory/person.html')
+    if request.htmx:
+        template = loader.get_template('directory/partials/person_posts_list.html')
+    else:
+        template = loader.get_template('directory/person.html')
     context = {
         'person' : person,
         'fav' : fav,
+        'page_obj' : page_obj,
     }
     return HttpResponse(template.render(context, request))
 
@@ -140,25 +146,28 @@ def person(request, id):
 def company(request, id, a, b):
     uid = request.user.id
     company = Company.objects.get(id=id)
+    posts_list = Post.objects.filter(Q(company=company) | Q(person__company=company)).filter(deleted=False).order_by('-modified_date').annotate(date=TruncDate('create_date'))
+    paginator = Paginator(posts_list, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     try:
         fav = Favorite.objects.get(user = uid, company=company.id)
     except:
         fav = False
-    person_list = Person.objects.filter(company_id=id).filter(deleted=False) [a:b]
-    length = Person.objects.filter(company_id=id).filter(deleted=False).count()
-    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
-    template = loader.get_template('directory/company.html')
+    person_list = Person.objects.filter(company_id=id).filter(deleted=False)
+    if request.htmx:
+        template = loader.get_template('directory/partials/company_posts_list.html')
+    else:
+        template = loader.get_template('directory/company.html')
     context = {
         'company' : company,
         'fav' : fav,
         'person_list' : person_list,
-        'links' : links,
-        'idxPL' : idxPL,
-        'idxPR' : idxPR,
-        'idxNL' : idxNL,
-        'idxNR' : idxNR,
+        'page_obj' : page_obj,
     }
     return HttpResponse(template.render(context, request))
+
+
 
 ################################
 # CREATE, UPDATE, DELETE Views #
@@ -453,6 +462,38 @@ def personNotes(request, id):
     return render(request, 'directory/partials/person_notes.html', context)
 
 @login_required
+def personNotesTitle(request, id):
+    '''Esta vista de la de display del partial de person notes title de htmx'''
+    person = Person.objects.get(id=id)
+    context = {
+        'person' : person,
+    }
+    return render(request, 'directory/partials/person_notes_title.html', context)
+
+@login_required
+def personPostCreate(request, id):
+    uid = request.user.id
+    user = get_user_model().objects.get(id=uid)
+    person = Person.objects.get(id=id)
+    if request.method == 'PUT':
+        data = QueryDict(request.body).dict()
+        postcreationform = PostCreationForm(data)
+        if postcreationform.is_valid():
+            post = postcreationform.save(commit=False)
+            post.user = user
+            post.person = person
+            post.save()
+            return HttpResponseRedirect(reverse_lazy("directory:Person", args=[id]))
+    else:
+        postcreationform = PostCreationForm()
+
+    context = {
+        'postcreationform' : postcreationform,
+        'person' : person
+    }
+    return render(request, 'directory/partials/person_post_create.html', context)
+
+@login_required
 def personNotesEdit(request, id):
     '''Esta vista es el tramo de edición del partial de person notes de htmx'''
     person = Person.objects.get(id=id)
@@ -476,6 +517,7 @@ def personNotesEdit(request, id):
     }
     return render(request, 'directory/partials/edit_person_notes.html', context)
 
+
 # Company Notes:
 
 @login_required
@@ -486,6 +528,15 @@ def companyNotes(request, id):
         'company' : company,
     }
     return render(request, 'directory/partials/company_notes.html', context)
+
+@login_required
+def companyNotesTitle(request, id):
+    '''Esta vista de la de display del partial de company notes title de htmx'''
+    company = Company.objects.get(id=id)
+    context = {
+        'company' : company,
+    }
+    return render(request, 'directory/partials/company_notes_title.html', context)
 
 @login_required
 def companyNotesEdit(request, id):
@@ -510,3 +561,51 @@ def companyNotesEdit(request, id):
         'company' : company,
     }
     return render(request, 'directory/partials/edit_company_notes.html', context)
+
+# Company Persons List
+
+@login_required
+def companyPersons(request, id, a, b):
+    company = Company.objects.get(id=id)
+    person_list = Person.objects.filter(company_id=id).filter(deleted=False) [a:b]
+    length = Person.objects.filter(company_id=id).filter(deleted=False).count()
+    pgx = paginator(a, length, b)
+    template = loader.get_template('directory/partials/company_persons_list.html')
+    context = {
+        'company' : company,
+        'person_list' : person_list,
+        'pgx' : pgx
+    }
+    return HttpResponse(template.render(context, request))
+
+@login_required
+def companyPersonsCollapsed(request, id):
+    company = Company.objects.get(id=id)
+    context = {
+        'company' : company
+    }
+
+    return render(request, 'directory/partials/company_persons_collapsed.html', context)
+
+@login_required
+def companyPostCreate(request, id):
+    uid = request.user.id
+    user = get_user_model().objects.get(id=uid)
+    company = Company.objects.get(id=id)
+    if request.method == 'PUT':
+        data = QueryDict(request.body).dict()
+        postcreationform = PostCreationForm(data)
+        if postcreationform.is_valid():
+            post = postcreationform.save(commit=False)
+            post.user = user
+            post.company = company
+            post.save()
+            return HttpResponseRedirect(reverse_lazy("directory:Company", args=[id, 0, 5]))
+    else:
+        postcreationform = PostCreationForm()
+
+    context = {
+        'postcreationform' : postcreationform,
+        'company' : company,
+    }
+    return render(request, 'directory/partials/company_post_create.html', context)

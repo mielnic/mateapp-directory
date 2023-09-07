@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div class="row py-3 justify-content-start" id="notes" hx-swap="outerHTML swap:0.2s" hx-target="#notes">
-    <div class="col col-2 p-3 col-lg-10">
-        {{person.notes|linebreaks}}<p><i class="bi bi-pencil-square text-success h5 hx-pointer me-2" hx-get="/directory/edit_person_notes/{{ person.id }}/"></i></p>
+    <div class="col p-3 col-lg-10 hx-pointer" hx-get="{% url 'directory:personNotesTitle' id=person.id %}">
+        {{person.notes|linebreaks}}<span><small>{% trans "< less" %}&nbsp;|&nbsp;</small></span>
     </div>
 </div>

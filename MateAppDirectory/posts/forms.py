@@ -8,14 +8,12 @@ class PostCreationForm(forms.ModelForm):
         model = Post 
         fields = [
             'post',
-            'action',
             'person',
             'company',
         ]
 
         widgets = {
             'post': forms.Textarea(attrs={'class':'form-control','placeholder':'Notes','style':'height: 200px'}),
-            'action' : forms.CheckboxInput(attrs={'class':'form-check-input', 'type':'checkbox', 'role':'switch'}),
             'person' : forms.Select(attrs={'class':'form-select'}),
             'company' : forms.Select(attrs={'class':'form-select'}),
         }

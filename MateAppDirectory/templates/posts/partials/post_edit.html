@@ -1,6 +1,6 @@
 {% load i18n %} 
 
-<form class="mb-2" hx-put="/posts/post_edit/{{ post.id }}/" hx-target="this" hx-swap="outerHTML swap:0.2s" id="post">
+<form class="mb-2" hx-put="{% url 'posts:edit' id=post.id %}" hx-target="this" hx-swap="outerHTML swap:0.2s" id="post">
 
     {% csrf_token %}
 
@@ -8,6 +8,6 @@
         {{postform.post}}
     </div>
     <button class="btn btn-outline-success btn-sm">{% trans "Save" %}</button>
-    <button class="btn btn-outline-secondary btn-sm" hx-get="/posts/post_title/{{ post.id }}/">{% trans "Cancel" %}</button>
+    <button class="btn btn-outline-secondary btn-sm" hx-get="{% url 'posts:title' id=post.id %}">{% trans "Cancel" %}</button>
 
 </form>

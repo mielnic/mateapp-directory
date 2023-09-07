@@ -7,18 +7,29 @@ from django.contrib.auth import get_user_model
 from .models import Post, File
 from django.db.models.functions import TruncDate
 from django.db.models import Value
+from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
+
+##############
+# Post Views #
+##############
+
+# Post Create
+
+@login_required
 def post_create(request):
     uid = request.user.id
     user = get_user_model().objects.get(id=uid)
-    if request.method == 'POST':
-        postcreationform = PostCreationForm(request.POST)
+    if request.method == 'PUT':
+        data = QueryDict(request.body).dict()
+        postcreationform = PostCreationForm(data)
         if postcreationform.is_valid():
             post = postcreationform.save(commit=False)
             post.user = user
             post.save()
             id = post.id
-            return HttpResponseRedirect(reverse_lazy("posts:view", kwargs={'id':id}))
+            return HttpResponseRedirect(reverse_lazy("posts:list"))
     else:
         postcreationform = PostCreationForm()
 
@@ -27,6 +38,9 @@ def post_create(request):
     }
     return render(request, 'posts/partials/post_create.html', context)
 
+# Post View DEPRECATED
+
+@login_required
 def post_view(request, id):
     post = Post.objects.get(id=id)
 
@@ -35,13 +49,25 @@ def post_view(request, id):
     }
     return render(request, 'posts/view_post.html', context)
 
+# Post List
+
+@login_required
 def posts_list(request):
     posts_list = Post.objects.order_by('-modified_date').filter(deleted=False).annotate(date=TruncDate('create_date'))
+    paginator = Paginator(posts_list, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'posts_list' : posts_list
+        'page_obj' : page_obj
     }
-    return render(request, 'posts/list_posts.html', context)
+    if request.htmx:
+        return render(request, 'posts/partials/posts_list.html', context)
+    else:
+        return render(request, 'posts/list_posts.html', context)
 
+# Post htmx partial view
+
+@login_required
 def post_post(request, id):
     '''Esta vista de la de display del partial del contenido del post en htmx'''
     post = Post.objects.get(id=id)
@@ -50,6 +76,9 @@ def post_post(request, id):
     }
     return render(request, 'posts/partials/post_post.html', context)
 
+# Post htmx collapsed view
+
+@login_required
 def post_title(request, id):
     '''Esta vista de la de display del partial del contenido del título del post en htmx'''
     post = Post.objects.get(id=id)
@@ -58,6 +87,9 @@ def post_title(request, id):
     }
     return render(request, 'posts/partials/post_title.html', context)
 
+# Post Edit
+
+@login_required
 def post_edit(request, id):
     '''Edición de post en htmx'''
     post = Post.objects.get(id=id)
@@ -82,6 +114,9 @@ def post_edit(request, id):
     }
     return render(request, 'posts/partials/post_edit.html', context)
 
+# Post htmx action switch
+
+@login_required
 def post_action(request, id):
     post = Post.objects.get(id=id)
     if post.action:
@@ -93,6 +128,9 @@ def post_action(request, id):
         post.save()
         return HttpResponse(f'<span hx-get="/posts/post_action/{id}/" hx-swap="outerHTML" hx-target="this"><i class="bi bi-star-fill h5 hx-pointer text-primary me-4"></i></span>')
 
+# Post Delete
+
+@login_required
 def post_delete(request, id):
     post = Post.objects.get(id=id)
     uid = request.user.id
@@ -101,17 +139,27 @@ def post_delete(request, id):
     post.save()
     return HttpResponse(status = 200)
 
+# Post Restore
+
+@login_required
 def post_restore(request, id):
     post = Post.objects.get(id=id)
     post.deleted = False
     post.save()
     return HttpResponse(status = 200)
 
+# Post Full Delete
+
+@login_required
 def post_full_delete(request, id):
     post = Post.objects.get(id=id)
     post.deletedBy = None
     post.save()
     return HttpResponse(status = 200)
+
+##############
+# File Views #
+##############
 
 def file_upload(request):
     if request.method == 'POST':

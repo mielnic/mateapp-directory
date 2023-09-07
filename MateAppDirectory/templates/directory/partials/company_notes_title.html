@@ -1,0 +1,8 @@
+{% load i18n %}
+
+<div class="row justify-content-start" id="notes" hx-swap="outerHTML swap:0.2s" hx-target="#notes">
+    <div class="col py-1 col-lg-10">
+        <span><i class="bi bi-pencil-square text-success h5 hx-pointer me-2" hx-get="{% url 'directory:companyNotesEdit' id=company.id %}"></i></span>{{ company.companyNotes_title }} 
+        <span class="hx-pointer" hx-get="{% url 'directory:companyNotes' id=company.id %}"><small>&nbsp;|&nbsp;{% trans "more >" %}</small></span>
+    </div>
+</div>
