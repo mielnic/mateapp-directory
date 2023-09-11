@@ -16,5 +16,9 @@ urlpatterns = [
     path('post_delete/<int:id>/', views.post_delete, name='delete'),
     path('post_restore/<int:id>/', views.post_restore, name='restore'),
     path('post_full_delete/<int:id>/', views.post_full_delete, name='full_delete'),
+    path('upload/<int:id>/', views.file_upload, name='upload'),
+    path('files/<int:id>/', views.files, name='files'),
+    path('fileslist/<int:id>', views.files_list, name='fileslist'),
+    # path('filesclip/<int:id>', views.files_clip, name='filesclip'),
     # path('edit/', views.***, name='edit'),
 ]

@@ -1,0 +1,10 @@
+{% load i18n %}
+<form class="m-2" hx-post="{% url 'posts:upload' id=post.id %}" hx-target="#upload_{{post.id}}" hx-swap="outerHTML swap:0.2s" id="upload_{{post.id}}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="my-3">
+        {{ uploadfileform.file }}
+    </div>
+    <button class="btn btn-outline-success btn-sm px-4 me-2" type="submit" value="upload">{% trans "Save" %}</button>
+    <button class="btn btn-outline-secondary btn-sm px-4 mx-2" type="button" hx-get="{% url 'posts:files' id=post.id %}">{% trans "Cancel" %}</button>         
+</form>

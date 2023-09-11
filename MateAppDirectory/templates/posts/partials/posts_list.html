@@ -17,7 +17,7 @@
     {% endif %}
 
         <!--Card-->
-        <div class="row mt-2 justify-content-md-center" id="card" hx-target="this" hx-swap="outerHTML swap:0.5s">
+        <div class="row mt-2 justify-content-md-center" id="card_{{post.id}}" hx-target="this" hx-swap="outerHTML swap:0.5s">
             <div class="col shadow p-3 mx-1 border rounded bg-light">
                 <div class="row row row-col-2 px-3 justify-content-start">
                     <div class="col col-10 col-lg-8 px-3 pt-1">
@@ -31,20 +31,23 @@
                         <!-- Placeholder para los partials de htmx -->
                         <div>
                             {% include 'posts/partials/post_title.html' %}
-                        </div>     
+                        </div>
                     </div>
                     <div class="col col-10 col-lg-4 pt-1 light-border-lg">
                         <div>
                             <small>{% trans "Created on " %}{{ post.date }}{% trans " by " %}{{ post.user.first_name }} {{ post.user.last_name }}.</small>
-                        </div>
+                        </div>                        
                         <div class="ms-3 my-2"> 
                             {% if post.action %}
                             <span hx-get="{% url 'posts:action' id=post.id %}" hx-swap="outerHTML" hx-target="this"><i class="bi bi-star-fill h5 hx-pointer text-primary me-4"></i></span>
                             {% else %}
                             <span hx-get="{% url 'posts:action' id=post.id %}" hx-swap="outerHTML" hx-target="this"><i class="bi bi-star h5 hx-pointer text-primary me-4"></i></span>
                             {% endif %}
-                            <span hx-delete="{% url 'posts:delete' id=post.id %}"><i class="bi bi-trash h5 hx-pointer text-secondary"></i></span>
+                            <span class="me-4" hx-delete="{% url 'posts:delete' id=post.id %}"><i class="bi bi-trash h5 hx-pointer text-secondary"></i></span>
+                            <span id="upload_{{post.id}}">{% include 'posts/partials/files.html' %}</span>
+                            </span>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -53,4 +56,6 @@
         {% endif %}
     </div>
 </div>
+
+
 

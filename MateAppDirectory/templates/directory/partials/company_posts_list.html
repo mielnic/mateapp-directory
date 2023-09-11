@@ -43,7 +43,8 @@
                             {% else %}
                             <span hx-get="{% url 'posts:action' id=post.id %}" hx-swap="outerHTML" hx-target="this"><i class="bi bi-star h5 hx-pointer text-primary me-4"></i></span>
                             {% endif %}
-                            <span hx-delete="{% url 'posts:delete' id=post.id %}"><i class="bi bi-trash h5 hx-pointer text-secondary"></i></span>
+                            <span class="me-4" hx-delete="{% url 'posts:delete' id=post.id %}"><i class="bi bi-trash h5 hx-pointer text-secondary"></i></span>
+                            <span id="upload_{{post.id}}">{% include 'posts/partials/files.html' %}</span>
                         </div>
                     </div>
                 </div>

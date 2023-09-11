@@ -35,4 +35,7 @@ class File(BaseModel):
     name = models.CharField(max_length=200, null=True)
     file = models.FileField(upload_to='posts', null=True)
     post = models.ForeignKey(Post, on_delete=models.DO_NOTHING, blank=True, null=True)
+    shortName = models.CharField(max_length=30, null=True)
+    color = models.CharField(max_length=20, null=True)
+    ext = models.CharField(max_length=20, null=True)
 

@@ -7,6 +7,12 @@
     <div class="form-floating my-2">
         {{postform.post}}
     </div>
+    <div class="my-3">
+        <i class="bi bi-paperclip h5 text-primary me-2">></i>
+        {% for file in files %}
+        <span class="badge text-bg-{{file.color}}">{{file.shortName}}&nbsp;&nbsp;<i class="bi bi-x-circle hx-pointer"></i></span>
+        {% endfor %}
+    </div>
     <button class="btn btn-outline-success btn-sm">{% trans "Save" %}</button>
     <button class="btn btn-outline-secondary btn-sm" hx-get="{% url 'posts:title' id=post.id %}">{% trans "Cancel" %}</button>
 

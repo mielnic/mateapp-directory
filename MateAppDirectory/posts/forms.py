@@ -47,7 +47,7 @@ class UploadFileForm(forms.ModelForm):
         ]
 
         widgets = {
-            #'file': forms.ClearableFileInput(attrs={'multiple' : True})
+            'file': forms.ClearableFileInput(attrs={'class':'form-control', 'type':'file', 'multiple' : ''})
         }
 
 

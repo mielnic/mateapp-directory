@@ -6,9 +6,11 @@ from .forms import PostCreationForm, UploadFileForm, PostEditForm
 from django.contrib.auth import get_user_model
 from .models import Post, File
 from django.db.models.functions import TruncDate
-from django.db.models import Value
+from django.db.models import Value, Count
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from .functions import splitFilename
+from django.conf import settings
 
 
 ##############
@@ -71,8 +73,12 @@ def posts_list(request):
 def post_post(request, id):
     '''Esta vista de la de display del partial del contenido del post en htmx'''
     post = Post.objects.get(id=id)
+    files = File.objects.filter(post=post, deleted=False)
+    path = f'{settings.MEDIA_URL}'
     context = {
         'post' : post,
+        'files' : files,
+        'path' : path,
     }
     return render(request, 'posts/partials/post_post.html', context)
 
@@ -93,7 +99,8 @@ def post_title(request, id):
 def post_edit(request, id):
     '''Edición de post en htmx'''
     post = Post.objects.get(id=id)
-    
+    files = File.objects.filter(post=post, deleted=False)
+    path = f'{settings.MEDIA_URL}'
     if request.method == 'PUT':
         data = QueryDict(request.body).dict()
         postform = PostEditForm(data, instance=post)
@@ -111,6 +118,8 @@ def post_edit(request, id):
     context = {
         'postform' : postform,
         'post' : post,
+        'files' : files,
+        'path' : path,
     }
     return render(request, 'posts/partials/post_edit.html', context)
 
@@ -161,14 +170,55 @@ def post_full_delete(request, id):
 # File Views #
 ##############
 
-def file_upload(request):
+def file_upload(request, id):
+    post = Post.objects.get(id=id)
     if request.method == 'POST':
         uploadfileform = UploadFileForm(request.POST, request.FILES)
-        file = request.FILES['file']
+        uploads = request.FILES.getlist('file')
+        for upload in uploads:
+            file = File.objects.create(file=upload)
+            file.post = post
+            name=str(upload)
+            shortName, color, ext = splitFilename(name)
+            file.shortName = shortName
+            file.color = color
+            file.ext = ext
+            file.name = name
+            file.save()
+        return HttpResponseRedirect(f'/posts/files/{id}/')
     else:
         uploadfileform = UploadFileForm()
 
     context = {
         'uploadfileform': uploadfileform,
+        'post' : post
     }
-    return render(request, 'docs/upload.html', context)
+    return render(request, 'posts/partials/upload.html', context)
+
+
+def files(request, id):
+    post = Post.objects.get(id=id)
+    context = {
+        'post' : post
+    }
+    return render(request, 'posts/partials/files.html', context)
+
+def files_list(request, id):
+    post = Post.objects.get(id=id)
+    files = File.objects.filter(post=post, deleted=False)
+    path = f'{settings.MEDIA_URL}'
+    context = {
+        'post' : post,
+        'files' : files,
+        'path' : path,
+    }
+    return render(request, 'posts/partials/files_list.html', context)
+
+# def files_clip(request, id):
+#     post = Post.objects.get(id=id)
+#     files = File.objects.filter(post=post, deleted=False)
+#     context = {
+#         'post' : post,
+#         'files' : files,
+#     }
+#     return render(request, 'posts/partials/files_clip.html', context)
