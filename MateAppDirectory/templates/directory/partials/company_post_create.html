@@ -2,7 +2,7 @@
 {% load i18n %}
 
 <div class="row mt-3 justify-content-md-center">
-    <div class="col shadow p-4 mx-1 border rounded bg-light">
+    <div class="col shadow p-4 mx-1">
         <form hx-put="{% url 'directory:companyPostCreate' id=company.id %}" hx-target="#list" hx-swap="outerHTML swap:0.2s">
             {% csrf_token %}
             <div class='mb-2'>

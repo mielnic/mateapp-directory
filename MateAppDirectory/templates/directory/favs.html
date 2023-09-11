@@ -11,8 +11,8 @@
 
 <!--Header-->
 <div class="row mt-3 justify-content-md-center">
-    <div class="col shadow p-2 mx-1 border rounded bg-light">
-        <nav class="navbar navbar-expand-lg bg-light">
+    <div class="col p-2 mx-1 shadow bg-light">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid px-4">
             <a class="navbar-brand" href="#"><h4><i class="bi bi-star"></i>&nbsp;{% trans "Favorites" %}</h4></a>
             </div>
@@ -21,13 +21,13 @@
 </div>
 <!-- Content -->
 <div class="row mt-3 justify-content-md-center">
-    <div class="col shadow p-3 mx-1 border rounded">
+    <div class="col p-3 mx-1 shadow bg-light">
     {% if fav_list %}
     <!-- Table lg -->
     <div class="table-responsive d-none d-lg-block">
       <table class="table table-hover" id="fav_list" name="Fav_List">
           <!-- Table Header -->
-          <thead class="table-success">
+          <thead class="table">
               <th class="px-3">{% trans "Name" %}</th>
               <th>{% trans "Company" %}</th>
               <th>{% trans "Phone" %}</th>
@@ -74,7 +74,7 @@
     <div class="table-responsive d-none d-sm-block d-lg-none">
         <table class="table table-hover" id="fav_list" name="Fav_List">
             <!-- Table Header -->
-            <thead class="table-success">
+            <thead class="table">
                 <th class="px-3">{% trans "Name" %}</th>
                 <th>{% trans "eMail/Web" %}</th>
                 <th>UnFav</th>
@@ -111,7 +111,7 @@
     <div class="table-responsive d-block d-sm-none">
         <table class="table table-hover" id="fav_list" name="Fav_List">
             <!-- Table Header -->
-            <thead class="table-success">
+            <thead class="table">
                 <th class="px-3">{% trans "Name" %}</th>
                 <th>{% trans "Phone" %}</th>
             </thead>

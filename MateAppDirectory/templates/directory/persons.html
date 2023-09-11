@@ -9,8 +9,8 @@
 {% block content %}
 <!-- Header -->
 <div class="row mt-3 justify-content-md-center">
-    <div class="col shadow p-2 mx-1 rounded border bg-light">
-      <nav class="navbar navbar-expand-lg bg-light">
+    <div class="col p-2 mx-1 shadow bg-light">
+      <nav class="navbar navbar-expand-lg">
         <div class="container-fluid px-4">
           <a class="navbar-brand" href="#"><h4><i class="bi bi-people"></i>&nbsp;{% trans "Persons" %}</h4></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#personsNavbar" aria-controls="personsNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,13 +58,13 @@
 
 <!-- Content -->
 <div class="row mt-3 justify-content-md-center">
-    <div class="col shadow p-3 mx-1 border rounded">
+    <div class="col p-3 mx-1 shadow">
     {% if person_list %}
     <!-- Table lg -->
     <div class="table-responsive d-none d-lg-block">
       <table class="table table-hover" id="person_list" name="Person_List">
           <!-- Table Header -->
-          <thead class="table-success">
+          <thead class="table">
               <th class="px-3">{% trans "Name" %}</th>
               <th>{% trans "Position" %}</th>
               <th>{% trans "Company" %}</th>
@@ -108,7 +108,7 @@
     <div class="table-responsive d-none d-sm-block d-lg-none">
       <table class="table table-hover" id="person_list" name="Person_List">
           <!-- Table Header -->
-          <thead class="table-success">
+          <thead class="table">
               <th class="px-3">{% trans "Name" %}</th>
               <th>{% trans "Company" %}</th>
               <th>{% trans "CellPhone" %}</th>
@@ -142,7 +142,7 @@
     <div class="table-responsive d-block d-sm-none">
       <table class="table table-hover" id="person_list" name="Person_List">
           <!-- Table Header -->
-          <thead class="table-success">
+          <thead class="table">
               <th class="px-3">{% trans "Name" %}</th>
               <th>{% trans "CellPhone" %}</th>
           </thead>
