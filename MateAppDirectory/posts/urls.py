@@ -19,6 +19,6 @@ urlpatterns = [
     path('upload/<int:id>/', views.file_upload, name='upload'),
     path('files/<int:id>/', views.files, name='files'),
     path('fileslist/<int:id>', views.files_list, name='fileslist'),
-    # path('filesclip/<int:id>', views.files_clip, name='filesclip'),
+    path('filedelete/<int:fid>/<int:pid>', views.file_delete, name='filedelete'),
     # path('edit/', views.***, name='edit'),
 ]

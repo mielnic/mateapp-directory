@@ -8,34 +8,35 @@
 {% endblock navbar %}
 
 {% block content %}
-<div class="row row-col-1 py-3 justify-content-center">
-    <div class="col shadow m-5 p-4 border col-lg-5 rounded">
-        <div style="text-align: center">
-        <h2>MateApp Directory</h2>
-        <br>
-        </div>
+<div class="row py-3 justify-content-center">
+    <div class="col shadow m-1 p-4 bg-light">
         <form method="GET">
-            <div class="d-flex">
-                {{searchform.q}}
+            <div class="input-group">
+            {{searchform.q}}
+            <button type="submit" class="btn btn-outline-success px-2" id="button-addon">{% trans "Search" %}</button>
+            <a class="btn btn-outline-secondary px-2" href="/search" id="button-addon2">{% trans "Clear" %}</a>
             </div>
-            <br>
-            <button type="submit" class="w-100 btn btn-lg-5 btn-outline-success">{% trans "Search" %}</button>
         </form>
-       
-        {% for result in results %}
-        <div class="col my-3 shadow p-4 border rounded">
-        {% if result.lastName %}
-        <strong><a class="nav-link" href="/directory/person/{{ result.id }}/">{{ result }}</a></strong>
-        <p>{{ result.celphone }}</p>
-        {% else %}
-        <strong><a class="nav-link" href="/directory/company/{{ result.id }}/0/5/">{{ result }}</a></strong>
-        <p>{{ result.tax_id }} </p>
-        {% endif %}
-        </div>
-        {% endfor %}
-        
     </div>
 </div>
+{% for result in results %}
+<div class="row mt-2 justify-content-center">
+    <div class="col shadow p-3 mx-1 ">
+    {% if result.entity == 'person' %}
+    <div class="mx-3">
+        <strong><a class="nav-link" href="/directory/person/{{ result.id }}/">{{ result }}</a></strong>
+        <p>{{ result.company.companyName }}</p>
+    </div>
+    {% else %}
+    <div class="mx-3">
+        <strong><a class="nav-link" href="/directory/company/{{ result.id }}/0/5/">{{ result }}</a></strong>
+        <p>{{ result.tax_id }} </p>
+    </div>
+    {% endif %}
+    </div>
+</div>
+{% endfor %}
+
 <script src="{% static 'main/js/search_helper.js' %}"></script>
 {% endblock content %}
 

@@ -3,5 +3,4 @@
 {% for file in files %}
 <a class="badge text-bg-{{file.color}} nav-link" href="{{path}}{{file.file}}">{{file.shortName}}</a>
 {% endfor %}
-<span hx-get="{% url 'posts:filesclip' id=post.id %}"><i class="bi bi-x-square h5 hx-pointer text-secondary mx-3"></i></span>
 </div>

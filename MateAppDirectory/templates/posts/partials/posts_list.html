@@ -22,14 +22,14 @@
                 <div class="row row row-col-2 px-3 justify-content-start">
                     <div class="col col-10 col-lg-8 px-3 pt-1">
                         {% if post.company.companyName %}
-                        <strong><a class="nav-link" href="">{{ post.company.companyName }}</a></strong>
+                        <strong><a class="nav-link" href="/directory/company/{{ post.company.id }}/0/5">{{ post.company.companyName }}</a></strong>
                         {% else %}
-                        <strong><a class="nav-link" href="">{{ post.person.firstName }}
+                        <strong><a class="nav-link" href="/directory/person/{{ post.person.id }}">{{ post.person.firstName }}
                         {{ post.person.lastName }}</a></strong>
                         {{ post.person.company.companyName }}
                         {% endif %}
                         <!-- Placeholder para los partials de htmx -->
-                        <div>
+                        <div class="my-3">
                             {% include 'posts/partials/post_title.html' %}
                         </div>
                     </div>

@@ -21,9 +21,9 @@
             <div class="col p-3 mx-1 shadow">
                 <div class="row row row-col-2 px-3 justify-content-start">
                     <div class="col col-10 col-lg-8 px-3 pt-1">
-                        <strong><a class="nav-link" href="">{{ post.person.firstName }}
+                        <strong><a class="nav-link" href="/directory/person/{{ post.person.id }}/">{{ post.person.firstName }}
                         {{ post.person.lastName }}</a></strong>
-                        <div>
+                        <div class="my-3">
                             {% include 'posts/partials/post_title.html' %}
                         </div>     
                     </div>

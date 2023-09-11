@@ -10,7 +10,7 @@
     <div class="my-3">
         <i class="bi bi-paperclip h5 text-primary me-2">></i>
         {% for file in files %}
-        <span class="badge text-bg-{{file.color}}">{{file.shortName}}&nbsp;&nbsp;<i class="bi bi-x-circle hx-pointer"></i></span>
+        <span class="badge text-bg-{{file.color}}" hx-get="{% url 'posts:filedelete' fid=file.id pid=post.id %}" hx-confirm="{% trans "Are you sure? This action can't be undone!" %}">{{file.shortName}}&nbsp;&nbsp;<i class="bi bi-x-circle hx-pointer"></i></span>
         {% endfor %}
     </div>
     <button class="btn btn-outline-success btn-sm">{% trans "Save" %}</button>

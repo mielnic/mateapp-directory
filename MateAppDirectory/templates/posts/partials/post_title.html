@@ -3,6 +3,6 @@
 <div class="row justify-content-start" id="post" hx-swap="outerHTML swap:0.2s" hx-target="this">
     <div class="col py-1 col-lg-10">
         <span><i class="bi bi-pencil-square text-success h5 hx-pointer me-2" hx-get="{% url 'posts:edit' id=post.id %}"></i></span>{{ post.post_title }} 
-        <span class="hx-pointer" hx-get="{% url 'posts:post' id=post.id %}"><small>&nbsp;|&nbsp;{% trans "more >" %}</small></span>
+        <span class="hx-pointer text-primary" hx-get="{% url 'posts:post' id=post.id %}"><small>&nbsp;|&nbsp;{% trans "more >" %}</small></span>
     </div>
 </div>

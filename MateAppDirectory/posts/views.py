@@ -214,6 +214,19 @@ def files_list(request, id):
     }
     return render(request, 'posts/partials/files_list.html', context)
 
+def file_delete(request, fid, pid):
+    File.objects.filter(id=fid).delete()
+    return HttpResponseRedirect(f'/posts/post_edit/{pid}')
+    # post = Post.objects.get(id=pid)
+    # files = File.objects.filter(post=post, deleted=False)
+    # path = f'{settings.MEDIA_URL}'
+    # context = {
+    #     'post' : post,
+    #     'files' : files,
+    #     'path' : path,
+    # }
+    # return render(request, 'posts/partials/post_edit.html', context)
+
 # def files_clip(request, id):
 #     post = Post.objects.get(id=id)
 #     files = File.objects.filter(post=post, deleted=False)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MateApp 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-23 17:33-0300\n"
+"POT-Creation-Date: 2023-09-11 19:26-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,20 +18,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\directory\forms.py:34
+#: .\directory\forms.py:34 .\posts\forms.py:24
 msgid "Select Company:"
 msgstr "Seleccione Compañía:"
 
-#: .\directory\views.py:69 .\directory\views.py:101 .\main\views.py:79
+#: .\directory\views.py:75 .\directory\views.py:103 .\main\views.py:81
 #: .\main\views.py:133
 msgid "The search didn't return any result."
 msgstr "La búsqueda no arrojó ningún resultado."
 
-#: .\directory\views.py:263
+#: .\directory\views.py:258
 msgid "New Person"
 msgstr "Nueva Persona"
 
-#: .\directory\views.py:355 .\templates\directory\create_person.html:36
+#: .\directory\views.py:348 .\templates\directory\create_person.html:36
 msgid "New Company"
 msgstr "Nueva Compañía"
 
@@ -39,9 +39,13 @@ msgstr "Nueva Compañía"
 msgid "Search:"
 msgstr "Buscar:"
 
-#: .\main\views.py:42 .\main\views.py:45
+#: .\main\views.py:44 .\main\views.py:47
 msgid "Incorrect Username or Password."
 msgstr "Usuario o Contraseña Incorrectos."
+
+#: .\posts\forms.py:26
+msgid "Select Person:"
+msgstr "Seleccione una Persona:"
 
 #: .\templates\directory\companies.html:16
 #: .\templates\directory\companies.html:23 .\templates\includes\navbar.html:26
@@ -57,25 +61,25 @@ msgstr "Agregar Compañía"
 #: .\templates\directory\companies.html:32
 #: .\templates\directory\companies.html:47
 #: .\templates\directory\persons.html:31 .\templates\directory\persons.html:46
-#: .\templates\includes\navbar.html:36 .\templates\includes\navbar.html:83
-#: .\templates\main\admin_trash.html:25 .\templates\main\search.html:22
+#: .\templates\includes\navbar.html:39 .\templates\includes\navbar.html:86
+#: .\templates\main\admin_trash.html:25 .\templates\main\search.html:16
 msgid "Search"
 msgstr "Buscar"
 
 #: .\templates\directory\companies.html:33
 #: .\templates\directory\companies.html:50
 #: .\templates\directory\persons.html:32 .\templates\directory\persons.html:49
-#: .\templates\main\admin_trash.html:28
+#: .\templates\main\admin_trash.html:28 .\templates\main\search.html:17
 msgid "Clear"
 msgstr "Limpiar"
 
 #: .\templates\directory\companies.html:71
 #: .\templates\directory\companies.html:107
-#: .\templates\directory\companies.html:131
-#: .\templates\directory\company.html:71 .\templates\directory\company.html:96
-#: .\templates\directory\favs.html:31 .\templates\directory\favs.html:78
-#: .\templates\directory\favs.html:115 .\templates\directory\persons.html:68
-#: .\templates\directory\persons.html:112
+#: .\templates\directory\companies.html:131 .\templates\directory\favs.html:25
+#: .\templates\directory\favs.html:72 .\templates\directory\favs.html:109
+#: .\templates\directory\partials\company_persons_list.html:12
+#: .\templates\directory\partials\company_persons_list.html:37
+#: .\templates\directory\persons.html:68 .\templates\directory\persons.html:112
 #: .\templates\directory\persons.html:146 .\templates\main\admin_home.html:30
 #: .\templates\main\admin_home.html:64 .\templates\main\admin_home.html:130
 #: .\templates\users\users_inactive.html:30
@@ -85,8 +89,8 @@ msgstr "Nombre"
 
 #: .\templates\directory\companies.html:72
 #: .\templates\directory\companies.html:108
-#: .\templates\directory\companies.html:132 .\templates\directory\favs.html:33
-#: .\templates\directory\favs.html:116
+#: .\templates\directory\companies.html:132 .\templates\directory\favs.html:27
+#: .\templates\directory\favs.html:110
 msgid "Phone"
 msgstr "Teléfono"
 
@@ -111,36 +115,30 @@ msgstr "No hay compañias."
 msgid "DATA:"
 msgstr "DATOS:"
 
-#: .\templates\directory\company.html:32 .\templates\directory\person.html:47
+#: .\templates\directory\company.html:32 .\templates\directory\person.html:45
 msgid "ADDRESS:"
 msgstr "DIRECCIÓN:"
 
-#: .\templates\directory\company.html:49 .\templates\directory\person.html:64
+#: .\templates\directory\company.html:42 .\templates\directory\person.html:55
 #: .\templates\users\profile.html:36 .\templates\users\user.html:37
 msgid "Edit"
 msgstr "Editar"
 
-#: .\templates\directory\company.html:50 .\templates\directory\person.html:65
-#: .\templates\users\user.html:38
-msgid "Back"
-msgstr "Volver"
-
-#: .\templates\directory\company.html:52 .\templates\directory\person.html:66
-#: .\templates\main\user_trash.html:44 .\templates\main\user_trash.html:46
+#: .\templates\directory\company.html:46 .\templates\directory\person.html:58
+#: .\templates\main\user_trash.html:46 .\templates\main\user_trash.html:48
+#: .\templates\main\user_trash.html:50
 msgid "Delete"
 msgstr "Borrar"
 
-#: .\templates\directory\company.html:72 .\templates\directory\persons.html:72
-#: .\templates\directory\persons.html:115 .\templates\main\admin_home.html:31
-#: .\templates\users\users_inactive.html:31 .\users\forms.py:99
-msgid "eMail"
-msgstr "eMail"
+#: .\templates\directory\company.html:73 .\templates\directory\person.html:77
+#: .\templates\includes\navbar.html:29 .\templates\posts\list_posts.html:13
+msgid "Posts"
+msgstr "Posts"
 
-#: .\templates\directory\company.html:73 .\templates\directory\company.html:97
-#: .\templates\directory\persons.html:71 .\templates\directory\persons.html:114
-#: .\templates\directory\persons.html:147
-msgid "CellPhone"
-msgstr "Celular"
+#: .\templates\directory\company.html:74 .\templates\directory\person.html:78
+#: .\templates\posts\list_posts.html:14
+msgid "Add Post"
+msgstr "Agregar Post"
 
 #: .\templates\directory\create_company.html:29
 #: .\templates\directory\create_person.html:52
@@ -188,8 +186,13 @@ msgstr "Código Postal:"
 
 #: .\templates\directory\create_company.html:77
 #: .\templates\directory\create_person.html:139
+#: .\templates\directory\partials\company_post_create.html:11
 #: .\templates\directory\partials\edit_company_notes.html:11
 #: .\templates\directory\partials\edit_person_notes.html:11
+#: .\templates\directory\partials\person_post_create.html:11
+#: .\templates\posts\partials\post_create.html:21
+#: .\templates\posts\partials\post_edit.html:16
+#: .\templates\posts\partials\upload.html:9
 #: .\templates\users\create_user.html:74 .\templates\users\edit_user.html:53
 #: .\templates\users\profile_edit.html:37
 msgid "Save"
@@ -199,8 +202,13 @@ msgstr "Guardar"
 #: .\templates\directory\create_company.html:81
 #: .\templates\directory\create_person.html:141
 #: .\templates\directory\create_person.html:143
+#: .\templates\directory\partials\company_post_create.html:12
 #: .\templates\directory\partials\edit_company_notes.html:12
 #: .\templates\directory\partials\edit_person_notes.html:12
+#: .\templates\directory\partials\person_post_create.html:12
+#: .\templates\posts\partials\post_create.html:22
+#: .\templates\posts\partials\post_edit.html:17
+#: .\templates\posts\partials\upload.html:10
 #: .\templates\users\create_user.html:75 .\templates\users\edit_user.html:54
 #: .\templates\users\password_change.html:45
 #: .\templates\users\password_reset.html:30
@@ -253,27 +261,67 @@ msgstr "Teléfono:"
 msgid "State"
 msgstr "Estado"
 
-#: .\templates\directory\favs.html:17
+#: .\templates\directory\favs.html:16
 msgid "Favorites"
 msgstr "Favoritos"
 
-#: .\templates\directory\favs.html:32 .\templates\directory\persons.html:70
-#: .\templates\directory\persons.html:113 .\templates\main\admin_trash.html:77
+#: .\templates\directory\favs.html:26 .\templates\directory\persons.html:70
+#: .\templates\directory\persons.html:113 .\templates\main\admin_trash.html:82
 msgid "Company"
 msgstr "Compañías"
 
-#: .\templates\directory\favs.html:34 .\templates\directory\favs.html:79
+#: .\templates\directory\favs.html:28 .\templates\directory\favs.html:73
 msgid "eMail/Web"
 msgstr "eMail/Web"
 
-#: .\templates\directory\person.html:33
-msgid "CONTACT:"
-msgstr "CONTACTO:"
+#: .\templates\directory\partials\company_notes.html:4
+#: .\templates\directory\partials\person_notes.html:5
+#: .\templates\posts\partials\post_post.html:5
+msgid "< less"
+msgstr "< menos"
 
+#: .\templates\directory\partials\company_notes_title.html:6
+#: .\templates\directory\partials\person_notes_title.html:6
+#: .\templates\posts\partials\post_title.html:6
+msgid "more >"
+msgstr "más >"
+
+#: .\templates\directory\partials\company_persons_collapsed.html:5
+#: .\templates\directory\partials\company_persons_list.html:5
 #: .\templates\directory\persons.html:15 .\templates\directory\persons.html:22
 #: .\templates\includes\navbar.html:23
 msgid "Persons"
 msgstr "Personas"
+
+#: .\templates\directory\partials\company_persons_list.html:13
+#: .\templates\directory\persons.html:72 .\templates\directory\persons.html:115
+#: .\templates\main\admin_home.html:31 .\templates\users\users_inactive.html:31
+#: .\users\forms.py:99
+msgid "eMail"
+msgstr "eMail"
+
+#: .\templates\directory\partials\company_persons_list.html:14
+#: .\templates\directory\partials\company_persons_list.html:38
+#: .\templates\directory\persons.html:71 .\templates\directory\persons.html:114
+#: .\templates\directory\persons.html:147
+msgid "CellPhone"
+msgstr "Celular"
+
+#: .\templates\directory\partials\company_posts_list.html:32
+#: .\templates\directory\partials\person_posts_list.html:30
+#: .\templates\posts\partials\posts_list.html:38
+msgid "Created on "
+msgstr "Creado el "
+
+#: .\templates\directory\partials\company_posts_list.html:32
+#: .\templates\directory\partials\person_posts_list.html:30
+#: .\templates\posts\partials\posts_list.html:38
+msgid " by "
+msgstr " por "
+
+#: .\templates\directory\person.html:33
+msgid "CONTACT:"
+msgstr "CONTACTO:"
 
 #: .\templates\directory\persons.html:28 .\templates\directory\persons.html:41
 msgid "Add Person"
@@ -288,7 +336,7 @@ msgid "No persons available."
 msgstr "No hay personas."
 
 #: .\templates\includes\admin_navbar.html:14
-#: .\templates\includes\navbar.html:94
+#: .\templates\includes\navbar.html:97
 msgid "Administration"
 msgstr "Administración"
 
@@ -318,26 +366,26 @@ msgstr "Inicio"
 
 #: .\templates\includes\admin_navbar.html:61
 #: .\templates\includes\admin_navbar.html:100
-#: .\templates\includes\navbar.html:58 .\templates\includes\navbar.html:105
+#: .\templates\includes\navbar.html:61 .\templates\includes\navbar.html:108
 msgid "Logout"
 msgstr "Logout"
 
 #: .\templates\includes\admin_navbar.html:108
-#: .\templates\includes\navbar.html:67 .\templates\includes\navbar.html:113
+#: .\templates\includes\navbar.html:70 .\templates\includes\navbar.html:116
 #: .\templates\users\registration.html:68
 msgid "Register"
 msgstr "Registrarse"
 
-#: .\templates\includes\navbar.html:41 .\templates\includes\navbar.html:88
+#: .\templates\includes\navbar.html:44 .\templates\includes\navbar.html:91
 #: .\templates\main\user_trash.html:13
 msgid "Trash"
 msgstr "Papelera"
 
-#: .\templates\includes\navbar.html:47
+#: .\templates\includes\navbar.html:50
 msgid "Admin"
 msgstr "Admin"
 
-#: .\templates\includes\navbar.html:53 .\templates\includes\navbar.html:100
+#: .\templates\includes\navbar.html:56 .\templates\includes\navbar.html:103
 msgid "Profile"
 msgstr "Perfil"
 
@@ -396,14 +444,20 @@ msgid "No backups available."
 msgstr "No existen backups."
 
 #: .\templates\main\admin_trash.html:52 .\templates\main\admin_trash.html:54
-#: .\templates\main\admin_trash.html:75 .\templates\main\admin_trash.html:78
+#: .\templates\main\admin_trash.html:56 .\templates\main\admin_trash.html:77
+#: .\templates\main\admin_trash.html:80 .\templates\main\admin_trash.html:83
 #: .\templates\main\user_trash.html:37 .\templates\main\user_trash.html:39
+#: .\templates\main\user_trash.html:41
 msgid "Restore"
 msgstr "Restaurar"
 
-#: .\templates\main\admin_trash.html:74
+#: .\templates\main\admin_trash.html:76
 msgid "Person"
 msgstr "Persona"
+
+#: .\templates\main\admin_trash.html:79
+msgid "Post"
+msgstr "Post"
 
 #: .\templates\main\login.html:23
 msgid "Username:"
@@ -418,6 +472,14 @@ msgstr "Contraseña:"
 #: .\templates\main\login.html:34
 msgid "Forgot Password?"
 msgstr "¿Olvidó su contraseña?"
+
+#: .\templates\posts\partials\post_create.html:14
+msgid "Select by Company"
+msgstr "Seleccione por Compañía"
+
+#: .\templates\posts\partials\post_edit.html:13
+msgid "Are you sure? This action can't be undone!"
+msgstr "¿Esta seguro? ¡Esta acción no se puede deshacer!"
 
 #: .\templates\users\activate_account.html:3
 msgid "Dear"
@@ -575,6 +637,10 @@ msgstr "Solo direcciones del dominio "
 #: .\templates\users\registration.html:29
 msgid "addresses will be processed."
 msgstr "serán procesadas"
+
+#: .\templates\users\user.html:38
+msgid "Back"
+msgstr "Volver"
 
 #: .\users\forms.py:14 .\users\forms.py:81
 msgid "Password"
