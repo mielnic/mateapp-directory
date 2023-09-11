@@ -1,6 +1,6 @@
 {% load i18n %} 
 
-<form hx-put="/directory/edit_company_notes/{{ company.id }}/" hx-target="#notes" hx-swap="outerHTML swap:0.2s" id="notes">
+<form hx-put="{% url 'directory:companyNotesEdit' id=company.id %}" hx-target="#notes" hx-swap="outerHTML swap:0.2s" id="notes">
 
     {% csrf_token %}
 
@@ -9,6 +9,6 @@
         <label for="id_notes">{% trans "Notes:" %}</label>
     </div>
     <button class="btn btn-outline-success btn-sm">{% trans "Save" %}</button>
-    <button class="btn btn-outline-secondary btn-sm" hx-get="/directory/company_notes/{{ company.id }}/" hx-target="#notes">{% trans "Cancel" %}</button>
+    <button class="btn btn-outline-secondary btn-sm" hx-get="{% url 'directory:companyNotesTitle' id=company.id %}" hx-target="#notes">{% trans "Cancel" %}</button>
 
 </form>

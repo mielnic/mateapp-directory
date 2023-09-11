@@ -1,0 +1,78 @@
+{% load i18n %}
+
+<div id="persons_list">
+    <div class="col py-1 col-lg-10">
+        <span class="btn btn-outline-secondary btn-sm mb-2" hx-get="{% url 'directory:companyPersonsCollapsed' id=company.id %}" hx-swap="outerHTML swap:0.2s" hx-target="#persons_list"><i class="bi bi-arrow-left"></i>&nbsp;{% trans "Persons" %}</span>
+    </div>
+    <!-- Table md -->
+    <div class="table-responsive d-none d-sm-block">
+        <table class="table table-hover" id="person_list" name="Person_List">
+            <!-- Cabecera de Tabla -->
+            <thead class="table-success">
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "eMail" %}</th>
+                <th>{% trans "CellPhone" %}
+                </th>
+            </thead>
+
+            <!-- Cuerpo de Tabla -->
+
+            <tbody>
+                {% for Person in person_list %}
+                <tr>
+                    <td><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}, {{ Person.firstName }}</a></td>
+                    <td><a class="nav-link" href="mailto:{{Person.email}}">{{Person.email}}</a></td>
+                    <td>{{ Person.celphone }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Table xs -->
+    <div class="table-responsive d-block d-sm-none">
+        <table class="table table-hover" id="person_list" name="Person_List">
+            <!-- Cabecera de Tabla -->
+            <thead class="table-success">
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "CellPhone" %}
+                </th>
+            </thead>
+
+            <!-- Cuerpo de Tabla -->
+
+            <tbody>
+                {% for Person in person_list %}
+                <tr>
+                    <td><a class="nav-link" href="/directory/person/{{ Person.id }}/">{{ Person.lastName }}, {{ Person.firstName }}</a></td>
+                    <td>{{ Person.celphone }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if pgx.pgs > 1 %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li class="page-item">
+            <span class="page-link hx-pointer" hx-get="{% url 'directory:companyPersons' id=company.id a=pgx.idxpl b=pgx.idxpr %}" hx-target="#persons_list" hx-swap="outerHTML"  aria-label="Previous">
+              <span>&laquo;</span>
+            </span>
+          </li>
+          {% for link in pgx.lks %}
+            {% if pgx.pn == link.page %}
+                <li class="page-item"><span class="page-link hx-pointer active" id="page-link" hx-get="{% url 'directory:companyPersons' id=company.id a=link.pl b=link.pr %}" hx-target="#persons_list" hx-swap="outerHTML">{{link.page}}</span></li>
+            {% else %}
+                <li class="page-item"><span class="page-link hx-pointer" id="page-link" hx-get="{% url 'directory:companyPersons' id=company.id a=link.pl b=link.pr %}" hx-target="#persons_list" hx-swap="outerHTML">{{link.page}}</span></li>
+            {% endif %}
+          {% endfor %}
+          <li class="page-item">
+            <span class="page-link hx-pointer" hx-get="{% url 'directory:companyPersons' id=company.id a=pgx.idxnl b=pgx.idxnr %}" hx-target="#persons_list" hx-swap="outerHTML"  aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </span>
+          </li>
+        </ul>
+    </nav>
+    {% endif %}
+</div>

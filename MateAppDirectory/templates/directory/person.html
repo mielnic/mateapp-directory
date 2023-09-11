@@ -10,7 +10,7 @@
 
 
 <div class="row py-3 justify-content-center">
-    <div class="col shadow px-5 py-3 mx-1 col-lg-10 rounded border bg-light">
+    <div class="col shadow px-5 py-3 mx-1 rounded border bg-light">
         <h2>{{person.firstName}} {{person.lastName}}
             {% if fav %}
             <span class="px-2" hx-get="/directory/unlink_fav/{{ fav.id }}/" hx-swap="outerHTML"><i class="bi bi-star-fill h5 hx-pointer text-warning"></i></span>
@@ -28,18 +28,16 @@
         </h5>
         <hr class="separator">
 
-        <div class="row row-col-2 py-3 justify-content-start">
+        <div class="row row-col-2 justify-content-start">
             <div class="col col-10 col-md-6 py-1">
                 <p class="mb-2"><small>{% trans "CONTACT:" %}</small></p>
                 <div class="ps-1">
                     {% if person.celphone %}
                     <h6><a class="nav-link" id="person-whapp-link" target="_blank" href="">{{person.celphone}}<i class="bi bi-whatsapp m-2" style="color: green;"></i></a></h6>
                     {% endif %}
-            
                     {% if person.email %}
                     <h6><a class="nav-link" id="mail-link" href="mailto:{{person.email}}">{{person.email}}<i class="bi bi-envelope-plus m-2"></i></a></h6>
                     {% endif %}
-                
                     <h5>{{person.workphone}}</h5>
                 </div>
             </div>
@@ -56,19 +54,31 @@
         </div>
         <!-- Placeholder para los partials de htmx -->
         <div>
-            {% include 'directory/partials/person_notes.html' %}
+            {% include 'directory/partials/person_notes_title.html' %}
         </div>
 
         <div class="row pt-3 justify-content-center">
             <div class="col col-lg-10 d-flex justify-content-center">       
-                <p><a href="/directory/edit_person/{{ person.id }}" class="btn btn-outline-success mt-1 px-4 mx-2" role="button">{% trans "Edit" %}</a></p>
-                <p><a href="/directory/persons/0/10/" class="btn btn-outline-secondary mt-1 px-4 mx-2" role="button">{% trans "Back" %}</a></p>
-                <p><a href="/directory/delete_person/{{ person.id }}" class="btn btn-outline-danger mt-1 mx-2" role="button">{% trans "Delete" %}</a></p>
+                <p><a href="{% url 'directory:EditPerson' id=person.id %}" class="btn btn-outline-success btn-sm px-4 mx-2" role="button">{% trans "Edit" %}</a></p>
+                <p><a href="{% url 'directory:Persons' a=0 b=10 %}" class="btn btn-outline-secondary btn-sm px-4 mx-2" role="button">{% trans "Back" %}</a></p>
+                <p><a href="{% url 'directory:DeletePerson' id=person.id %}" class="btn btn-outline-danger btn-sm px-4 mx-2" role="button">{% trans "Delete" %}</a></p>
             </div>
         </div>        
 
     </div>
+    
 </div>
+
+<div class="row mt-1 justify-content-md-center">
+    <div class="col shadow p-3 mx-1 border rounded bg-light">
+        <div class="container-fluid px-4">
+            <span class="h4"><i class="bi bi-stickies"></i>&nbsp;{% trans "Posts" %}</span>
+            <span class="ms-3 mb-2 btn btn-outline-secondary btn-sm" hx-get="{% url 'directory:personPostCreate' id=person.id %}" hx-target="#create" hx-swap="outerHTML swap:0.2s"><i class="bi bi-plus-square"></i>&nbsp;{% trans "Add Post" %}</span>
+        </div>
+    </div>
+</div>
+
+{% include 'directory/partials/person_posts_list.html' %}
 
 <script src="{% static 'directory/js/person_helper.js' %}"></script>
 

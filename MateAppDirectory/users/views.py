@@ -212,16 +212,12 @@ def inactive_users(request, a, b):
     active = False
     users_list = get_user_model().objects.order_by('last_name').filter(is_active=False) [a:b]
     length = get_user_model().objects.filter(is_active=False).count()
-    links, idxPL, idxPR, idxNL, idxNR = paginator(a, length, b)
+    pgx = paginator(a, length, b)
     template = loader.get_template('users/users_inactive.html')
     context = {
         'users_list': users_list,
         'active' : active,
-        'links' : links,
-        'idxPL' : idxPL,
-        'idxPR' : idxPR,
-        'idxNL' : idxNL,
-        'idxNR' : idxNR,
+        'pgx' : pgx,
     }
     return HttpResponse(template.render(context, request))
 
@@ -245,8 +241,8 @@ def create_user(request):
     if request.method == 'POST':
         usercreateform = CustomUserCreationForm(request.POST)
         if usercreateform.is_valid():
-            usercreateform.save()
-            id = get_user_model().objects.last().id
+            user = usercreateform.save()
+            id = user.id
             return HttpResponseRedirect(f'/users/user/{id}')
         else:
             for error in usercreateform.errors.values():

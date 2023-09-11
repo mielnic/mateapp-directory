@@ -1,0 +1,56 @@
+{% load i18n %}
+<!--target div for the list partial -->
+<div id="list">
+    <!--target div for the create partial -->
+    <div id="create"></div>
+
+    {% if page_obj %}
+    {% for post in page_obj  %}
+
+    <!--This div contains the card list page for infinite scrolling -->
+    {% if forloop.last %}
+        {% if  page_obj.number < page_obj.paginator.num_pages %}
+            <div hx-get="{% url 'directory:Company' id=company.id a=0 b=5 %}?page={{ page_obj.number|add:1 }}" hx-trigger="revealed" hx-swap="afterend" hx-target="this">
+        {% endif %}
+    {% else %}
+    <div>
+    {% endif %}
+
+        <!--Card-->
+        <div class="row mt-2 justify-content-md-center" id="card" hx-target="this" hx-swap="outerHTML swap:0.5s">
+            <div class="col shadow p-3 mx-1 border rounded bg-light">
+                <div class="row row row-col-2 px-3 justify-content-start">
+                    <div class="col col-10 col-lg-8 px-3 pt-1">
+                        {% if post.company.companyName %}
+                        <strong><a class="nav-link" href="">{{ post.company.companyName }}</a></strong>
+                        {% else %}
+                        <strong><a class="nav-link" href="">{{ post.person.firstName }}
+                        {{ post.person.lastName }}</a></strong>
+                        {{ post.person.company.companyName }}
+                        {% endif %}
+                        <!-- Placeholder para los partials de htmx -->
+                        <div>
+                            {% include 'posts/partials/post_title.html' %}
+                        </div>     
+                    </div>
+                    <div class="col col-10 col-lg-4 pt-1 light-border-lg">
+                        <div>
+                            <small>{% trans "Created on " %}{{ post.date }}{% trans " by " %}{{ post.user.first_name }} {{ post.user.last_name }}.</small>
+                        </div>
+                        <div class="ms-3 my-2"> 
+                            {% if post.action %}
+                            <span hx-get="{% url 'posts:action' id=post.id %}" hx-swap="outerHTML" hx-target="this"><i class="bi bi-star-fill h5 hx-pointer text-primary me-4"></i></span>
+                            {% else %}
+                            <span hx-get="{% url 'posts:action' id=post.id %}" hx-swap="outerHTML" hx-target="this"><i class="bi bi-star h5 hx-pointer text-primary me-4"></i></span>
+                            {% endif %}
+                            <span class="me-4" hx-delete="{% url 'posts:delete' id=post.id %}"><i class="bi bi-trash h5 hx-pointer text-secondary"></i></span>
+                            <span id="upload_{{post.id}}">{% include 'posts/partials/files.html' %}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>

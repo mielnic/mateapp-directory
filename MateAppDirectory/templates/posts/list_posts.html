@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+{% load i18n %}
+
+{% block navbar %}
+{% include 'includes/navbar.html' %}
+{% endblock navbar %}
+
+{% block content %}
+
+<div class="row mt-1 justify-content-md-center">
+    <div class="col shadow p-3 mx-1 border rounded bg-light">
+        <div class="container-fluid px-4">
+            <span class="h4"><i class="bi bi-stickies"></i>&nbsp;{% trans "Posts" %}</span>
+            <span class="ms-3 mb-2 btn btn-outline-secondary btn-sm" hx-get="{% url 'posts:create' %}" hx-target="#create" hx-swap="outerHTML swap:0.2s"><i class="bi bi-plus-square"></i>&nbsp;{% trans "Add Post" %}</span>
+        </div>
+    </div>
+</div>
+
+{% include 'posts/partials/posts_list.html' %}
+
+
+{% endblock content %}

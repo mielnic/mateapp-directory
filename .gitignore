@@ -8,6 +8,7 @@ blame*.*
 *.swp
 *.sql
 *.sqlite3
+*.rest
 sandbox.py
 sandbox.html
 notepad.txt
