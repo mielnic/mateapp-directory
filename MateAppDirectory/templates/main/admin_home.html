@@ -8,7 +8,7 @@
 {% block content %}
 <!-- Header Users -->
 <div class="row mt-3 justify-content-md-center">
-    <div class="col shadow p-2 col-lg-10 mx-1 border rounded bg-light">
+    <div class="col bg-white p-2 col-lg-10 mx-1 border rounded">
       <div class="container-fluid px-4">
         <h4><i class="bi bi-people"></i>&nbsp;{% trans "Users" %}</h4>
       </div>
@@ -18,7 +18,7 @@
 <!-- Content -->
 <!-- Users -->
 <div class="row mt-3 justify-content-md-center">
-    <div class="col shadow p-3 mx-1 border rounded col-lg-10">
+    <div class="col bg-white p-3 mx-1 border rounded col-lg-10">
     {% if users_list %}
 
     <!-- Table md -->
@@ -110,7 +110,7 @@
 
 <!-- Header Backup -->
 <div class="row mt-5 justify-content-md-center">
-    <div class="col shadow p-2 mx-1 col-lg-10 rounded border bg-light">  
+    <div class="col p-2 mx-1 col-lg-10 rounded border bg-white">  
         <div class="container-fluid me-auto px-4">
           <h4><i class="bi bi-hdd-stack"></i>&nbsp;{% trans "Backups" %} &nbsp; 
             <a class="btn btn-outline-secondary btn-sm" href="/backup/"><i class="bi bi-plus-square"></i>&nbsp;{% trans "New Backup" %}</a></h4>        
@@ -121,7 +121,7 @@
 
 <!-- Backup -->
 <div class="row my-3 justify-content-md-center">
-  <div class="col shadow p-3 mx-1 border rounded col-lg-10">
+  <div class="col p-3 mx-1 border rounded bg-white col-lg-10">
     {% if file_list %}
       <div class="table-responsive">
         <table class="table table-hover" id="users_list" name="Users_List">

@@ -9,7 +9,7 @@
 
 {% block content %}
 <div class="row py-3 justify-content-center">
-    <div class="col shadow m-1 p-4 bg-light">
+    <div class="col rounded border bg-white m-1 p-4">
         <form method="GET">
             <div class="input-group">
             {{searchform.q}}
@@ -21,7 +21,7 @@
 </div>
 {% for result in results %}
 <div class="row mt-2 justify-content-center">
-    <div class="col shadow p-3 mx-1 ">
+    <div class="col rounded border bg-white p-3 mx-1 ">
     {% if result.entity == 'person' %}
     <div class="mx-3">
         <strong><a class="nav-link" href="/directory/person/{{ result.id }}/">{{ result }}</a></strong>

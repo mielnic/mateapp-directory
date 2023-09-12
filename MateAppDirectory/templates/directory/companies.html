@@ -10,7 +10,7 @@
 {% block content %}
 <!-- Header -->
 <div class="row mt-3 justify-content-md-center">
-    <div class="col p-2 mx-1 shadow bg-light">
+    <div class="col p-2 mx-1 rounded border bg-white">
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid px-4">
           <a class="navbar-brand" href="#"><h4><i class="bi bi-buildings"></i>&nbsp;{% trans "Companies" %}</h4></a>
@@ -18,7 +18,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <!-- Offcanvas Header -->
-          <div class="offcanvas offcanvas-end bg-light" tabindex="-1" id="companiesNavbar" aria-labelledby="offcanvasCompaniesLabel">
+          <div class="offcanvas offcanvas-end bg-white" tabindex="-1" id="companiesNavbar" aria-labelledby="offcanvasCompaniesLabel">
             <div class="offcanvas-header">
               <h5 class="offcanvas-title" id="offcanvasCompaniesLabel">{% trans "Companies" %}</h5>
               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -59,7 +59,7 @@
 
 <!-- Content -->
 <div class="row mt-3 justify-content-md-center" id="companies-table-block">
-    <div class="col p-3 mx-1 shadow">
+    <div class="col p-3 mx-1 rounded border bg-white">
     {% if companies_list %}
 
     <!-- Table lg -->
