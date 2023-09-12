@@ -121,7 +121,7 @@ def companies(request, a, b):
 def person(request, id):
     uid = request.user.id
     person = Person.objects.get(id=id)
-    posts_list = Post.objects.filter(person=person, deleted=False).order_by('-modified_date').annotate(date=TruncDate('create_date'))
+    posts_list = Post.objects.filter(person=person, deleted=False).order_by('-action', '-modified_date').annotate(date=TruncDate('create_date'))
     paginator = Paginator(posts_list, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -146,7 +146,7 @@ def person(request, id):
 def company(request, id, a, b):
     uid = request.user.id
     company = Company.objects.get(id=id)
-    posts_list = Post.objects.filter(Q(company=company) | Q(person__company=company)).filter(deleted=False).order_by('-modified_date').annotate(date=TruncDate('create_date'))
+    posts_list = Post.objects.filter(Q(company=company) | Q(person__company=company)).filter(deleted=False).order_by('-action', '-modified_date').annotate(date=TruncDate('create_date'))
     paginator = Paginator(posts_list, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -517,6 +517,20 @@ def personNotesEdit(request, id):
     }
     return render(request, 'directory/partials/edit_person_notes.html', context)
 
+# Person Post htmx action switch
+
+@login_required
+def person_sticky(request, id, pid):
+    post = Post.objects.get(id=id)
+    if post.action:
+        post.action = False
+        post.save()
+        return HttpResponseRedirect(reverse_lazy("directory:Person", args=[pid]))
+    else:
+        post.action = True
+        post.save()
+        return HttpResponseRedirect(reverse_lazy("directory:Person", args=[pid]))
+
 
 # Company Notes:
 
@@ -610,3 +624,17 @@ def companyPostCreate(request, id):
         'company' : company,
     }
     return render(request, 'directory/partials/company_post_create.html', context)
+
+# Company Post htmx action switch
+
+@login_required
+def company_sticky(request, id, cid):
+    post = Post.objects.get(id=id)
+    if post.action:
+        post.action = False
+        post.save()
+        return HttpResponseRedirect(reverse_lazy("directory:Company", args=[cid, 0, 5]))
+    else:
+        post.action = True
+        post.save()
+        return HttpResponseRedirect(reverse_lazy("directory:Company", args=[cid, 0, 5]))

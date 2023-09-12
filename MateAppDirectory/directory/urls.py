@@ -27,6 +27,7 @@ urlpatterns = [
     path('person_notes_title/<int:id>/', views.personNotesTitle, name='personNotesTitle'),
     path('edit_person_notes/<int:id>/', views.personNotesEdit, name='personNotesEdit'),
     path('create_person_post/<int:id>/', views.personPostCreate, name='personPostCreate'),
+    path('person_sticky/<int:id>/<int:pid>/', views.person_sticky, name='personSticky'),
     #  CUD Company
     path('create_company/', views.create_company, name='CreateCompany'),
     path('edit_company/<int:id>/', views.edit_company, name='EditCompany'),
@@ -39,6 +40,7 @@ urlpatterns = [
     path('company_persons_list/<int:id>/<int:a>/<int:b>/', views.companyPersons, name='companyPersons'),
     path('company_persons_collapsed/<int:id>/', views.companyPersonsCollapsed, name=('companyPersonsCollapsed')),
     path('create_company_post/<int:id>/', views.companyPostCreate, name='companyPostCreate'),
+    path('company_sticky/<int:id>/<int:cid>/', views.company_sticky, name='companySticky'),
     # Favorites
     path('link_fav/<str:obj>/<int:oid>/', views.link_favorite, name='LinkFav'),
     path('unlink_fav/<int:lid>/', views.unlink_favorite, name='UnLinkFav'),
