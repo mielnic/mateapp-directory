@@ -603,6 +603,7 @@ def companyPostCreate(request, id):
             return HttpResponseRedirect(reverse_lazy("directory:Company", args=[id, 0, 5]))
     else:
         postcreationform = PostCreationForm()
+        postcreationform.fields['person'].queryset = Person.objects.filter(company=company)
 
     context = {
         'postcreationform' : postcreationform,

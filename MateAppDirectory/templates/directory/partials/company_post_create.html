@@ -8,6 +8,9 @@
             <div class='mb-2'>
                 {{ postcreationform.post }}
             </div>
+            <div class="my-3">
+                {{ postcreationform.person }}
+            </div>
             <button type="submit" class="btn btn-outline-success btn-sm me-2">{% trans "Save" %}</button>
             <button class="btn btn-outline-secondary btn-sm" hx-get="{% url 'directory:Company' id=company.id a=0 b=5%}" hx-target="#list">{% trans "Cancel" %}</button>
 
