@@ -125,17 +125,17 @@ def post_edit(request, id):
 
 # Post htmx action switch
 
-@login_required
-def post_action(request, id):
-    post = Post.objects.get(id=id)
-    if post.action:
-        post.action = False
-        post.save()
-        return HttpResponse(f'<span hx-get="/posts/post_action/{id}/" hx-swap="outerHTML" hx-target="this"><i class="bi bi-star h5 hx-pointer text-primary me-4"></i></span>')
-    else:
-        post.action = True
-        post.save()
-        return HttpResponse(f'<span hx-get="/posts/post_action/{id}/" hx-swap="outerHTML" hx-target="this"><i class="bi bi-star-fill h5 hx-pointer text-primary me-4"></i></span>')
+# @login_required
+# def post_action(request, id):
+#     post = Post.objects.get(id=id)
+#     if post.action:
+#         post.action = False
+#         post.save()
+#         return HttpResponse(f'<span hx-get="/posts/post_action/{id}/" hx-swap="outerHTML" hx-target="this"><i class="bi bi-star h5 hx-pointer text-primary me-4"></i></span>')
+#     else:
+#         post.action = True
+#         post.save()
+#         return HttpResponse(f'<span hx-get="/posts/post_action/{id}/" hx-swap="outerHTML" hx-target="this"><i class="bi bi-star-fill h5 hx-pointer text-primary me-4"></i></span>')
 
 # Post Delete
 

@@ -43,11 +43,11 @@
             </td>
             <td>
               {% if trash.entity == 'person' %}
-                  <td><div class="btn btn-outline-danger btn-sm" hx-get="/directory/full_delete_person/{{ trash.id }}/1">{% trans "Delete" %}</div></td>
+                  <td><div class="btn btn-outline-danger btn-sm" hx-get="/directory/full_delete_person/{{ trash.id }}">{% trans "Delete" %}</div></td>
               {% elif trash.entity == 'post' %}
                 <td><div class="btn btn-outline-danger btn-sm" hx-get="/posts/post_full_delete/{{ trash.id }}/">{% trans "Delete" %}</div></td>
               {% else %}
-                  <td><div class="btn btn-outline-danger btn-sm" hx-get="/directory/full_delete_company/{{ trash.id }}/1">{% trans "Delete" %}</div></td>
+                  <td><div class="btn btn-outline-danger btn-sm" hx-get="/directory/full_delete_company/{{ trash.id }}">{% trans "Delete" %}</div></td>
               {% endif %}
             </td>
         </tr>
