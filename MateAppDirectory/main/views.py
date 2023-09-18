@@ -112,7 +112,7 @@ def user_trash(request, a, b):
 # Admin Trash
 
 @login_required
-@allowed_users(allowed_roles=['admin', 'satff'])
+@allowed_users(allowed_roles=['admin', 'staff'])
 def admin_trash(request, a, b):
     searchform = SearchForm
     if 'q' in request.GET:

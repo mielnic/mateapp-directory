@@ -224,7 +224,7 @@ def inactive_users(request, a, b):
 # User profile view (Admin)
 
 @login_required
-@allowed_users(allowed_roles=['admin', 'satff'])
+@allowed_users(allowed_roles=['admin', 'staff'])
 def user(request, id):
     muser = get_user_model().objects.get(id=id)
     template = loader.get_template('users/user.html')
@@ -236,7 +236,7 @@ def user(request, id):
 # Create User (Admin)
 
 @login_required
-@allowed_users(allowed_roles=['admin', 'satff'])
+@allowed_users(allowed_roles=['admin', 'staff'])
 def create_user(request):
     if request.method == 'POST':
         usercreateform = CustomUserCreationForm(request.POST)
@@ -258,7 +258,7 @@ def create_user(request):
 # Edit User (Admin)
 
 @login_required
-@allowed_users(allowed_roles=['admin', 'satff'])
+@allowed_users(allowed_roles=['admin', 'staff'])
 def edit_user(request, id):
     muser = get_user_model().objects.get(id=id)  
     usereditform = CustomUserEditForm(request.POST or None, instance=muser)
