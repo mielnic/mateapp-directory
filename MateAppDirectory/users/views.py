@@ -210,7 +210,7 @@ def passwordResetConfirm(request, uidb64, token):
 @allowed_users(allowed_roles=['admin', 'staff'])
 def inactive_users(request, a, b):
     active = False
-    users_list = get_user_model().objects.order_by('last_name').filter(is_active=False) [a:b]
+    users_list = get_user_model().objects.order_by('last_name').filter(is_active=False).exclude(is_superuser=True) [a:b]
     length = get_user_model().objects.filter(is_active=False).count()
     pgx = paginator(a, length, b)
     template = loader.get_template('users/users_inactive.html')
@@ -227,11 +227,14 @@ def inactive_users(request, a, b):
 @allowed_users(allowed_roles=['admin', 'staff'])
 def user(request, id):
     muser = get_user_model().objects.get(id=id)
-    template = loader.get_template('users/user.html')
-    context = {
-        'muser' : muser,
-    }
-    return HttpResponse(template.render(context, request))
+    if muser.is_superuser == False:
+        template = loader.get_template('users/user.html')
+        context = {
+            'muser' : muser,
+        }
+        return HttpResponse(template.render(context, request))
+    else:
+        return redirect('/admin_home/0/10/')
 
 # Create User (Admin)
 
@@ -260,17 +263,20 @@ def create_user(request):
 @login_required
 @allowed_users(allowed_roles=['admin', 'staff'])
 def edit_user(request, id):
-    muser = get_user_model().objects.get(id=id)  
-    usereditform = CustomUserEditForm(request.POST or None, instance=muser)
-    if usereditform.is_valid():
-        usereditform.save()
-        return HttpResponseRedirect(f'/users/user/{id}')
-    else:
-        for error in usereditform.errors.values():
-            messages.error(request, error)
+    muser = get_user_model().objects.get(id=id)
+    if muser.is_superuser == False:
+        usereditform = CustomUserEditForm(request.POST or None, instance=muser)
+        if usereditform.is_valid():
+            usereditform.save()
+            return HttpResponseRedirect(f'/users/user/{id}')
+        else:
+            for error in usereditform.errors.values():
+                messages.error(request, error)
 
-    context = {
-        'usercreateform' : usereditform,
-        'muser' : muser
-    }    
-    return render(request, 'users/edit_user.html', context)
+        context = {
+            'usercreateform' : usereditform,
+            'muser' : muser
+        }    
+        return render(request, 'users/edit_user.html', context)
+    else:
+        return redirect('/admin_home/0/10/')

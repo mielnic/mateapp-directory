@@ -157,7 +157,7 @@ def admin_trash(request, a, b):
 @allowed_users(allowed_roles=['admin', 'staff'])
 def admin_home(request, a, b):
     # Users List
-    users_list = get_user_model().objects.order_by('last_name').filter(is_active=True) [a:b]
+    users_list = get_user_model().objects.order_by('last_name').filter(is_active=True).exclude(is_superuser=True) [a:b]
     length = get_user_model().objects.filter(is_active=True).count()
     pgx = paginator(a, length, b)
     # Backup files List
