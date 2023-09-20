@@ -172,6 +172,7 @@ def post_full_delete(request, id):
 
 def file_upload(request, id):
     post = Post.objects.get(id=id)
+    upload_max_size = int(settings.UPLOAD_MAX_SIZE) * 1048576
     if request.method == 'POST':
         uploadfileform = UploadFileForm(request.POST, request.FILES)
         uploads = request.FILES.getlist('file')
@@ -191,7 +192,8 @@ def file_upload(request, id):
 
     context = {
         'uploadfileform': uploadfileform,
-        'post' : post
+        'post' : post,
+        'upload_max_size' : upload_max_size,
     }
     return render(request, 'posts/partials/upload.html', context)
 
@@ -217,21 +219,3 @@ def files_list(request, id):
 def file_delete(request, fid, pid):
     File.objects.filter(id=fid).delete()
     return HttpResponseRedirect(f'/posts/post_edit/{pid}')
-    # post = Post.objects.get(id=pid)
-    # files = File.objects.filter(post=post, deleted=False)
-    # path = f'{settings.MEDIA_URL}'
-    # context = {
-    #     'post' : post,
-    #     'files' : files,
-    #     'path' : path,
-    # }
-    # return render(request, 'posts/partials/post_edit.html', context)
-
-# def files_clip(request, id):
-#     post = Post.objects.get(id=id)
-#     files = File.objects.filter(post=post, deleted=False)
-#     context = {
-#         'post' : post,
-#         'files' : files,
-#     }
-#     return render(request, 'posts/partials/files_clip.html', context)

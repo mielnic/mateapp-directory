@@ -1,3 +1,0 @@
-{% load i18n %}
-<span hx-get="{% url 'posts:fileslist' id=post.id %}" hx-target="#files_{{post.id}}"  hx-swap="outerHTML swap:0.2s" id="files_{{post.id}}"><i class="bi bi-paperclip h5 hx-pointer text-primary me-4"></i>
-</span>

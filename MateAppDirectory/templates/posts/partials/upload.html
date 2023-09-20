@@ -31,7 +31,7 @@
             filesSize = filesSize + this.files[i].size
         };
 
-        if (filesSize > 20971500 ) {
+        if (filesSize > {{upload_max_size}} ) {
             alert('{% trans "Maximun upload size is 20MB!" %}');
             button_{{post.id}}.setAttribute('disabled', '');
         } else {
