@@ -7,6 +7,10 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Password
 from .models import CustomUser
 from django.utils.translation import gettext_lazy as _
 
+ROLE_CHOICES = [
+    ("User", _("Usuario")),
+    ("Supervisor", _("Supervisor")),
+]
 
 class CustomUserCreationForm(UserCreationForm):
 
@@ -19,6 +23,12 @@ class CustomUserCreationForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={'class':'form-control', 'type':'password', 'placeholder':'password'}),
     )
 
+    role = forms.ChoiceField(
+        choices=ROLE_CHOICES
+    )
+
+    role.widget.attrs.update({'class' : 'form-select'})
+
     class Meta:
         model = CustomUser
         fields = [
@@ -29,6 +39,7 @@ class CustomUserCreationForm(UserCreationForm):
             "password2",
             "is_active",
             "is_staff",
+            "role",
             ]
 
         widgets = {
@@ -57,6 +68,12 @@ class CustomUserChangeForm(UserChangeForm):
 
 class CustomUserEditForm(UserChangeForm):
 
+    role = forms.ChoiceField(
+        choices=ROLE_CHOICES
+    )
+
+    role.widget.attrs.update({'class' : 'form-select'})
+
     class Meta:
         model = CustomUser
         fields = [
@@ -64,6 +81,7 @@ class CustomUserEditForm(UserChangeForm):
             "last_name",
             "is_active",
             "is_staff",
+            "role",
             ]
         
         widgets = {

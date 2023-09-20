@@ -30,7 +30,7 @@
               <th>{% trans "Name" %}</th>
               <th>{% trans "eMail" %}</th>
               <th>{% trans "Status" %}</th>
-              <th>{% trans "Is Staff?" %}</th>
+              <th>{% trans "Is Supervisor?" %}</th>
           </thead>
 
           <!-- Cuerpo de Tabla -->
@@ -44,7 +44,7 @@
                   {% else %}
                   <td class='text-danger'>{% trans "Inactive" %}</td>
                   {% endif %}
-                  {% if User.is_staff %}
+                  {% if User.role == 'Supervisor' %}
                   <td class='text-success'>{% trans "Yes" %}</td>
                   {% else %}
                   <td>{% trans "No" %}</td>

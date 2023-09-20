@@ -37,11 +37,13 @@
                         {{usercreateform.is_active}}
                         <label for="is_active" class="form-check-label">{% trans "Is Active?" %}</label>
                     </div>
-                    <div class="form-check">
-                        {{usercreateform.is_staff}}
-                        <label for="is_staff" class="form-check-label">{% trans "Is Staff" %}?</label>
-                    </div>
                 </div>
+                <p>
+                    <div class="form-floating">
+                        {{usercreateform.role}}
+                        <label for="id_role" class="form-label">{% trans "Role:" %}</label>
+                    </div>
+                </p>
             {% endif %}
 
             <p>
