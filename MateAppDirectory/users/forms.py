@@ -8,7 +8,7 @@ from .models import CustomUser
 from django.utils.translation import gettext_lazy as _
 
 ROLE_CHOICES = [
-    ("User", _("Usuario")),
+    ("User", _("User")),
     ("Supervisor", _("Supervisor")),
 ]
 
@@ -50,6 +50,9 @@ class CustomUserCreationForm(UserCreationForm):
             'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+        self.fields['role'].required = False
 
 
 class CustomUserChangeForm(UserChangeForm):

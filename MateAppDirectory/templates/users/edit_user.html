@@ -33,10 +33,16 @@
             </p>
             {% if user != muser %}
                 <div>
+                    {% if activeenabled %}
                     <div class="form-check">
                         {{usercreateform.is_active}}
                         <label for="is_active" class="form-check-label">{% trans "Is Active?" %}</label>
                     </div>
+                    {% else %}
+                    <div class="px-3">
+                        <small>{% trans "User limit exceded. You must disable other user to enable this one." %}</small>
+                    </div>
+                    {% endif %}
                 </div>
                 <p>
                     <div class="form-floating">

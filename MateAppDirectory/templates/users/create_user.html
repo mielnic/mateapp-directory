@@ -59,10 +59,16 @@
                 </div>
             </p>
             <div>
+                {% if activeenabled %}
                 <div class="form-check">
                     {{usercreateform.is_active}}
                     <label for="is_active" class="form-check-label">{% trans "Is Active?" %}</label>
                 </div>
+                {% else %}
+                <div class="px-3">
+                    <small>{% trans "Active user limit exceded. User will remain inactive until another one is disabled." %}</small>
+                </div>
+                {% endif %}
             </div>
             <p>
                 <div class="form-floating">

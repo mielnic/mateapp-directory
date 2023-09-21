@@ -5,7 +5,7 @@ from main.decorators import user_not_authenticated, allowed_users, self_registra
 from main.functions import paginator
 from django.contrib import messages
 from django.contrib.auth import login as auth_login, logout, authenticate, get_user_model
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.template import loader
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
@@ -16,6 +16,7 @@ from .tokens import account_activation_token
 from django.db.models.query_utils import Q
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from .functions import checkUserActivationLimit, checkUserCreationLimit
 
 
 # Create your views here.
@@ -31,11 +32,18 @@ def activate(request, uidb64, token):
         user = None
 
     if user is not None and account_activation_token.check_token(user, token):
-        if settings.REGISTRATION_PARKING == False: 
-            user.is_active = True
-            user.save()
-            messages.success(request, _('Thank you for your confirmation. Your account is now active'))
-            return redirect('/login/')
+        if settings.REGISTRATION_PARKING == False:
+            activeEnabled = checkUserCreationLimit()
+            if activeEnabled:
+                user.is_active = True
+                user.save()
+                messages.success(request, _('Thank you for your confirmation. Your account is now active'))
+                return redirect('/login/')
+            else:
+                user.is_active = False
+                user.save()
+                messages.success(request, _('Thank you for your confirmation. The Administrator will enable your account soon.'))
+                return redirect('/login/')
         else:
             user.is_active = False
             user.save()
@@ -241,10 +249,16 @@ def user(request, id):
 @login_required
 @allowed_users(allowed_roles=['admin', 'supervisor'])
 def create_user(request):
+    activeEnabled = checkUserCreationLimit()
     if request.method == 'POST':
         usercreateform = CustomUserCreationForm(request.POST)
         if usercreateform.is_valid():
-            user = usercreateform.save()
+            if activeEnabled:
+                user = usercreateform.save()
+            else:
+                user = usercreateform.save(commit=False)
+                user.is_active = False
+                user.save()
             id = user.id
             return HttpResponseRedirect(f'/users/user/{id}')
         else:
@@ -255,6 +269,7 @@ def create_user(request):
 
     context = {
         'usercreateform' : usercreateform,
+        'activeenabled' : activeEnabled,
     }    
     return render(request, 'users/create_user.html', context)
 
@@ -264,6 +279,7 @@ def create_user(request):
 @allowed_users(allowed_roles=['admin', 'supervisor'])
 def edit_user(request, id):
     muser = get_user_model().objects.get(id=id)
+    activeEnabled = checkUserActivationLimit(muser)
     if muser.is_superuser == False:
         usereditform = CustomUserEditForm(request.POST or None, instance=muser)
         if usereditform.is_valid():
@@ -275,7 +291,8 @@ def edit_user(request, id):
 
         context = {
             'usercreateform' : usereditform,
-            'muser' : muser
+            'muser' : muser,
+            'activeenabled' : activeEnabled,
         }    
         return render(request, 'users/edit_user.html', context)
     else:
