@@ -191,13 +191,6 @@ DBBACKUP_CLEANUP_KEEP = 5
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {'location': (os.path.join(MEDIA_ROOT, 'backup'))}
 
-""" 
-Only Linux
-
-CRONJOBS = [
-    ('0 0 * * *', 'main.cron.backup')
-] """
-
 # Registration Settings
 
 # Enables Self Registration
@@ -206,3 +199,5 @@ REGISTRATION_SELF_ENABLE = False
 REGISTRATION_PARKING = True
 #To restrict new user registration to a mail domain use '@domain.com', else use '@'.
 REGISTRATION_DOMAIN = '@'
+# User Limit
+USER_LIMIT = 3
