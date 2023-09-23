@@ -13,9 +13,9 @@ class BaseModel(models.Model):
 class Address(BaseModel):
     street = models.CharField(max_length=200, blank=True)
     postalCode = models.CharField(max_length=7, blank=True)
-    city = models.CharField(max_length=50, blank=True)
-    state = models.CharField(max_length=50, blank=True)
-    country = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
+    country = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return f'{self.street}, {self.city}'
@@ -46,7 +46,7 @@ class Person(BaseModel):
     firstName = models.CharField(max_length=50, blank=True)
     celphone = models.CharField(max_length=25, blank=True)
     workphone = models.CharField(max_length=25, blank=True)
-    email = models.CharField(max_length=50, blank=True)
+    email = models.CharField(max_length=100, blank=True)
     position = models.CharField(max_length=50, blank=True)
     address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, blank=True, null=True)
     notes = models.TextField(max_length=2000, blank=True)
