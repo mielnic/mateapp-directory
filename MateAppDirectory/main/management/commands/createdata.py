@@ -3,9 +3,14 @@ from django.core.management.base import BaseCommand
 from faker import Faker
 from directory.models import Address, Company, Person
 
-alid = Address.objects.last().id
-clid = Company.objects.last().id
-plid = Person.objects.last().id
+try:
+    alid = Address.objects.last().id
+    clid = Company.objects.last().id
+    plid = Person.objects.last().id
+except:
+    alid = 0
+    clid = 0
+    plid = 0
 
 class Command(BaseCommand):
     help = "Command Information"
