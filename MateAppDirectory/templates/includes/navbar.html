@@ -45,7 +45,7 @@
                     <img src="{% static 'main/images/trash.svg' %}" alt="Trash">
                   </a>
                 </li>
-              {% if user.role == 'Supervisor' %}
+              {% if user.role == 'Administrator' %}
               <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="/admin_home/0/10/" data-bs-toggle="tooltip" data-bs-title={% trans "Admin" %} data-bs-placement="bottom">
                   <img src="{% static 'users/images/braces.svg' %}" alt="Admin">
@@ -91,7 +91,7 @@
                     <h5><i class="bi bi-trash"></i>&nbsp;{% trans "Trash" %}</h5>
                   </a>
                 </li>
-              {% if user.role == 'Supervisor' %}
+              {% if user.role == 'Administrator' %}
               <li class="nav-item">
                 <a class="nav-link" href="/admin_home/0/10/">
                   <h5><i class="bi bi-braces"></i>&nbsp; {% trans "Administration" %}</h5>

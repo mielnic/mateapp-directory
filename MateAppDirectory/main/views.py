@@ -112,7 +112,7 @@ def user_trash(request, a, b):
 # Admin Trash
 
 @login_required
-@allowed_users(allowed_roles=['admin', 'supervisor'])
+@allowed_users(allowed_roles=['admin', 'administrator'])
 def admin_trash(request, a, b):
     searchform = SearchForm
     if 'q' in request.GET:
@@ -154,7 +154,7 @@ def admin_trash(request, a, b):
 # Admin Home (Admin)
 
 @login_required
-@allowed_users(allowed_roles=['admin', 'supervisor'])
+@allowed_users(allowed_roles=['admin', 'administrator'])
 def admin_home(request, a, b):
     # Users List
     users_list = get_user_model().objects.order_by('last_name').filter(is_active=True).exclude(is_superuser=True) [a:b]
@@ -175,7 +175,7 @@ def admin_home(request, a, b):
     return HttpResponse(template.render(context, request))
 
 @login_required
-@allowed_users(allowed_roles=['admin', 'supervisor'])
+@allowed_users(allowed_roles=['admin', 'administrator'])
 def do_backup(request):
     call_command('dbbackup', clean=True, interactive=False)
     return redirect('/admin_home/0/10/')

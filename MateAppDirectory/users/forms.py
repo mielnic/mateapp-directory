@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 
 ROLE_CHOICES = [
     ("User", _("User")),
-    ("Supervisor", _("Supervisor")),
+    ("Administrator", _("Administrator")),
 ]
 
 class CustomUserCreationForm(UserCreationForm):

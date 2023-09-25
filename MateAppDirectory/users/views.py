@@ -215,7 +215,7 @@ def passwordResetConfirm(request, uidb64, token):
 # Inactive Users list (Admin)
 
 @login_required
-@allowed_users(allowed_roles=['admin', 'supervisor'])
+@allowed_users(allowed_roles=['admin', 'administrator'])
 def inactive_users(request, a, b):
     active = False
     users_list = get_user_model().objects.order_by('last_name').filter(is_active=False).exclude(is_superuser=True) [a:b]
@@ -232,7 +232,7 @@ def inactive_users(request, a, b):
 # User profile view (Admin)
 
 @login_required
-@allowed_users(allowed_roles=['admin', 'supervisor'])
+@allowed_users(allowed_roles=['admin', 'administrator'])
 def user(request, id):
     muser = get_user_model().objects.get(id=id)
     if muser.is_superuser == False:
@@ -247,7 +247,7 @@ def user(request, id):
 # Create User (Admin)
 
 @login_required
-@allowed_users(allowed_roles=['admin', 'supervisor'])
+@allowed_users(allowed_roles=['admin', 'administrator'])
 def create_user(request):
     activeEnabled = checkUserCreationLimit()
     if request.method == 'POST':
@@ -276,7 +276,7 @@ def create_user(request):
 # Edit User (Admin)
 
 @login_required
-@allowed_users(allowed_roles=['admin', 'supervisor'])
+@allowed_users(allowed_roles=['admin', 'administrator'])
 def edit_user(request, id):
     muser = get_user_model().objects.get(id=id)
     activeEnabled = checkUserActivationLimit(muser)
