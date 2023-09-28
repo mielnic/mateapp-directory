@@ -21,7 +21,12 @@ class Post(BaseModel):
     post_title = models.CharField(max_length=200, blank=True, null=True)
     
     def title(self):
-        title = self.post.split('\n', 1)[0]
+        fline = self.post.split('\n', 1)[0]
+        if len(fline) > 25:
+            fline = fline[:25]
+            title = f'{fline}...'
+        else:
+            title = fline
         return title
 
     def save(self, *args, **kwargs):

@@ -30,7 +30,12 @@ class Company(BaseModel):
     companyNotes_title = models.CharField(max_length=200, blank=True, null=True)
 
     def title(self):
-        title = self.companyNotes.split('\n', 1)[0]
+        fline = self.post.split('\n', 1)[0]
+        if len(fline) > 25:
+            fline = fline[:25]
+            title = f'{fline}...'
+        else:
+            title = fline
         return title
 
     def save(self, *args, **kwargs):
@@ -54,7 +59,12 @@ class Person(BaseModel):
     notes_title = models.CharField(max_length=200, blank=True, null=True)
 
     def title(self):
-        title = self.notes.split('\n', 1)[0]
+        fline = self.post.split('\n', 1)[0]
+        if len(fline) > 25:
+            fline = fline[:25]
+            title = f'{fline}...'
+        else:
+            title = fline
         return title
 
     def save(self, *args, **kwargs):
