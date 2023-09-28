@@ -9,7 +9,7 @@
         {% if files %}
             <i class="bi bi-paperclip h5 text-secondary me-2">></i>
             {% for file in files %}
-            <a class="badge text-bg-{{file.color}} nav-link" href="{{path}}{{file.file}}">{{file.shortName}}</a>
+            <a class="badge text-bg-{{file.color}} nav-link" href="{{path}}{{file.file}}" target="_blank">{{file.shortName}}</a>
             {% endfor %}
         {% endif %}
     </div>
