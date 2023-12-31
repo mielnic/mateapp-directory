@@ -21,6 +21,7 @@ document.pgsql
 !logout.svg
 !login.svg
 !login.js
+.DS_STORE
 
 # Carpetas
 docs/
