@@ -30,7 +30,7 @@
                 <form class="col btn-sm" role="search">
                   <div class="my-2">{{searchform.q}}</div>
                   <button class="btn btn-outline-success mr-2" type="submit">{% trans "Search" %}</button>
-                  <a href="/directory/companies/0/10/" class="btn btn-outline-secondary my-2">{% trans "Clear" %}</a>
+                  <a href="/directory/companies/" class="btn btn-outline-secondary my-2">{% trans "Clear" %}</a>
                 </form>
               </div>
             </div>
@@ -47,7 +47,7 @@
                   <button class="btn btn-outline-success mx-2" type="submit">{% trans "Search" %}</button>
                 </form>
                 <div>
-                  <a href="/directory/companies/0/10/" class="btn btn-outline-secondary my-2">{% trans "Clear" %}</a>
+                  <a href="/directory/companies/" class="btn btn-outline-secondary my-2">{% trans "Clear" %}</a>
                 </div>
               </div>
             </div>
@@ -145,25 +145,50 @@
     </div>
 
     <!-- Pagination -->
-    {% if pgx.pgs > 1 %}
-      <nav aria-label="Page navigation">
-        <ul class="pagination">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+      {% if companies_list.has_previous %}
           <li class="page-item">
-            <a class="page-link" href="{% url 'directory:Companies' a=pgx.idxpl b=pgx.idxpr %}" aria-label="Previous">
+            <a class="page-link" href="{% url 'directory:Companies' %}?page=1&q={{q}}" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          {% for link in pgx.lks %}
-          <li class="page-item"><a class="page-link" id="page-link" href="{% url 'directory:Companies' a=link.pl b=link.pr %}">{{link.page}}</a></li>
-          {% endfor %}
           <li class="page-item">
-            <a class="page-link" href="{% url 'directory:Companies' a=pgx.idxnl b=pgx.idxnr %}" aria-label="Next">
+          <a class="page-link" id="page-link" href="{% url 'directory:Companies'%}?page={{ companies_list.previous_page_number }}&q={{q}}">&lt;</a>
+          </li>
+      {% else %}
+          <li class="page-item disabled">
+          <span class="page-link">&laquo;</span>
+          </li>
+          <li class="page-item disabled">
+          <span class="page-link">&lt;</span>
+          </li>
+      {% endif %}
+  
+      <li class="page-item">
+          <span class="page-link">{% trans "Page" %} {{ companies_list.number }} {% trans "of" %} {{ companies_list.paginator.num_pages }}</span>
+      </li>
+  
+      {% if companies_list.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="{% url 'directory:Companies' %}?page={{ companies_list.next_page_number }}&q={{q}}" aria-label="Next">
+              <span aria-hidden="true">&gt;</span>
+            </a>
+          <li class="page-item">
+            <a class="page-link" href="{% url 'directory:Companies' %}?page={{ companies_list.paginator.num_pages }}&q={{q}}" aria-label="Last">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
-        </ul>
-      </nav>
-    {% endif %}
+      {% else %}
+          <li class="page-item disabled">
+          <span class="page-link">&gt;</span>
+          </li>
+          <li class="page-item disabled">
+          <span class="page-link">&raquo;</span>
+          </li>
+      {% endif %}
+      </ul>
+  </nav>
 
     {% else %}
         <p>{% trans "No companies available." %}</p>

@@ -13,8 +13,8 @@ router.register(r'persons', PersonViewSet, 'persons')
 urlpatterns = [
     path('', views.index, name='Index'),
     # List
-    path('persons/<int:a>/<int:b>/', views.persons, name='Persons'),
-    path('companies/<int:a>/<int:b>/', views.companies, name='Companies'),
+    path('persons/', views.persons, name='Persons'),
+    path('companies/', views.companies, name='Companies'),
     path('person/<int:id>/', views.person, name='Person'),
     path('company/<int:id>/<int:a>/<int:b>/', views.company, name='Company'),
     # CUD Person

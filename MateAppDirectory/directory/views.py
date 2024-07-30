@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.db.models.functions import TruncDate
 from django.contrib.auth import get_user_model
 from django.db.models import Q, Value, Count, Min
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse_lazy
@@ -18,6 +18,7 @@ from .forms import PersonForm, CompanyForm, AddressFrom, PersonNotesForm, Compan
 import copy
 from itertools import chain
 from operator import attrgetter
+from django.conf import settings
 
 
 ########
@@ -55,63 +56,81 @@ def favs(request):
 # Persons List
 
 @login_required
-def persons(request, a, b):
+def persons(request):
     uid = request.user.id
     user = get_user_model().objects.get(id=uid)
-    searchform = SearchForm
-    if 'q' in request.GET:
-        searchform = SearchForm(request.GET)
-        if searchform.is_valid():
-            q = searchform.cleaned_data['q']
-            ln_list = Person.objects.filter(lastName__icontains=q, deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user)))
-            fn_list = Person.objects.filter(firstName__icontains=q, deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user)))
-            cn_list = Person.objects.filter(company__companyName__icontains=q, deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user)))
-            person_list = sorted(chain(ln_list, fn_list, cn_list),
-                             key=attrgetter('lastName'),
-                             )
-            pgx = ''
-            template = loader.get_template('directory/persons.html')
-            if not person_list:
-                messages.warning(request, _("The search didn't return any result."))
+    searchform = SearchForm(request.GET)
+    if searchform.is_valid():
+        q = searchform.cleaned_data['q']
     else:
-        person_list = Person.objects.order_by('lastName').select_related('company').filter(deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user)))  [a:b]
-        length = Person.objects.filter(deleted=False).count()
-        pgx = paginator(a, length, b)
-        template = loader.get_template('directory/persons.html')
+        q = None
+    if q:
+        ln_list = Person.objects.filter(lastName__icontains=q, deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user)))
+        fn_list = Person.objects.filter(firstName__icontains=q, deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user)))
+        cn_list = Person.objects.filter(company__companyName__icontains=q, deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user)))
+        person_list = sorted(chain(ln_list, fn_list, cn_list),
+                            key=attrgetter('lastName'),
+                            )
+        if not person_list:
+            messages.warning(request, _("The search didn't return any result."))
+    else:
+        person_list = Person.objects.order_by('lastName').select_related('company').filter(deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user)))
+        q = ''
+    
+    
+    paginator = Paginator(person_list, settings.MAIN_PAGE_LENGTH)
+    page = request.GET.get('page')
+    try:
+        persons = paginator.page(page)
+    except PageNotAnInteger:
+        persons = paginator.page(1)
+    except EmptyPage:
+        persons = paginator.page(paginator.num_pages)
+
+    template = loader.get_template('directory/persons.html')
+
     context = {
-        'person_list': person_list,
+        'person_list': persons,
         'searchform' : searchform,
-        'pgx' : pgx,
+        'q' : q
     }
     return HttpResponse(template.render(context, request))
 
 # Companies List
 
 @login_required
-def companies(request, a, b):
+def companies(request):
     uid = request.user.id
     user = get_user_model().objects.get(pk=uid)
-    searchform = SearchForm
-    if 'q' in request.GET:
-        searchform = SearchForm(request.GET)
-        if searchform.is_valid():
+    searchform = SearchForm(request.GET)
+    if searchform.is_valid():
             q = searchform.cleaned_data['q']
-            companies_list = Company.objects.filter(companyName__icontains=q, deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user))) 
-            pgx = ''
-            template = loader.get_template('directory/companies.html')
-            if not companies_list:
-                messages.warning(request, _("The search didn't return any result."))
+    else:
+        q = None
+    if q:
+        companies_list = Company.objects.filter(companyName__icontains=q, deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user))) 
+        if not companies_list:
+            messages.warning(request, _("The search didn't return any result."))
 
     else:
-        companies_list = Company.objects.order_by('companyName').select_related('address').filter(deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user))) [a:b]
-        length = Company.objects.filter(deleted=False).count()
-        pgx = paginator(a, length, b)
-        template = loader.get_template('directory/companies.html')
+        companies_list = Company.objects.order_by('companyName').select_related('address').filter(deleted=False).annotate(fav=Count('favorite__user', filter=Q(favorite__user=user)))
+        q = ''
+        
+    
+    paginator = Paginator(companies_list, settings.MAIN_PAGE_LENGTH)
+    page = request.GET.get('page')
+    try:
+        companies = paginator.page(page)
+    except PageNotAnInteger:
+        companies = paginator.page(1)
+    except EmptyPage:
+        companies = paginator.page(paginator.num_pages)
+    template = loader.get_template('directory/companies.html')
 
     context = {
-        'companies_list': companies_list,
+        'companies_list': companies,
         'searchform' : searchform,
-        'pgx' : pgx,
+        'q' : q,
     }
     return HttpResponse(template.render(context, request))
 
