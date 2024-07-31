@@ -1,0 +1,14 @@
+{% extends "admin/base_site.html" %}
+
+{% block app_list %}
+  {{ block.super }}
+  <div class="app-logfile module">
+    <table>
+      <caption>
+        <a href="{% url 'admin:ovd_logfileproxy_changelist' %}" class="section" title="View Log File">
+          Log Files
+        </a>
+      </caption>
+    </table>
+  </div>
+{% endblock %}
