@@ -3,9 +3,10 @@ from .models import LogFileProxy
 from django.urls import path
 from django.template.response import TemplateResponse
 from .utils import get_log_file_content
+from unfold.admin import ModelAdmin
 
 @admin.register(LogFileProxy)
-class LogFileProxyAdmin(admin.ModelAdmin):
+class LogFileProxyAdmin(ModelAdmin):
     change_list_template = "admin/logfile_change_list.html"
     
     def get_urls(self):

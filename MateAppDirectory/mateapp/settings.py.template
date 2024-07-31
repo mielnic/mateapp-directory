@@ -32,6 +32,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'unfold',
+]
+
+INSTALLED_APPS += [
     'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -50,7 +54,8 @@ INSTALLED_APPS += [
     'directory',
     'users',
     'posts',
-    'dbbackup',    
+    'dbbackup',
+    'logger',
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"
@@ -178,7 +183,43 @@ REST_FRAMEWORK = {
     ],
 }
 
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = Tru
+
+LOGDIR = (os.path.join(BASE_DIR, 'log'))
+LOGFILE = f'{LOGDIR}/logfile.log'
+LOG_LINES = 200
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {asctime} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'logfile': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': LOGFILE,
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'vd': {
+            'handlers': ['logfile'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
+
+
 
 # DDBACKUP Settings
 
@@ -200,3 +241,23 @@ REGISTRATION_DOMAIN = '@'
 USER_LIMIT = 3
 # Max file upload size (in MB!):
 UPLOAD_MAX_SIZE = 20
+
+UNFOLD = {
+    "SITE_TITLE": 'MateApp Directory',
+    "SITE_HEADER": 'MateApp Directory',
+    "COLORS": {
+    "primary": {
+        "50": "233 246 235",  
+        "100": "219 240 222", 
+        "200": "197 231 201", 
+        "300": "173 222 179", 
+        "400": "101 205 124", 
+        "500": "40 167 69",
+        "600": "36 150 62",
+        "700": "30 125 52",
+        "800": "23 97 42",
+        "900": "16 68 32",
+        "950": "8 34 17" 
+        },
+    },
+}
