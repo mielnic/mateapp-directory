@@ -1,0 +1,7 @@
+{% extends "admin/base.html" %}
+{% load i18n admin_urls %}
+
+{% block content %}
+  <h1>{% trans "Log File" %}</h1>
+  <pre>{{ log_file_content }}</pre>
+{% endblock %}

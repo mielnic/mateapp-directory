@@ -186,7 +186,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-SESSION_EXPIRE_AT_BROWSER_CLOSE = Tru
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 LOGDIR = (os.path.join(BASE_DIR, 'log'))
 LOGFILE = f'{LOGDIR}/logfile.log'
@@ -244,6 +244,10 @@ REGISTRATION_DOMAIN = '@'
 USER_LIMIT = 3
 # Max file upload size (in MB!):
 UPLOAD_MAX_SIZE = 20
+# Main list view paginator page length
+MAIN_PAGE_LENGTH = 10
+# Related list view paginator page length
+RELATED_PAGE_LENGTH = 5
 
 UNFOLD = {
     "SITE_TITLE": 'MateApp Directory',
