@@ -1,13 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from unfold.admin import ModelAdmin
-from .forms import CustomUserCreationForm, CustomUserChangeForm
+from unfold.forms import UserCreationForm, AdminPasswordChangeForm, UserChangeForm
 from .models import CustomUser
 
 
 class CustomUserAdmin(UserAdmin, ModelAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
+    add_form = UserCreationForm
+    form = UserChangeForm
+    change_password_form = AdminPasswordChangeForm
     model = CustomUser
     list_display = ("email", "is_staff", "is_active",)
     list_filter = ("email", "is_staff", "is_active",)
