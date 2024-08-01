@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Company, Address, Person
+from .models import Company, Address, Person, Lead
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
@@ -74,3 +74,19 @@ class PersonSerializer(serializers.ModelSerializer):
             'company',
             'deleted',
         ]
+
+class LeadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lead
+        fields = (
+            'id',
+            'firstName',
+            'lastName',
+            'email',
+            'message',
+            'deleted',
+            )
+        read_only_fields = (
+            'id',
+            'deleted',
+            )

@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from datetime import date
 
 class BaseModel(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
@@ -79,6 +80,16 @@ class Favorite(BaseModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=True, null=True)
     person = models.ForeignKey(Person, on_delete=models.DO_NOTHING, blank=True, null=True)
     company = models.ForeignKey(Company, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+class Lead(BaseModel):
+    firstName = models.CharField(max_length=100, blank=True)
+    lastName = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(unique=False)
+    message = models.CharField(max_length=500, blank=True)
+    messageDate = models.DateField(blank=True, null=True, default=date.today)
+
+    def __str__(self):
+        return f'{self.lastName} - {self.messageDate}'
 
 
 

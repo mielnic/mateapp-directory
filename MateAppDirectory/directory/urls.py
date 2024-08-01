@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .api import CompanyViewSet, AddressViewSet, PersonViewSet
+from .api import CompanyViewSet, AddressViewSet, PersonViewSet, LeadViewSet
 from . import views
 from rest_framework import routers
 
@@ -9,6 +9,7 @@ router = routers.DefaultRouter()
 router.register(r'companies', CompanyViewSet, 'companies')
 router.register(r'address', AddressViewSet, 'address')
 router.register(r'persons', PersonViewSet, 'persons')
+router.register(r'leads', LeadViewSet, 'leads')
 
 urlpatterns = [
     path('', views.index, name='Index'),

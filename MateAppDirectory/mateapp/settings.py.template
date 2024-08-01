@@ -45,6 +45,7 @@ INSTALLED_APPS += [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'django_htmx',
+    'corsheaders',
 ]
 
 # mateapp Project
@@ -70,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'mateapp.urls'
@@ -170,6 +172,7 @@ EMAIL_USE_TLS = True
 
 
 DEFAULT_FROM_EMAIL = ''
+WEB_TO_LEAD_EMAIL = ''
 
 # Password reset Settings
 
@@ -261,3 +264,7 @@ UNFOLD = {
         },
     },
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]

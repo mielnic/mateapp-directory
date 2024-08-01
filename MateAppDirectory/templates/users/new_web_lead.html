@@ -1,0 +1,11 @@
+{% load i18n %}
+{% autoescape off %}
+{% trans "There is a new lead form the website contact form:" %}
+
+{% trans "Name:" %} {{ fullName }}
+
+{% trans "email:" %} {{ email }}
+
+{% trans "Message:" %} {{ message }}
+
+{% endautoescape %}
