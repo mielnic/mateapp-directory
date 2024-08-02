@@ -29,8 +29,8 @@ class LeadViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        subject = _('New Web Lead')
-        message = render_to_string( 'users/new_web_lead.html', {
+        subject = _('🙋🏻‍♂️ New Web Lead')
+        message = render_to_string( 'directory/new_web_lead.html', {
             'firstName' : serializer.data['firstName'],
             'lastName' : serializer.data['lastName'],
             'email' : serializer.data['email'],
