@@ -88,8 +88,12 @@ def post_post(request, id):
 def post_title(request, id):
     '''Esta vista de la de display del partial del contenido del título del post en htmx'''
     post = Post.objects.get(id=id)
+    files = File.objects.filter(post=post, deleted=False)
+    path = f'{settings.MEDIA_URL}'
     context = {
         'post' : post,
+        'files' : files,
+        'path' : path,
     }
     return render(request, 'posts/partials/post_title.html', context)
 
