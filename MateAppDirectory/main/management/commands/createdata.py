@@ -2,11 +2,13 @@ import random
 from django.core.management.base import BaseCommand
 from faker import Faker
 from directory.models import Address, Company, Person
+from posts.models import Post
 
 try:
     alid = Address.objects.last().id
     clid = Company.objects.last().id
     plid = Person.objects.last().id
+
 except:
     alid = 0
     clid = 0
@@ -49,6 +51,19 @@ class Command(BaseCommand):
             address = Address.objects.get(id=aid)
             company = Company.objects.get(id=cid)
             Person.objects.create(lastName=lastName, firstName=firstName, celphone=celphone, workphone=workphone, email=email, position=position, notes=notes, address=address, company=company)
+
+        for _ in range(100):
+            post = fake.paragraph(nb_sentences=2, variable_nb_sentences=True)
+            cid = clid + random.randint(1,15)
+            company = Company.objects.get(id=cid)
+            Post.objects.create(post=post, company=company)
+        
+        for _ in range(200):
+            post = fake.paragraph(nb_sentences=2, variable_nb_sentences=True)
+            pid = plid + random.randint(1,50)
+            person = Person.objects.get(id=pid)
+            Post.objects.create(post=post, person=person)
+
 
         print('SUCCESS!')
 

@@ -29,7 +29,7 @@ from django.conf import settings
 
 @login_required
 def index(response):
-    return redirect('/directory/persons/0/10/')
+    return redirect('/directory/persons/')
 
 
 ##############
@@ -321,7 +321,7 @@ def delete_person(request, id):
     person.deleted = 1
     person.deletedBy = uid
     person.save()
-    return redirect('/directory/persons/0/10/')
+    return redirect('/directory/persons/')
 
 # Person Restore
 
@@ -411,7 +411,7 @@ def delete_company(request, id):
     company.deleted = 1
     company.deletedBy = uid
     company.save()
-    return redirect('/directory/companies/0/10/')
+    return redirect('/directory/companies/')
 
 # Company Restore
 

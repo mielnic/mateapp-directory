@@ -18,6 +18,7 @@ from django.utils.translation import gettext_lazy as _
 from .functions import paginator
 from django.template import loader
 from django.core.management import call_command
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Value
 
 # Create your views here.
@@ -90,7 +91,7 @@ def search(request):
 # User Trash
 
 @login_required
-def user_trash(request, a, b):
+def user_trash(request):
     uid = request.user.id
     deleted_companies_list = Company.objects.filter(deleted=True, deletedBy=uid).annotate(entity=Value('company'))
     deleted_person_list = Person.objects.filter(deleted=True, deletedBy=uid).annotate(entity=Value('person'))
@@ -99,13 +100,19 @@ def user_trash(request, a, b):
                    key=attrgetter('modified_date'),
                    reverse=True,
                    )
-    trash_list = trash [a:b]
-    length = len(trash)
-    pgx = paginator(a, length, b)
+    
+    paginator = Paginator(trash, settings.MAIN_PAGE_LENGTH)
+    page = request.GET.get('page')
+    try:
+        trash_list = paginator.page(page)
+    except PageNotAnInteger:
+        trash_list = paginator.page(1)
+    except EmptyPage:
+        trash_list = paginator.page(paginator.num_pages)
+
     template = loader.get_template('main/user_trash.html')
     context = {
         'trash_list': trash_list,
-        'pgx' : pgx,
     }
     return HttpResponse(template.render(context, request))
 
@@ -113,7 +120,7 @@ def user_trash(request, a, b):
 
 @login_required
 @allowed_users(allowed_roles=['admin', 'administrator'])
-def admin_trash(request, a, b):
+def admin_trash(request):
     searchform = SearchForm
     if 'q' in request.GET:
         searchform = SearchForm(request.GET)
@@ -123,13 +130,11 @@ def admin_trash(request, a, b):
             fn_results = Person.objects.annotate(similarity=TrigramSimilarity('firstName', q),).filter(similarity__gte=0.5, deleted=True).order_by('-similarity').annotate(entity=Value('person'))
             c_results = Company.objects.annotate(similarity=TrigramSimilarity('companyName', q),).filter(similarity__gte=0.3, deleted=True).order_by('-similarity').annotate(entity=Value('company'))
             p_results = Post.objects.annotate(similarity=TrigramSimilarity('post_title', q),).filter(similarity__gte=0.3, deleted=True).order_by('-similarity').annotate(entity=Value('post'))
-            trash_list = sorted(chain(ln_results, fn_results, c_results, p_results),
+            trash = sorted(chain(ln_results, fn_results, c_results, p_results),
                              key=attrgetter('similarity'),
                              reverse=True,
                              )
-            pgx = ''
-            template = loader.get_template('main/admin_trash.html')
-            if trash_list == []:
+            if trash == []:
                 messages.warning(request, _("The search didn't return any result."))
     else:
         deleted_companies_list = Company.objects.filter(deleted=True).annotate(entity=Value('company'))
@@ -139,15 +144,20 @@ def admin_trash(request, a, b):
                        key=attrgetter('modified_date'),
                        reverse=True,
                        )
-        trash_list = trash [a:b]
-        length = len(trash)
-        pgx = paginator(a, length, b)
-        template = loader.get_template('main/admin_trash.html')
+    
+    paginator = Paginator(trash, settings.MAIN_PAGE_LENGTH)
+    page = request.GET.get('page')
+    try:
+        trash_list = paginator.page(page)
+    except PageNotAnInteger:
+        trash_list = paginator.page(1)
+    except EmptyPage:
+        trash_list = paginator.page(paginator.num_pages)
+    template = loader.get_template('main/admin_trash.html')
     
     context = {
         'searchform' : searchform,
         'trash_list': trash_list,
-        'pgx' : pgx,
     }
     return HttpResponse(template.render(context, request))
 
@@ -155,11 +165,17 @@ def admin_trash(request, a, b):
 
 @login_required
 @allowed_users(allowed_roles=['admin', 'administrator'])
-def admin_home(request, a, b):
+def admin_home(request):
     # Users List
-    users_list = get_user_model().objects.order_by('last_name').filter(is_active=True).exclude(is_superuser=True) [a:b]
-    length = get_user_model().objects.filter(is_active=True).count()
-    pgx = paginator(a, length, b)
+    users = get_user_model().objects.order_by('last_name').filter(is_active=True).exclude(is_superuser=True)
+    paginator = Paginator(users, settings.MAIN_PAGE_LENGTH)
+    page = request.GET.get('page')
+    try:
+        users_list = paginator.page(page)
+    except PageNotAnInteger:
+        users_list = paginator.page(1)
+    except EmptyPage:
+        users_list = paginator.page(paginator.num_pages)
     # Backup files List
     folder = f'{settings.MEDIA_ROOT}/backup/'
     file_list = os.listdir(folder)
@@ -170,7 +186,6 @@ def admin_home(request, a, b):
         'users_list': users_list,
         'file_list': file_list,
         'path': path,
-        'pgx' : pgx,
     }
     return HttpResponse(template.render(context, request))
 
@@ -178,4 +193,4 @@ def admin_home(request, a, b):
 @allowed_users(allowed_roles=['admin', 'administrator'])
 def do_backup(request):
     call_command('dbbackup', clean=True, interactive=False)
-    return redirect('/admin_home/0/10/')
+    return redirect('/admin_home/')

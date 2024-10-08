@@ -242,7 +242,7 @@ def user(request, id):
         }
         return HttpResponse(template.render(context, request))
     else:
-        return redirect('/admin_home/0/10/')
+        return redirect('/admin_home/')
 
 # Create User (Admin)
 
@@ -296,4 +296,4 @@ def edit_user(request, id):
         }    
         return render(request, 'users/edit_user.html', context)
     else:
-        return redirect('/admin_home/0/10/')
+        return redirect('/admin_home/')

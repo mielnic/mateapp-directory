@@ -18,7 +18,7 @@
           <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
             {% if user.role == 'Administrator' %}
             <li class="nav-item">
-              <a class="nav-link" href="/admin_home/0/10/" ><h5 class="text-secondary-emphasis"><i class="bi bi-braces"></i>&nbsp;{% trans "Admin Home" %}</h5></a>
+              <a class="nav-link" href="/admin_home/" ><h5 class="text-secondary-emphasis"><i class="bi bi-braces"></i>&nbsp;{% trans "Admin Home" %}</h5></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/users/inactive_users/0/10/" ><h5 class="text-secondary-emphasis"><i class="bi bi-person-slash"></i>&nbsp;{% trans "Inactive Users" %}</h5></a>
@@ -27,7 +27,7 @@
               <a class="nav-link" href="/users/create_user/" ><h5 class="text-secondary-emphasis"><i class="bi bi-person-add"></i>&nbsp;{% trans "Create User" %}</h5></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/admin_trash/0/10/"><h5 class="text-secondary-emphasis"><i class="bi bi-trash"></i>&nbsp;{% trans "System Trash" %}</h5></a>
+              <a class="nav-link" href="/admin_trash/"><h5 class="text-secondary-emphasis"><i class="bi bi-trash"></i>&nbsp;{% trans "System Trash" %}</h5></a>
             </li>
             {% endif %}
           </ul>
@@ -41,7 +41,7 @@
                   </a>
                 </li> {% endcomment %}
                 {% comment %} <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="/user_trash/0/10" data-bs-toggle="tooltip" data-bs-title={% trans "Trash" %} data-bs-placement="bottom">
+                  <a class="nav-link" aria-current="page" href="/user_trash/" data-bs-toggle="tooltip" data-bs-title={% trans "Trash" %} data-bs-placement="bottom">
                     <img src="{% static 'main/images/trash.svg' %}" alt="Trash">
                   </a>
                 </li> {% endcomment %}
@@ -73,7 +73,7 @@
                   </a>
                 </li> {% endcomment %}
                 {% comment %} <li class="nav-item">
-                  <a class="nav-link" href="/user_trash/0/10">
+                  <a class="nav-link" href="/user_trash/">
                     <h5><i class="bi bi-trash"></i>&nbsp;{% trans "Trash" %}</h5>
                   </a>
                 </li> {% endcomment %}
