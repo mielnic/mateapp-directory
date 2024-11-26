@@ -2,15 +2,10 @@
 
 <div class="row justify-content-start" id="post" hx-swap="outerHTML swap:0.2s" hx-target="this">
     <div class="col py-1 col-lg-10">
-        <span><i class="bi bi-pencil-square text-success h5 hx-pointer me-2" hx-get="{% url 'posts:edit' id=post.id %}"></i></span>{{ post.post_title }} 
-        <span class="hx-pointer text-primary" hx-get="{% url 'posts:post' id=post.id %}"><small>&nbsp;|&nbsp;{% trans "more >" %}</small></span>
-    </div>
-    <div class="my-3">
-        {% if files %}
-            <i class="bi bi-paperclip h5 text-secondary me-2">></i>
-            {% for file in files %}
-            <a class="badge text-bg-{{file.color}} nav-link" href="{{path}}{{file.file}}" target="_blank">{{file.shortName}}</a>
-            {% endfor %}
+        <span><i class="bi bi-pencil-square text-success h5 hx-pointer me-2" hx-get="{% url 'posts:edit' id=post.id %}"></i></span>{{ post.post_title }}
+        {% if post.attachments %}
+        &nbsp;<span><i class="bi bi-paperclip h5 text-secondary me-2"></i></span>
         {% endif %}
+        <span class="hx-pointer text-primary" hx-get="{% url 'posts:post' id=post.id %}"><small>|&nbsp;{% trans "more >" %}</small></span>
     </div>
 </div>

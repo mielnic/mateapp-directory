@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect, QueryDict, HttpResponse
-from django.template import loader
+from django.db.models import Exists, OuterRef
+from django.shortcuts import get_object_or_404
 from .forms import PostCreationForm, UploadFileForm, PostEditForm
 from django.contrib.auth import get_user_model
 from .models import Post, File
 from django.db.models.functions import TruncDate
-from django.db.models import Value, Count
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from .functions import splitFilename
@@ -55,7 +55,15 @@ def post_view(request, id):
 
 @login_required
 def posts_list(request):
-    posts_list = Post.objects.order_by('-modified_date').filter(deleted=False).annotate(date=TruncDate('create_date'))
+    # Subquery to check for existence of related File entries
+    file_exists = File.objects.filter(post=OuterRef('pk'))
+
+   # Annotate the posts_list with attachments boolean
+    posts_list = Post.objects.annotate(
+        attachments=Exists(file_exists),
+        date=TruncDate('create_date')
+    ).order_by('-modified_date').filter(deleted=False)
+
     paginator = Paginator(posts_list, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -87,14 +95,21 @@ def post_post(request, id):
 @login_required
 def post_title(request, id):
     '''Esta vista de la de display del partial del contenido del título del post en htmx'''
-    post = Post.objects.get(id=id)
-    files = File.objects.filter(post=post, deleted=False)
-    path = f'{settings.MEDIA_URL}'
+    # Subquery to check for the existence of related File entries
+    file_exists = File.objects.filter(post=OuterRef('pk'))
+    
+    # Annotate the Post queryset
+    posts = Post.objects.annotate(
+        attachments=Exists(file_exists)
+    )
+
+    # Retrieve the specific post with the annotation
+    post = get_object_or_404(posts, id=id)
+    
     context = {
-        'post' : post,
-        'files' : files,
-        'path' : path,
+        'post': post,
     }
+    
     return render(request, 'posts/partials/post_title.html', context)
 
 # Post Edit

@@ -4,13 +4,13 @@ from django.template import loader
 from django.contrib import messages
 from django.db.models.functions import TruncDate
 from django.contrib.auth import get_user_model
-from django.db.models import Q, Value, Count, Min
+from django.db.models import Q, Value, Count, Min, Exists, OuterRef
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse_lazy
 from .models import Address, Company, Person, Favorite
-from posts.models import Post
+from posts.models import Post, File
 from main.functions import paginator
 from main.forms import SearchForm
 from posts.forms import PostCreationForm
@@ -140,7 +140,12 @@ def companies(request):
 def person(request, id):
     uid = request.user.id
     person = Person.objects.get(id=id)
-    posts_list = Post.objects.filter(person=person, deleted=False).order_by('-action', '-modified_date').annotate(date=TruncDate('create_date'))
+
+    # Subquery to check for existence of related File entries
+    file_exists = File.objects.filter(post=OuterRef('pk'))
+
+    posts_list = Post.objects.filter(person=person, deleted=False).order_by('-action', '-modified_date').annotate(attachments=Exists(file_exists),date=TruncDate('create_date'))
+
     paginator = Paginator(posts_list, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -165,7 +170,18 @@ def person(request, id):
 def company(request, id, a, b):
     uid = request.user.id
     company = Company.objects.get(id=id)
-    posts_list = Post.objects.filter(Q(company=company) | Q(person__company=company)).filter(deleted=False).order_by('-action', '-modified_date').annotate(date=TruncDate('create_date'))
+
+    # Subquery to check for existence of related File entries
+    file_exists = File.objects.filter(post=OuterRef('pk'))
+
+    # Annotate posts_list with attachments
+    posts_list = Post.objects.filter(
+        Q(company=company) | Q(person__company=company)
+    ).filter(deleted=False).annotate(
+        attachments=Exists(file_exists),
+        date=TruncDate('create_date')
+    ).order_by('-action', '-modified_date')
+ 
     paginator = Paginator(posts_list, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
